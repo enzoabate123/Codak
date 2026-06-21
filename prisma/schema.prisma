@@ -1,0 +1,296 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// =============================================
+// AUTENTICAÇÃO & CONTAS
+// =============================================
+
+model User {
+  id           String    @id @default(cuid())
+  username     String    @unique
+  passwordHash String
+  role         String    @default("PLAYER") // "ADMIN" | "PLAYER" (SQLite doesn't support native enums well without string mapping, so we'll use String defaults)
+  createdAt    DateTime  @default(now())
+
+  characters   Character[]
+  parties      Party[]
+  inventory    InventoryItem[]
+  campaigns    CampaignPlayer[]
+}
+
+// =============================================
+// PERSONAGENS & PARTIES
+// =============================================
+
+model Character {
+  id         String   @id @default(cuid())
+  owner      User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId    String
+  name       String
+  class      CharacterClass @relation(fields: [classId], references: [id])
+  classId    String
+  level      Int      @default(1)
+  xp         Int      @default(0)
+  hpMax      Int      @default(100)
+  hpCurrent  Int      @default(100)
+  mana       Int      @default(50)
+  themeColor String   @default("#cba052")
+  modelUrl   String?
+
+  // 6 atributos primários RPG
+  strength     Int @default(10)
+  dexterity    Int @default(10)
+  constitution Int @default(10)
+  intelligence Int @default(10)
+  wisdom       Int @default(10)
+  charisma     Int @default(10)
+
+  equippedItems  EquippedItem[]
+  partySlots     PartyMember[]
+  createdAt      DateTime @default(now())
+}
+
+model CharacterClass {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String   @default("")
+
+  // Base stats quando criado com esta classe
+  baseStrength     Int @default(10)
+  baseDexterity    Int @default(10)
+  baseConstitution Int @default(10)
+  baseIntelligence Int @default(10)
+  baseWisdom       Int @default(10)
+  baseCharisma     Int @default(10)
+
+  characters  Character[]
+  skills      Skill[]
+}
+
+model Party {
+  id       String   @id @default(cuid())
+  owner    User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId  String
+  name     String
+
+  members  PartyMember[]
+}
+
+model PartyMember {
+  id          String    @id @default(cuid())
+  party       Party     @relation(fields: [partyId], references: [id], onDelete: Cascade)
+  partyId     String
+  character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId String
+  slot        Int       // 0-3 (posição na party)
+
+  @@unique([partyId, slot])
+  @@unique([partyId, characterId])
+}
+
+// =============================================
+// CAMPANHAS & NARRATIVA
+// =============================================
+
+model Campaign {
+  id       String         @id @default(cuid())
+  title    String
+  synopsis String         @default("")
+  status   String         @default("ACTIVE") // "ACTIVE" | "PAUSED" | "FINISHED"
+
+  chapters Chapter[]
+  players  CampaignPlayer[]
+  notes    Note[]
+  createdAt DateTime @default(now())
+}
+
+model CampaignPlayer {
+  id         String   @id @default(cuid())
+  campaign   Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  campaignId String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+
+  @@unique([campaignId, userId])
+}
+
+model Chapter {
+  id         String        @id @default(cuid())
+  campaign   Campaign      @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  campaignId String
+  title      String
+  synopsis   String        @default("")
+  order      Int
+  status     String        @default("LOCKED") // "LOCKED" | "ACTIVE" | "COMPLETED"
+  progress   Int           @default(0)
+
+  objectives Objective[]
+  rewards    ChapterReward[]
+}
+
+model Objective {
+  id        String  @id @default(cuid())
+  chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  chapterId String
+  text      String
+  completed Boolean @default(false)
+  order     Int
+}
+
+model ChapterReward {
+  id        String  @id @default(cuid())
+  chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  chapterId String
+  xp        Int     @default(0)
+  itemType  String? // 'weapon' | 'equipment' | 'consumable'
+  itemId    String?
+}
+
+model Note {
+  id         String   @id @default(cuid())
+  campaign   Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  campaignId String
+  title      String
+  content    String
+  visibility String   @default("ALL") // "ALL" | "SPECIFIC"
+  targetUserId String?  // Se visibility = SPECIFIC
+  createdAt  DateTime @default(now())
+}
+
+// =============================================
+// ITENS: ARMAS, EQUIPAMENTOS, CONSUMÍVEIS
+// =============================================
+
+model Weapon {
+  id          String @id @default(cuid())
+  name        String
+  type        String // 'Fuzil', 'Sniper', 'SMG', 'Pistola', etc.
+  damage      Int
+  fireRate    Int
+  range       Int
+  rarity      String @default("COMMON") // "COMMON" | "UNCOMMON" | "RARE" | "EPIC" | "LEGENDARY"
+  description String @default("")
+}
+
+model Equipment {
+  id          String        @id @default(cuid())
+  name        String
+  slot        String        // "HEAD" | "TORSO" | "HANDS" | "LEGS" | "FEET" | "ACCESSORY"
+  rarity      String        @default("COMMON")
+  description String        @default("")
+
+  // Stat bonuses
+  bonusStrength     Int @default(0)
+  bonusDexterity    Int @default(0)
+  bonusConstitution Int @default(0)
+  bonusIntelligence Int @default(0)
+  bonusWisdom       Int @default(0)
+  bonusCharisma     Int @default(0)
+  bonusHp           Int @default(0)
+  bonusMana         Int @default(0)
+}
+
+model Consumable {
+  id          String  @id @default(cuid())
+  name        String
+  effect      String
+  duration    Int     @default(0) // em turnos, 0 = instantâneo
+  stackable   Boolean @default(true)
+  rarity      String  @default("COMMON")
+  description String  @default("")
+}
+
+// =============================================
+// MUNDO: VEÍCULOS, NPCs, MAPAS
+// =============================================
+
+model Vehicle {
+  id          String @id @default(cuid())
+  name        String
+  type        String
+  speed       Int
+  armor       Int
+  capacity    Int    @default(4)
+  description String @default("")
+}
+
+model Npc {
+  id          String       @id @default(cuid())
+  name        String
+  role        String
+  faction     String       @default("")
+  description String       @default("")
+  dialogues   NpcDialogue[]
+}
+
+model NpcDialogue {
+  id      String @id @default(cuid())
+  npc     Npc    @relation(fields: [npcId], references: [id], onDelete: Cascade)
+  npcId   String
+  content String
+  order   Int
+}
+
+model GameMap {
+  id              String   @id @default(cuid())
+  name            String
+  environment     String
+  size            String   // 'Pequeno', 'Médio', 'Grande'
+  description     String   @default("")
+  pointsOfInterest MapPOI[]
+}
+
+model MapPOI {
+  id          String  @id @default(cuid())
+  gameMap     GameMap @relation(fields: [gameMapId], references: [id], onDelete: Cascade)
+  gameMapId   String
+  name        String
+  description String  @default("")
+}
+
+// =============================================
+// HABILIDADES
+// =============================================
+
+model Skill {
+  id            String         @id @default(cuid())
+  name          String
+  class         CharacterClass @relation(fields: [classId], references: [id], onDelete: Cascade)
+  classId       String
+  levelRequired Int            @default(1)
+  manaCost      Int            @default(0)
+  cooldown      Int            @default(0) // em turnos
+  description   String         @default("")
+}
+
+// =============================================
+// INVENTÁRIO & EQUIPAMENTO ATIVO
+// =============================================
+
+model InventoryItem {
+  id       String @id @default(cuid())
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   String
+  itemType String // 'weapon' | 'equipment' | 'consumable'
+  itemId   String
+  quantity Int    @default(1)
+
+  @@unique([userId, itemType, itemId])
+}
+
+model EquippedItem {
+  id          String @id @default(cuid())
+  character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId String
+  slot        String // 'primary_weapon', 'secondary_weapon', 'head', 'torso', etc.
+  itemType    String // 'weapon' | 'equipment'
+  itemId      String
+
+  @@unique([characterId, slot])
+}

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>MULTIPLAYER - Central Tactical Interface</title>
+  <meta name="description" content="Interface tática militar interativa para RPG com visualizador 3D, carregador GLTF, rigging de esqueleto e efeitos sonoros.">
+  
+  <!-- Pure Vanilla CSS Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Scanlines, Vignettes & Glitch screen -->
+  <div class="screen-overlay"></div>
+  <div class="scanlines"></div>
+  <div id="glitch-screen" class="glitch-overlay"></div>
+
+  <!-- Background WebGL 3D Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- HUD Interface Container -->
+  <div class="hud-container">
+    
+    <!-- HEADER BAR -->
+    <header class="hud-header" style="justify-content: center; display: flex; align-items: center;">
+      <h1 class="main-title" style="font-size: 28px; letter-spacing: 6px; margin: 0; text-align: center; width: 100%;">CODAK</h1>
+    </header>
+
+    <!-- Hidden compatibility elements for app.js -->
+    <div style="display: none;">
+      <span id="ping-indicator"></span>
+      <span id="fps-indicator"></span>
+      <span id="header-username"></span>
+      <span id="header-user-role"></span>
+    </div>
+
+    <!-- CONTENT BODY -->
+    <main class="hud-main">
+      
+      <!-- LEFT SIDEBAR: Nav Coverflow -->
+      <aside>
+        <div class="coverflow-wrapper">
+          
+          <div class="nav-item hud-panel tactical-corners active-border" data-index="0">
+            <div class="nav-item-meta">
+              <span class="nav-item-num color-accent mono-font">Cenário 01</span>
+              <span class="nav-item-title">Sessão</span>
+            </div>
+            <span class="nav-indicator-glow"></span>
+          </div>
+
+          <div class="nav-item hud-panel tactical-corners" data-index="1">
+            <div class="nav-item-meta">
+              <span class="nav-item-num color-blue mono-font">Cenário 02</span>
+              <span class="nav-item-title">Campanhas</span>
+            </div>
+            <span class="nav-indicator-circle"></span>
+          </div>
+
+          <div class="nav-item hud-panel tactical-corners" data-index="2">
+            <div class="nav-item-meta">
+              <span class="nav-item-num color-green mono-font">Cenário 03</span>
+              <span class="nav-item-title">Personagens</span>
+            </div>
+            <span class="nav-indicator-dot"></span>
+          </div>
+
+          <div class="nav-item hud-panel tactical-corners" data-index="3">
+            <div class="nav-item-meta">
+              <span class="nav-item-num color-purple mono-font">Cenário 04</span>
+              <span class="nav-item-title">Compendium</span>
+            </div>
+            <span class="nav-indicator-box"></span>
+          </div>
+
+          <div class="nav-item hud-panel tactical-corners" data-index="4" id="nav-item-admin" style="display: none; border-color: rgba(168,85,247,0.3);">
+            <div class="nav-item-meta">
+              <span class="nav-item-num color-purple mono-font" style="color: #a855f7;">Cenário 05</span>
+              <span class="nav-item-title" style="color: #a855f7;">Mestre GM</span>
+            </div>
+            <span class="nav-indicator-glow" style="background-color: #a855f7; box-shadow: 0 0 8px #a855f7;"></span>
+          </div>
+
+        </div>
+      </aside>
+
+
+
+      <!-- RIGHT SIDEBAR: Dynamic Details Pane -->
+      <aside>
+        <div id="right-panel" class="hud-panel tactical-corners">
+          <!-- Templates injected here -->
+        </div>
+      </aside>
+
+    </main>
+
+    <!-- FOOTER ACTION BAR -->
+    <footer class="hud-footer">
+      <div class="shortcut-hints">
+        <div>
+          <span class="key-cap mono-font">ENTER</span> Selecionar
+        </div>
+        <div>
+          <span class="key-cap mono-font">ESC</span> Voltar
+        </div>
+        <div>
+          <span class="key-cap mono-font">▲ / ▼</span> Navegar
+        </div>
+        <div>
+          <span class="key-cap mono-font">M</span> Som
+        </div>
+      </div>
+
+      <div class="clock-panel mono-font" style="display:flex; align-items:center; gap:8px;">
+        <span class="color-accent glow-gold">SYSTEM SYNCED</span>
+        <span id="tactical-clock" style="color: #9ca3af;">00:00:00</span>
+        
+        <!-- Mute Button in Footer -->
+        <button id="btn-mute" class="hud-panel" style="padding: 4px 8px; background: rgba(255,255,255,0.05); border: 1px solid var(--color-border); border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+          <svg id="mute-icon" style="width:12px; height:12px; color:#fff;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+          </svg>
+        </button>
+
+        <!-- Logout Button in Footer -->
+        <button id="btn-logout" class="hud-panel btn-tactical" style="padding: 3px 8px; font-size: 10px; border-color: rgba(239, 68, 68, 0.4); color: #ef4444; background: rgba(239, 68, 68, 0.05); cursor: pointer; border-radius: 4px; display: none;">LOGOUT</button>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- CDN dependencies (ThreeJS Core, GLTFLoader, GSAP Animations) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <!-- Modular RPG Script Modules (Sequential share global scope) -->
+  <script src="auth-client.js"></script>
+  <script src="api-client.js"></script>
+  <script src="templates.js"></script>
+  <script src="audio.js"></script>
+  <script src="scene.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

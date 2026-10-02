@@ -1,0 +1,2382 @@
+[
+  {
+    "id": "hab-ancient-sixth-sense",
+    "code": "HAB-ANC-01",
+    "name": "Sixth Sense (Sexto Sentido)",
+    "classId": "ancient",
+    "className": "Ancient",
+    "level": 1,
+    "actionCost": "Ação Bônus",
+    "usageLimit": "Usos = Modificador de WIS por descanso longo",
+    "range": "Pessoal (Duração: 1 hora)",
+    "summary": "Conexão sensorial antecipatória que anula ataques surpresa, furtivos e de oportunidade.",
+    "description": "Sua sabedoria e percepção intuitiva alcançam níveis paranormais. Ao entrar em estado de foco sensorial, você prevê trajetórias balísticas e movimentos hostis antes que eles se concretizem fisicamente.",
+    "rules": [
+      "Pode ativar o Sexto Sentido gastando uma Ação Bônus. O efeito dura 1 hora ininterrupta.",
+      "Enquanto ativo, ataques contra você não se beneficiam de Vantagem por estarem furtivos ou escondidos.",
+      "Você é completamente imune a Ataques de Oportunidade causados por sua movimentação.",
+      "Inimigos não podem realizar Ataques Surpresa contra você em combate.",
+      "Número de ativações por descanso longo é igual ao seu modificador de Sabedoria (mínimo 1)."
+    ],
+    "tacticalTip": "Ative antes de entrar em áreas fechadas ou setores desconhecidos de Cidades Móveis para garantir iniciativa livre e anular emboscadas.",
+    "tags": [
+      "Ancient",
+      "Nível 1",
+      "Defesa",
+      "Percepção",
+      "Reação"
+    ]
+  },
+  {
+    "id": "hab-ancient-action-surge",
+    "code": "HAB-ANC-02",
+    "name": "Action Surge (Surto de Ação)",
+    "classId": "ancient",
+    "className": "Ancient",
+    "level": 2,
+    "actionCost": "Especial",
+    "usageLimit": "1 uso por descanso curto ou longo (2 usos no nível 17)",
+    "range": "Pessoal (Instantâneo)",
+    "summary": "Força o metabolismo para obter 1 Ação adicional além do limite padrão na rodada.",
+    "description": "Canalizando vigor ancestral nos feixes musculares e na sinapse neural, o Ancient quebra temporariamente as leis da fadiga biológica para desferir rajadas adicionais ou manobras táticas.",
+    "rules": [
+      "No seu turno, você pode executar 1 Ação adicional além da sua Ação normal e de sua Ação Bônus.",
+      "Essa Ação adicional pode ser usada para Ataque, Disparada, Esquiva, Uso de Item ou qualquer outra manobra legal.",
+      "Recarrega após a conclusão de qualquer descanso curto ou descanso longo.",
+      "Ao atingir o Nível 17 de Ancient, você ganha uma segunda carga por descanso (apenas 1 por turno)."
+    ],
+    "tacticalTip": "Excelente para dobrar o dano no Sweet Spot da sua arma ou combinar um golpe corpo a corpo desestabilizador com um disparo de cobertura.",
+    "tags": [
+      "Ancient",
+      "Nível 2",
+      "Economia de Ações",
+      "Ofensivo"
+    ]
+  },
+  {
+    "id": "hab-ancient-quick-response",
+    "code": "HAB-ANC-03",
+    "name": "Quick Response",
+    "classId": "ancient",
+    "className": "Ancient",
+    "level": 5,
+    "actionCost": "Passiva",
+    "usageLimit": "Contínua / Sempre ativa",
+    "range": "Pessoal",
+    "summary": "Proficiência na iniciativa, +3m de deslocamento e 2 ataques por Ação de Ataque.",
+    "description": "O treinamento marcial e espiritual atinge maturação. Seus reflexos são instantâneos, sua passada ganha velocidade e seus membros realizam múltiplos ataques coordenados.",
+    "rules": [
+      "Adiciona seu bônus de proficiência completo a qualquer rolagem de Iniciativa.",
+      "Seu deslocamento base aumenta permanentemente em +3 metros (2 quadrados / hexágonos extras por turno).",
+      "Sempre que você escolhe a Ação de Ataque no seu turno, você desfere 2 ataques em vez de 1."
+    ],
+    "tacticalTip": "Aumenta significativamente a facilidade de alcançar a distância do Sweet Spot da sua arma graças ao movimento expandido.",
+    "tags": [
+      "Ancient",
+      "Nível 5",
+      "Iniciativa",
+      "Multi-Ataque",
+      "Mobilidade"
+    ]
+  },
+  {
+    "id": "hab-ancient-hand-brake",
+    "code": "HAB-ANC-04",
+    "name": "Hand Brake (Freio de Mão)",
+    "classId": "ancient",
+    "className": "Ancient",
+    "level": 7,
+    "actionCost": "Reação",
+    "usageLimit": "Usos = Modificador de DEX por descanso longo",
+    "range": "Corpo a Corpo (Alcance de ataque)",
+    "summary": "Desarma o atacante como reação e reflete metade do dano da arma nele.",
+    "description": "Uma técnica cirúrgica de interceptação de membros. Quando uma lâmina ou cano de arma se aproxima, você trava o braço do atacante e volta a inércia contra ele.",
+    "rules": [
+      "Acionado como Reação quando uma criatura atinge você com um ataque corpo a corpo.",
+      "O oponente deve realizar um teste de resistência de Força ou Destreza contra sua CD (8 + proficiência + mod DEX).",
+      "Se falhar, a criatura perde a arma (que cai aos pés de ambos) e sofre metade do dano que o ataque causaria.",
+      "Você pode utilizar esta reação um número de vezes igual ao seu modificador de Destreza por descanso longo."
+    ],
+    "tacticalTip": "Crucial contra inimigos blindados de corpo a corpo como Golias ou ciborgues com armas brancas monomoleculares.",
+    "tags": [
+      "Ancient",
+      "Nível 7",
+      "Reação",
+      "Desarme",
+      "Controle"
+    ]
+  },
+  {
+    "id": "hab-ancient-mind-block",
+    "code": "HAB-ANC-05",
+    "name": "Mind Block (Bloqueio Mental)",
+    "classId": "ancient",
+    "className": "Ancient",
+    "level": 10,
+    "actionCost": "Passiva / Reação",
+    "usageLimit": "Contínua",
+    "range": "Pessoal",
+    "summary": "Vantagem em testes psíquicos e capacidade de substituir qualquer salvaguarda por Sabedoria.",
+    "description": "A blindagem interior contra sobrecargas neurológicas, hacks psíquicos e contaminações mentais do Elemento 115 e radiação do 142.",
+    "rules": [
+      "Você tem Vantagem permanente em todos os testes de resistência contra efeitos psíquicos, alucinações e invasões neurais.",
+      "Sempre que for forçado a realizar qualquer teste de salvaguarda (seja STR, DEX, CON, INT ou CHA), você pode optar por realizar uma salvaguarda de Sabedoria (WIS)."
+    ],
+    "tacticalTip": "Permite ignorar fraquezas em atributos físicos mantendo sua Sabedoria como escudo universal.",
+    "tags": [
+      "Ancient",
+      "Nível 10",
+      "Defesa",
+      "Resistência Psíquica"
+    ]
+  },
+  {
+    "id": "hab-ancient-reflect",
+    "code": "HAB-ANC-06",
+    "name": "Reflect (Reflexão Balística)",
+    "classId": "ancient",
+    "className": "Ancient",
+    "level": 11,
+    "actionCost": "Reação",
+    "usageLimit": "1 uso por descanso longo (2 no nível 15)",
+    "range": "Até 10m + (2 x DEX) metros",
+    "summary": "Intercepta projéteis balísticos médios/leves e redireciona contra alvos no setor.",
+    "description": "Com precisão visual hiper-calibrada e uma arma corpo a corpo ou campo de deflexão, você desvia o vetor de uma bala adversária e a atira de volta.",
+    "rules": [
+      "Quando você for atingido por um ataque balístico de arma leve ou média, gaste sua Reação para desviar o projétil.",
+      "Você reduz o dano sofrido a 0.",
+      "Pode redirecionar o projétil contra qualquer alvo visível dentro do alcance de 10m + (2 x DEX mod em metros).",
+      "Faça uma rolagem de ataque usando sua Destreza com proficiência para determinar o acerto no novo alvo."
+    ],
+    "tacticalTip": "Transforme o disparo de um Sniper inimigo em uma eliminação instantânea de um alvo vulnerável.",
+    "tags": [
+      "Ancient",
+      "Nível 11",
+      "Reação",
+      "Balística",
+      "Defesa"
+    ]
+  },
+  {
+    "id": "hab-ancient-iron-will",
+    "code": "HAB-ANC-07",
+    "name": "Iron Will (Vontade de Ferro)",
+    "classId": "ancient",
+    "className": "Ancient",
+    "level": 14,
+    "actionCost": "Ação Bônus",
+    "usageLimit": "1 uso por descanso curto ou longo",
+    "range": "Pessoal",
+    "summary": "Purga imediatamente qualquer incapacitação, sono forçado ou controle mental.",
+    "description": "A quebra de limites cognitivos do operador. Mesmo paralisado por nano-toxinas ou sono induzido por gás oripático, seu espírito reassume o comando.",
+    "rules": [
+      "Como Ação Bônus, pode remover de si mesmo qualquer condição de: Amedrontado, Encantado, Paralisado, Atordoado ou Envenenado.",
+      "Pode ser ativado mesmo no início do turno caso sua mente esteja sob influência forçada."
+    ],
+    "tacticalTip": "Salva o operador de ser neutralizado por Hackers adversários ou criaturas psíquicas do Abismo.",
+    "tags": [
+      "Ancient",
+      "Nível 14",
+      "Purificação",
+      "Controle"
+    ]
+  },
+  {
+    "id": "hab-ancient-elusive",
+    "code": "HAB-ANC-08",
+    "name": "Elusive (Inalcançável)",
+    "classId": "ancient",
+    "className": "Ancient",
+    "level": 19,
+    "actionCost": "Passiva",
+    "usageLimit": "Contínua",
+    "range": "Pessoal",
+    "summary": "Nenhum teste de ataque pode ter vantagem contra você enquanto estiver consciente.",
+    "description": "Movimenta-se com fluidez assustadora pelas sombras e fumaça do campo de batalha. Mesmo flanqueado ou desprovido de cobertura, nenhum golpe encontra brecha facilitada.",
+    "rules": [
+      "Nenhum ataque feito contra você se beneficia de Vantagem, a não ser que você esteja com a condição Inconsciente.",
+      "Flanqueamentos, alvos ocultos e disparos guiados perdem qualquer vantagem de mira."
+    ],
+    "tacticalTip": "Neutraliza as maiores vantagens de Snipers e assassinos furtivos adversários.",
+    "tags": [
+      "Ancient",
+      "Nível 19",
+      "Evasão",
+      "Mestre"
+    ]
+  },
+  {
+    "id": "hab-ancient-evoker-boundsoul",
+    "code": "HAB-SUB-ANC-01",
+    "name": "BoundSoul (Alma Vinculada)",
+    "classId": "ancient",
+    "className": "Ancient",
+    "subclassId": "evoker",
+    "subclassName": "Evoker",
+    "level": 3,
+    "actionCost": "Ação Bônus",
+    "usageLimit": "1x por descanso curto",
+    "range": "18 metros",
+    "summary": "Projeta um espectro energético espiritual ligado à sua assinatura vital.",
+    "description": "O Evoker manifesta um duplo de energia espectral capaz de estender seu campo de ataque corpo a corpo ou distrair miradores táticos.",
+    "rules": [
+      "Invoca um espectro com CA igual à sua e HP igual a 5 x seu nível de Ancient.",
+      "O espectro pode realizar ataques usando seu mod de Sabedoria causando 1d8 + WIS de dano de energia.",
+      "Pode trocar de posição com o espectro como Ação de Movimento."
+    ],
+    "tacticalTip": "Use para teleportar-se instantaneamente atrás de coberturas pesadas.",
+    "tags": [
+      "Subclasse",
+      "Evoker",
+      "Espectral",
+      "Invocação"
+    ]
+  },
+  {
+    "id": "hab-ancient-evoker-clone",
+    "code": "HAB-SUB-ANC-02",
+    "name": "Clone (Cópia Material)",
+    "classId": "ancient",
+    "className": "Ancient",
+    "subclassId": "evoker",
+    "subclassName": "Evoker",
+    "level": 7,
+    "actionCost": "Ação",
+    "usageLimit": "1x por descanso longo",
+    "range": "6 metros",
+    "summary": "Gera uma réplica física completa capaz de espelhar seus ataques por 1 minuto.",
+    "description": "A condensação pura de chi e radiação 142 cria uma duplicata perfeita que duplica seu dano ofensivo em alvos vizinhos.",
+    "rules": [
+      "Cria um clone tangível por 1 minuto. O clone repete sua ação de ataque causando 50% do dano.",
+      "Ataques inimigos têm 50% de chance de atingir o clone em vez de você."
+    ],
+    "tacticalTip": "Combine com Surto de Ação para desferir 4 ataques numa única rodada.",
+    "tags": [
+      "Subclasse",
+      "Evoker",
+      "Ilusão",
+      "Ofensivo"
+    ]
+  },
+  {
+    "id": "hab-ancient-guardian-ultrainstinct",
+    "code": "HAB-SUB-ANC-03",
+    "name": "Ultra Instinct (Instinto Puro)",
+    "classId": "ancient",
+    "className": "Ancient",
+    "subclassId": "guardian",
+    "subclassName": "Guardian",
+    "level": 10,
+    "actionCost": "Reação",
+    "usageLimit": "Usos = Modificador de CON por descanso longo",
+    "range": "Pessoal",
+    "summary": "Esquiva automatizada instantânea contra ataques de queima-roupa e rajadas.",
+    "description": "O corpo reage antes mesmo de o cérebro processar a ameaça. Balas passam a milímetros sem tocar a carne.",
+    "rules": [
+      "Quando for alvejado a menos de 5 metros, gasta sua Reação para impor Desvantagem a todos os ataques daquela rajada.",
+      "Se o ataque errar, você pode se deslocar 3 metros imediatamente sem provocar ataques de oportunidade."
+    ],
+    "tacticalTip": "Permite sair ileso de emboscadas de escopeta em corredores fechados.",
+    "tags": [
+      "Subclasse",
+      "Guardian",
+      "Defesa",
+      "Evasão"
+    ]
+  },
+  {
+    "id": "hab-ancient-sculptor-steelwall",
+    "code": "HAB-SUB-ANC-04",
+    "name": "Steel Wall (Muralha de Aço)",
+    "classId": "ancient",
+    "className": "Ancient",
+    "subclassId": "sculptor",
+    "subclassName": "Sculptor",
+    "level": 7,
+    "actionCost": "Ação",
+    "usageLimit": "2x por descanso longo",
+    "range": "12 metros",
+    "summary": "Ergue uma barreira mineral refratária de cobertura total no mapa tático.",
+    "description": "O Sculptor compele os minerais do solo ou placas metálicas a se fundirem numa barreira de 3x2 metros de cobertura pesada.",
+    "rules": [
+      "Ergue uma barreira de cobertura total de 3m de largura por 2m de altura.",
+      "A muralha possui 50 HP e CA 18, bloqueando munições FMJ, plasma e explosivos leves.",
+      "Permanece no mapa até ser destruída ou por 10 minutos."
+    ],
+    "tacticalTip": "Cria pontos de cobertura perfeitos no meio de ruas abertas ou corredores desprotegidos.",
+    "tags": [
+      "Subclasse",
+      "Sculptor",
+      "Cobertura",
+      "Mapa Tático"
+    ]
+  },
+  {
+    "id": "hab-gabbler-protagonist",
+    "code": "HAB-GAB-01",
+    "name": "Protagonist (Intervenção Narrativa)",
+    "classId": "lucky-gabbler",
+    "className": "Lucky Gabbler",
+    "level": 1,
+    "actionCost": "Reação",
+    "usageLimit": "1x por nível de personagem (Recarrega ao subir de nível)",
+    "range": "Campo visível",
+    "summary": "Você fala algo em voz alta e a narrativa do mundo conspira milagrosamente para realizar aquilo.",
+    "description": "A improbabilidade quântica manifestada na lábia do jogador. Se você disser que aquele cano vai estourar ou que o inimigo esqueceu a trava, isso acontece.",
+    "rules": [
+      "Uma vez por nível de personagem, você declara um acontecimento favorável em voz alta.",
+      "O Mestre deve adaptar a narrativa de forma plausível para que o evento ocorra:",
+      "• Exemplo: Uma granada inimiga falha o detonador; um caminhão quebra a parede oferecendo cobertura de emergência; a fechadura eletrônica estava travada num código padrão.",
+      "Não pode ser usado para matar chefes instantaneamente, mas pode virar uma situação desesperadora."
+    ],
+    "tacticalTip": "Guarde para salvar o grupo quando o HP de todos estiver zerado ou quando uma fuga for necessária.",
+    "tags": [
+      "Lucky Gabbler",
+      "Nível 1",
+      "Narrativa",
+      "Milagre",
+      "Sorte"
+    ]
+  },
+  {
+    "id": "hab-gabbler-chit-chat",
+    "code": "HAB-GAB-02",
+    "name": "Chit Chat (Distração Desconcertante)",
+    "classId": "lucky-gabbler",
+    "className": "Lucky Gabbler",
+    "level": 2,
+    "actionCost": "Ação Bônus",
+    "usageLimit": "Usos = Modificador de CHA por descanso longo",
+    "range": "12 metros (Alvo deve ouvir)",
+    "summary": "Distrai um oponente no meio do tiroteio concedendo Vantagem ao próximo ataque aliado.",
+    "description": "Comentários sarcásticos sobre a mira do inimigo, sua roupa ou o estado da Cidade Móvel que quebram a concentração do atirador.",
+    "rules": [
+      "Como Ação Bônus, fale com um inimigo a até 12 metros que possa ouvir sua voz.",
+      "Faça um teste de Carisma (Enganação ou Atuação) contra a Intuição (Sabedoria) do alvo.",
+      "Se vencer, o próximo ataque feito por qualquer um dos seus companheiros contra aquele alvo ganha Vantagem."
+    ],
+    "tacticalTip": "Excelente combinação para armar o Certain Shot ou o disparo potente do Sniper do grupo.",
+    "tags": [
+      "Lucky Gabbler",
+      "Nível 2",
+      "Suporte",
+      "Vantagem"
+    ]
+  },
+  {
+    "id": "hab-gabbler-manipulator",
+    "code": "HAB-GAB-03",
+    "name": "Manipulator (Mestre da Manipulação)",
+    "classId": "lucky-gabbler",
+    "className": "Lucky Gabbler",
+    "level": 5,
+    "actionCost": "Passiva",
+    "usageLimit": "Contínua",
+    "range": "Diálogo social",
+    "summary": "Expertise em mentiras e vantagem em testes de Intimidação para mudar o foco de oponentes.",
+    "description": "Uma habilidade nata de ler microexpressões faciais e plantar dúvidas na mente de qualquer negociador ou guarda.",
+    "rules": [
+      "Dobra seu bônus de proficiência em qualquer teste de Enganação envolvendo blefes e mentiras descaradas.",
+      "Ganha Vantagem permanente em testes de Intimidação para fazer oponentes mudarem de postura ou hesitarem em disparar."
+    ],
+    "tacticalTip": "Permite desescalar combates prestes a explodir ou convencer patrulhas de que você tem credenciais alfa.",
+    "tags": [
+      "Lucky Gabbler",
+      "Nível 5",
+      "Social",
+      "Blefe"
+    ]
+  },
+  {
+    "id": "hab-gabbler-fortunate-escape",
+    "code": "HAB-GAB-04",
+    "name": "Fortunate Escape (Fuga Abençoada)",
+    "classId": "lucky-gabbler",
+    "className": "Lucky Gabbler",
+    "level": 10,
+    "actionCost": "Reação",
+    "usageLimit": "1x por descanso curto ou longo",
+    "range": "Pessoal",
+    "summary": "Ao sofrer um golpe que reduziria seu HP a 0, uma coincidência absurda o deixa com 1 HP.",
+    "description": "Uma moeda de crédito no bolso intercepta a bala, ou o sapato escorrega no momento exato em que o tiro passa onde estaria sua cabeça.",
+    "rules": [
+      "Quando seu HP for reduzido a 0 ou menos (mas não morte instantânea por dano massivo), seu HP é fixado em 1.",
+      "Você pode se mover até metade do seu deslocamento imediatamente como parte da mesma Reação sem provocar ataques de oportunidade."
+    ],
+    "tacticalTip": "A garantia definitiva de sobrevivência para operadores ousados que se arriscam na linha de fogo.",
+    "tags": [
+      "Lucky Gabbler",
+      "Nível 10",
+      "Sobrevivência",
+      "Sorte"
+    ]
+  },
+  {
+    "id": "hab-gabbler-deus-ex-machina",
+    "code": "HAB-GAB-05",
+    "name": "Deus Ex Machina (A Reviravolta Absoluta)",
+    "classId": "lucky-gabbler",
+    "className": "Lucky Gabbler",
+    "level": 20,
+    "actionCost": "Ação",
+    "usageLimit": "1x por campanha ou arco narrativo maior",
+    "range": "Todo o cenário",
+    "summary": "O roteiro intervém: um míssil cai na hora exata, reforços chegam ou o reator inimigo explode.",
+    "description": "A manifestação máxima da quebra de quarta parede e sorte divina. Tudo que poderia dar certo, dá certo no momento mais crítico.",
+    "rules": [
+      "Invoca uma reviravolta ambiental colossal negociada entre o jogador e o Mestre.",
+      "Pode virar completamente um combate impossível contra exércitos inteiros ou evitar a destruição de uma Cidade Móvel."
+    ],
+    "tacticalTip": "O botão vermelho de emergência definitivo do universo CODAK.",
+    "tags": [
+      "Lucky Gabbler",
+      "Nível 20",
+      "Ápice",
+      "Narrativa"
+    ]
+  },
+  {
+    "id": "hab-gabbler-another-shot",
+    "code": "HAB-SUB-GAB-01",
+    "name": "Another Shot (Segunda Chance)",
+    "classId": "lucky-gabbler",
+    "className": "Lucky Gabbler",
+    "subclassId": "gambler",
+    "subclassName": "Gambler",
+    "level": 3,
+    "actionCost": "Reação",
+    "usageLimit": "Usos = Modificador de CHA por descanso curto",
+    "range": "Pessoal",
+    "summary": "Rola novamente qualquer d20 falho aceitando o segundo resultado.",
+    "description": "O apostador nunca aceita a primeira derrota da roleta. Ele dobra a aposta no segundo lançamento.",
+    "rules": [
+      "Após rolar qualquer d20 (ataque, salvaguarda ou perícia) e ver o resultado desfavorável, gasta a Reação para rolar o dado novamente.",
+      "Você deve aceitar obrigatoriamente o segundo resultado obtido."
+    ],
+    "tacticalTip": "Use em salvaguardas críticas contra paralisia ou na rolagem de um disparo crucial.",
+    "tags": [
+      "Subclasse",
+      "Gambler",
+      "Reroll",
+      "Sorte"
+    ]
+  },
+  {
+    "id": "hab-gabbler-all-in",
+    "code": "HAB-SUB-GAB-02",
+    "name": "ALL-IN (Tudo ou Nada)",
+    "classId": "lucky-gabbler",
+    "className": "Lucky Gabbler",
+    "subclassId": "gambler",
+    "subclassName": "Gambler",
+    "level": 7,
+    "actionCost": "Passiva / Ao Atacar",
+    "usageLimit": "1x por descanso curto",
+    "range": "Arma empunhada",
+    "summary": "Aposta todo o dano do turno num único tiro: se acertar, o dano é triplicado (x3).",
+    "description": "Desiste de todos os ataques secundários para concentrar toda a pólvora e foco num tiro de risco extremo.",
+    "rules": [
+      "Declara o ALL-IN antes da rolagem de ataque.",
+      "Você abdica de todos os outros ataques do seu turno.",
+      "Se acertar, todo o dano da arma, bônus de atributo e munição é multiplicado por 3.",
+      "Se errar, sua arma sofre um travamento menor exigindo 1 Ação Bônus para destravar."
+    ],
+    "tacticalTip": "Combine com Vantagem concedida por aliados para maximizar a chance de um dano destruidor.",
+    "tags": [
+      "Subclasse",
+      "Gambler",
+      "Aposta",
+      "Dano x3"
+    ]
+  },
+  {
+    "id": "hab-gabbler-sneak-attack",
+    "code": "HAB-SUB-GAB-03",
+    "name": "Sneak Attack (Golpe Oportunista)",
+    "classId": "lucky-gabbler",
+    "className": "Lucky Gabbler",
+    "subclassId": "reaper",
+    "subclassName": "Reaper",
+    "level": 3,
+    "actionCost": "Passiva / Ao Acertar",
+    "usageLimit": "1x por turno",
+    "range": "Arma sutil ou de longo alcance",
+    "summary": "Causa +2d6 de dano extra contra alvos flanqueados ou quando tiver Vantagem.",
+    "description": "Aproveita o milésimo de segundo em que o alvo olha para o companheiro para cravá-lo no ponto cego.",
+    "rules": [
+      "Uma vez por turno, ao atingir um alvo com arma de Destreza ou à distância.",
+      "Causa +2d6 de dano extra se tiver Vantagem ou se houver um aliado a até 1.5m do alvo.",
+      "Escala para +3d6 no nível 7, +4d6 no nível 11 e +5d6 no nível 15."
+    ],
+    "tacticalTip": "Coordene com os combatentes da linha de frente para acionar o dano em toda rodada.",
+    "tags": [
+      "Subclasse",
+      "Reaper",
+      "Dano Extra",
+      "Oportunismo"
+    ]
+  },
+  {
+    "id": "hab-artificer-ammo-proficiency",
+    "code": "HAB-ART-01",
+    "name": "Ammo Proficiency (Mestre Sintetizador de Munições)",
+    "classId": "ai-rtificer",
+    "className": "AI-rtificer",
+    "level": 1,
+    "actionCost": "Passiva / Crafting",
+    "usageLimit": "1 lote de munição por descanso curto ou longo",
+    "range": "Bancada química portátil",
+    "summary": "Sintetiza munições especiais (FMJ, Cryo, Plasma, MD) com custo reduzido ou grátis.",
+    "description": "Conhecimento da química de polímeros e Elemento 115 refinado. Em poucos minutos sintetiza cartuchos balísticos de alto impacto.",
+    "rules": [
+      "Pode fabricar 1 pente (ou 20 projéteis) de munição especial durante um descanso curto utilizando sucata química.",
+      "Munições especiais sintetizadas por você ganham +1 de dano elemental adicional comparadas às versões comuns.",
+      "Conhece a composição química de todos os 11 tipos oficiais de munições do sistema CODAK."
+    ],
+    "tacticalTip": "Mantenha o time sempre abastecido de cartuchos Cryo para desacelerar hordas de infectados.",
+    "tags": [
+      "AI-rtificer",
+      "Nível 1",
+      "Munição",
+      "Crafting"
+    ]
+  },
+  {
+    "id": "hab-artificer-tool-expertise",
+    "code": "HAB-ART-02",
+    "name": "Tool Expertise (Perícia Tecnológica Absoluta)",
+    "classId": "ai-rtificer",
+    "className": "AI-rtificer",
+    "level": 5,
+    "actionCost": "Passiva",
+    "usageLimit": "Contínua",
+    "range": "Ferramentas em uso",
+    "summary": "Dobra o bônus de proficiência com qualquer ferramenta mecânica, química ou eletrônica.",
+    "description": "As ferramentas em suas mãos operam com precisão micrométrica, ajustando torques e calibrando circuitos em velocidade recorde.",
+    "rules": [
+      "Seu bônus de proficiência é dobrado em qualquer teste de perícia que utilize Ferramentas de Manutenção, Kits de Eletrônica ou Ferramentas de Precisão.",
+      "O tempo necessário para reparar veículos ou portas blindadas é cortado pela metade."
+    ],
+    "tacticalTip": "Garante que o grupo nunca fique travado diante de quebra-cabeças mecânicos ou portas trancadas.",
+    "tags": [
+      "AI-rtificer",
+      "Nível 5",
+      "Ferramentas",
+      "Engenharia"
+    ]
+  },
+  {
+    "id": "hab-artificer-armor-tweaker",
+    "code": "HAB-ART-03",
+    "name": "Armor Tweaker (Calibração Balística de Armaduras)",
+    "classId": "ai-rtificer",
+    "className": "AI-rtificer",
+    "level": 7,
+    "actionCost": "Ação",
+    "usageLimit": "Usos = Modificador de INT por descanso longo",
+    "range": "Toque",
+    "summary": "Concede +2 de CA temporária ou resistência a dano elemental a uma armadura aliada.",
+    "description": "Aplica placas cerâmicas móveis e revestimento de dispersão térmica diretamente no traje do companheiro.",
+    "rules": [
+      "Gasta uma Ação para aplicar calibração de emergência na armadura de um aliado a até 1.5 metros.",
+      "O aliado recebe +2 de CA durante 10 minutos ou resistência contra um tipo de dano (Fogo, Frio, Eletricidade ou Radiação).",
+      "Pode manter até 2 armaduras simultaneamente calibradas."
+    ],
+    "tacticalTip": "Aplique no tanque ou no operador com menor CA antes de cruzar áreas infestadas.",
+    "tags": [
+      "AI-rtificer",
+      "Nível 7",
+      "Suporte",
+      "Blindagem",
+      "CA"
+    ]
+  },
+  {
+    "id": "hab-artificer-flash-of-genius",
+    "code": "HAB-ART-04",
+    "name": "Flash Of Genius (Lampejo de Genialidade)",
+    "classId": "ai-rtificer",
+    "className": "AI-rtificer",
+    "level": 10,
+    "actionCost": "Reação",
+    "usageLimit": "Usos = Modificador de INT por descanso longo",
+    "range": "9 metros (Comunicação de rádio ou voz)",
+    "summary": "Adiciona seu modificador de Inteligência à salvaguarda ou teste de perícia de qualquer aliado.",
+    "description": "Instruções rápidas disparadas pelo comunicador: \"Abaixe a cabeça três centímetros!\", \"Corte o fio azul agora!\".",
+    "rules": [
+      "Quando você ou um aliado a até 9 metros fizer um teste de salvaguarda ou teste de perícia, gaste sua Reação.",
+      "Adicione o seu modificador de Inteligência (mínimo +1) ao resultado do dado do aliado.",
+      "Pode ser declarado após o dado ser rolado, mas antes de o Mestre anunciar o sucesso ou falha."
+    ],
+    "tacticalTip": "Salva companheiros de salvaguardas mortais contra desintegração, venenos e quedas.",
+    "tags": [
+      "AI-rtificer",
+      "Nível 10",
+      "Reação",
+      "Suporte",
+      "Bônus"
+    ]
+  },
+  {
+    "id": "hab-artificer-implanter",
+    "code": "HAB-ART-05",
+    "name": "Implanter (Cirurgia de Próteses e Implantes)",
+    "classId": "ai-rtificer",
+    "className": "AI-rtificer",
+    "level": 11,
+    "actionCost": "Especial",
+    "usageLimit": "Contínua",
+    "range": "Mesa cirúrgica de campo",
+    "summary": "Instala e calibra membros cibernéticos e implantes neurais sem perda de Cybersanity.",
+    "description": "Cirurgia cibernética refinada que evita a rejeição sináptica de placas de titânio e servomotores neurais.",
+    "rules": [
+      "Pode instalar implantes cibernéticos avançados em si mesmo ou em aliados durante um descanso longo.",
+      "A penalidade permanente de Cybersanity (CYB) é reduzida a 0 para implantes de Nível Comum e Incomum, e reduzida pela metade para Raros.",
+      "Pode reparar membros mecânicos danificados restaurando todas as funções em 1 turno de combate."
+    ],
+    "tacticalTip": "Permite que a party use upgrades biônicos sem o risco de psicose cibernética.",
+    "tags": [
+      "AI-rtificer",
+      "Nível 11",
+      "Cibernética",
+      "Cybersanity"
+    ]
+  },
+  {
+    "id": "hab-artificer-god-mechanic",
+    "code": "HAB-ART-06",
+    "name": "God Mechanic (Mecânica Divina)",
+    "classId": "ai-rtificer",
+    "className": "AI-rtificer",
+    "level": 20,
+    "actionCost": "Ação",
+    "usageLimit": "1x por descanso longo",
+    "range": "Toque",
+    "summary": "Restaura instantaneamente qualquer máquina, mecha ou veículo destruído com 1 turno de trabalho.",
+    "description": "Enxames de nanorrobôs e solda molecular fluem das luvas do engenheiro reconstruindo motores e blindagens em segundos.",
+    "rules": [
+      "Gasta 1 Ação tocando em uma máquina, mecha, arma destruída ou veículo inoperante.",
+      "A máquina é instantaneamente reparada retornando à operação com 50% dos seus Pontos de Vida máximos.",
+      "Remove todas as falhas de motor, curtos-circuitos e travamentos de cano."
+    ],
+    "tacticalTip": "Restaure o titã do Mecha Pilot no meio do combate final para retomar a vantagem.",
+    "tags": [
+      "AI-rtificer",
+      "Nível 20",
+      "Ápice",
+      "Reparo Instantâneo"
+    ]
+  },
+  {
+    "id": "hab-artificer-defender-core",
+    "code": "HAB-SUB-ART-01",
+    "name": "Defender Core (Drone Guardião Bípede)",
+    "classId": "ai-rtificer",
+    "className": "AI-rtificer",
+    "subclassId": "battle-smith",
+    "subclassName": "Battle Smith",
+    "level": 3,
+    "actionCost": "Ação Bônus",
+    "usageLimit": "Sempre presente (reconstruído no descanso)",
+    "range": "No mapa tático (deslocamento 9m)",
+    "summary": "Constrói um cão robótico autônomo blindado que defende aliados e ataca alvos.",
+    "description": "Um autômato bípede de titânio programado para proteger o artífice e seus companheiros de combate.",
+    "rules": [
+      "O drone possui CA 15, HP igual a (Nível do Artífice x 5) + INT mod.",
+      "Move-se no seu turno e pode realizar um ataque com mordida de alta frequência causando 1d8 + prof de dano cortante.",
+      "Como Reação, quando um aliado a até 1.5m do drone for atacado, o drone impõe Desvantagem ao atacante."
+    ],
+    "tacticalTip": "Posicione o drone ao lado do atirador de elite do grupo para garantir cobertura e desvantagem contra inimigos.",
+    "tags": [
+      "Subclasse",
+      "Battle Smith",
+      "Drone",
+      "Guardião"
+    ]
+  },
+  {
+    "id": "hab-artificer-drugshot",
+    "code": "HAB-SUB-ART-02",
+    "name": "Drugshot (Injeção Estimulante à Distância)",
+    "classId": "ai-rtificer",
+    "className": "AI-rtificer",
+    "subclassId": "doc",
+    "subclassName": "D.O.C (Medic Specialist)",
+    "level": 3,
+    "actionCost": "Ação Bônus",
+    "usageLimit": "Usos = Modificador de INT por descanso longo",
+    "range": "15 metros (Dardo pneumático)",
+    "summary": "Dispara um dardo pneumático em um aliado recuperando HP e acelerando a regeneração.",
+    "description": "Um coquetel de coagulantes sintéticos, adrenalina purificada e analgésicos militares que fecha ferimentos instantaneamente.",
+    "rules": [
+      "Dispara um dardo curativo em um aliado a até 15 metros.",
+      "O aliado recupera 2d8 + INT mod de Pontos de Vida imediatamente.",
+      "Ganha +3 metros de deslocamento durante seu próximo turno.",
+      "Escala para 3d8 no nível 7 e 4d8 no nível 14."
+    ],
+    "tacticalTip": "Pode reviver companheiros caídos com 0 HP à distância sem se expor à linha de tiro.",
+    "tags": [
+      "Subclasse",
+      "D.O.C",
+      "Cura",
+      "Estimulante"
+    ]
+  },
+  {
+    "id": "hab-artificer-antidote",
+    "code": "HAB-SUB-ART-03",
+    "name": "Antidote (Soro Anti-Infeccioso Elemento 115)",
+    "classId": "ai-rtificer",
+    "className": "AI-rtificer",
+    "subclassId": "doc",
+    "subclassName": "D.O.C (Medic Specialist)",
+    "level": 7,
+    "actionCost": "Ação",
+    "usageLimit": "2 doses por descanso curto",
+    "range": "Toque ou dardo a 9 metros",
+    "summary": "Purga contaminação zumbi do Elemento 115 e cura envenenamentos oripáticos.",
+    "description": "Soro sintético formulado com compostos neutralizantes que desativam a reatividade zumbi do mineral 115 na corrente sanguínea.",
+    "rules": [
+      "Cura imediatamente qualquer efeito de Envenenado, Doença ou Radiação Leve.",
+      "Interrompe a progressão de zumbificação por Elemento 115 caso aplicado dentro de 1 hora da mordida ou corte.",
+      "Concede imunidade a toxinas e gases químicos por 1 hora."
+    ],
+    "tacticalTip": "Vital em missões em laboratórios abandonados ou zonas de desastre biológico.",
+    "tags": [
+      "Subclasse",
+      "D.O.C",
+      "Antídoto",
+      "Elemento 115"
+    ]
+  },
+  {
+    "id": "hab-ancient-many-senses",
+    "code": "HAB-ANC-EV-01",
+    "name": "Many Senses",
+    "classId": "ancient",
+    "className": "Ancient",
+    "subclassId": "evoker",
+    "subclassName": "Evoker",
+    "level": "—",
+    "actionCost": "Passiva",
+    "usageLimit": "—",
+    "range": "—",
+    "summary": "Percepção multidirecional através de projeções astrais.",
+    "description": "",
+    "rules": [],
+    "tacticalTip": "",
+    "tags": [
+      "Ancient",
+      "Evoker"
+    ]
+  },
+  {
+    "id": "hab-ancient-soulboost",
+    "code": "HAB-ANC-EV-02",
+    "name": "SoulBoost",
+    "classId": "ancient",
+    "className": "Ancient",
+    "subclassId": "evoker",
+    "subclassName": "Evoker",
+    "level": "—",
+    "actionCost": "Passiva",
+    "usageLimit": "—",
+    "range": "—",
+    "summary": "Aumento de velocidade e dano canalizando essência espiritual.",
+    "description": "",
+    "rules": [],
+    "tacticalTip": "",
+    "tags": [
+      "Ancient",
+      "Evoker"
+    ]
+  },
+  {
+    "id": "hab-ancient-deep-breath",
+    "code": "HAB-ANC-GU-01",
+    "name": "Deep Breath",
+    "classId": "ancient",
+    "className": "Ancient",
+    "subclassId": "guardian",
+    "subclassName": "Guardian",
+    "level": "—",
+    "actionCost": "Passiva",
+    "usageLimit": "—",
+    "range": "—",
+    "summary": "Regeneração acelerada de vigor durante o combate.",
+    "description": "",
+    "rules": [],
+    "tacticalTip": "",
+    "tags": [
+      "Ancient",
+      "Guardian"
+    ]
+  },
+  {
+    "id": "hab-ancient-peace-mind",
+    "code": "HAB-ANC-GU-02",
+    "name": "Peace Mind",
+    "classId": "ancient",
+    "className": "Ancient",
+    "subclassId": "guardian",
+    "subclassName": "Guardian",
+    "level": "—",
+    "actionCost": "Passiva",
+    "usageLimit": "—",
+    "range": "—",
+    "summary": "Imunidade absoluta ao medo e a condições de pânico induzido.",
+    "description": "",
+    "rules": [],
+    "tacticalTip": "",
+    "tags": [
+      "Ancient",
+      "Guardian"
+    ]
+  },
+  {
+    "id": "hab-ancient-transcendense",
+    "code": "HAB-ANC-GU-03",
+    "name": "Transcendense",
+    "classId": "ancient",
+    "className": "Ancient",
+    "subclassId": "guardian",
+    "subclassName": "Guardian",
+    "level": "—",
+    "actionCost": "Especial",
+    "usageLimit": "—",
+    "range": "—",
+    "summary": "Transformação momentânea com redução universal de dano físico.",
+    "description": "",
+    "rules": [],
+    "tacticalTip": "",
+    "tags": [
+      "Ancient",
+      "Guardian"
+    ]
+  },
+  {
+    "id": "hab-ancient-stone-wall",
+    "code": "HAB-ANC-SC-01",
+    "name": "Stone Wall",
+    "classId": "ancient",
+    "className": "Ancient",
+    "subclassId": "sculptor",
+    "subclassName": "Sculptor",
+    "level": "—",
+    "actionCost": "Ação",
+    "usageLimit": "—",
+    "range": "—",
+    "summary": "Cria barreiras minerais sólidas de cobertura no mapa.",
+    "description": "",
+    "rules": [],
+    "tacticalTip": "",
+    "tags": [
+      "Ancient",
+      "Sculptor"
+    ]
+  },
+  {
+    "id": "hab-ancient-fortified",
+    "code": "HAB-ANC-SC-03",
+    "name": "Fortified",
+    "classId": "ancient",
+    "className": "Ancient",
+    "subclassId": "sculptor",
+    "subclassName": "Sculptor",
+    "level": "—",
+    "actionCost": "Passiva",
+    "usageLimit": "—",
+    "range": "—",
+    "summary": "Aumento permanente de Classe de Armadura (+2 AC).",
+    "description": "",
+    "rules": [],
+    "tacticalTip": "",
+    "tags": [
+      "Ancient",
+      "Sculptor"
+    ]
+  },
+  {
+    "id": "hab-lucky-twist-of-fate",
+    "code": "HAB-LUC-TF",
+    "name": "Twist of Fate",
+    "classId": "lucky-gabbler",
+    "className": "Lucky Gabbler",
+    "level": "—",
+    "actionCost": "Reação",
+    "usageLimit": "—",
+    "range": "—",
+    "summary": "",
+    "description": "",
+    "rules": [],
+    "tacticalTip": "",
+    "tags": [
+      "Lucky Gabbler"
+    ]
+  },
+  {
+    "id": "hab-lucky-pretty-please",
+    "code": "HAB-LUC-PP",
+    "name": "Pretty Please",
+    "classId": "lucky-gabbler",
+    "className": "Lucky Gabbler",
+    "level": "—",
+    "actionCost": "Ação",
+    "usageLimit": "—",
+    "range": "—",
+    "summary": "",
+    "description": "",
+    "rules": [],
+    "tacticalTip": "",
+    "tags": [
+      "Lucky Gabbler"
+    ]
+  },
+  {
+    "id": "hab-lucky-showstar",
+    "code": "HAB-LUC-SS",
+    "name": "Showstar",
+    "classId": "lucky-gabbler",
+    "className": "Lucky Gabbler",
+    "level": "—",
+    "actionCost": "Ação",
+    "usageLimit": "—",
+    "range": "—",
+    "summary": "",
+    "description": "",
+    "rules": [],
+    "tacticalTip": "",
+    "tags": [
+      "Lucky Gabbler"
+    ]
+  },
+  {
+    "id": "hab-lucky-execution",
+    "code": "HAB-LUC-EX",
+    "name": "Execution",
+    "classId": "lucky-gabbler",
+    "className": "Lucky Gabbler",
+    "level": "—",
+    "actionCost": "Ação",
+    "usageLimit": "—",
+    "range": "—",
+    "summary": "",
+    "description": "",
+    "rules": [],
+    "tacticalTip": "",
+    "tags": [
+      "Lucky Gabbler"
+    ]
+  },
+  {
+    "id": "hab-artificer-shadow-martyr",
+    "code": "HAB-ART-SM",
+    "name": "Shadow Martyr",
+    "classId": "ai-rtificer",
+    "className": "AI-rtificer",
+    "level": "—",
+    "actionCost": "Reação",
+    "usageLimit": "—",
+    "range": "—",
+    "summary": "",
+    "description": "",
+    "rules": [],
+    "tacticalTip": "",
+    "tags": [
+      "AI-rtificer"
+    ]
+  },
+  {
+    "id": "hab-artificer-core-boost",
+    "code": "HAB-ART-CB",
+    "name": "Core Boost",
+    "classId": "ai-rtificer",
+    "className": "AI-rtificer",
+    "level": "—",
+    "actionCost": "Ação Bônus",
+    "usageLimit": "—",
+    "range": "—",
+    "summary": "",
+    "description": "",
+    "rules": [],
+    "tacticalTip": "",
+    "tags": [
+      "AI-rtificer"
+    ]
+  },
+  {
+    "id": "hab-artificer-picked-healing",
+    "code": "HAB-ART-PH",
+    "name": "Picked Healing",
+    "classId": "ai-rtificer",
+    "className": "AI-rtificer",
+    "level": "—",
+    "actionCost": "Ação",
+    "usageLimit": "—",
+    "range": "—",
+    "summary": "",
+    "description": "",
+    "rules": [],
+    "tacticalTip": "",
+    "tags": [
+      "AI-rtificer"
+    ]
+  },
+  {
+    "id": "hab-artificer-inspiration",
+    "code": "HAB-ART-IN",
+    "name": "Inspiration",
+    "classId": "ai-rtificer",
+    "className": "AI-rtificer",
+    "level": "—",
+    "actionCost": "Ação Bônus",
+    "usageLimit": "—",
+    "range": "—",
+    "summary": "",
+    "description": "",
+    "rules": [],
+    "tacticalTip": "",
+    "tags": [
+      "AI-rtificer"
+    ]
+  },
+  {
+    "id": "hab-artificer-puppet",
+    "code": "HAB-ART-PU",
+    "name": "Puppet",
+    "classId": "ai-rtificer",
+    "className": "AI-rtificer",
+    "level": "—",
+    "actionCost": "Ação",
+    "usageLimit": "—",
+    "range": "—",
+    "summary": "",
+    "description": "",
+    "rules": [],
+    "tacticalTip": "",
+    "tags": [
+      "AI-rtificer"
+    ]
+  },
+  {
+    "id": "hab-hacker-contacts",
+    "code": "HCK-01",
+    "name": "Contacts",
+    "classId": "hacker",
+    "className": "Hacker",
+    "level": 1,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Contacts - Habilidade de classe.",
+    "description": "Your knowlodge about the internet and world allow you to enter in contact with people anywhere. You can try get informations you normally wouldn't be able to get, roll a tech check to define your sucess. You can use this ability a number of times equal your INT modifier.",
+    "rules": [],
+    "tacticalTip": "Use para obter informações vitais antes de missões.",
+    "tags": [
+      "Hacker",
+      "Nível 1"
+    ]
+  },
+  {
+    "id": "hab-hacker-slight-peek",
+    "code": "HCK-02",
+    "name": "Slight Peek",
+    "classId": "hacker",
+    "className": "Hacker",
+    "level": 2,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Slight Peek - Habilidade de classe.",
+    "description": "If you have any kind of connection with a network (cellphones, transmiters, trackers, etc), you can use a Bonus Action to hack in the SVA's brain and read his next movements, giving disadvantage on his attack. You can use this ability a number of times equal your INT modifier.",
+    "rules": [],
+    "tacticalTip": "Excelente defensiva, use em inimigos poderosos.",
+    "tags": [
+      "Hacker",
+      "Nível 2"
+    ]
+  },
+  {
+    "id": "hab-hacker-fake-finger",
+    "code": "HCK-05",
+    "name": "Fake Finger",
+    "classId": "hacker",
+    "className": "Hacker",
+    "level": 5,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Fake Finger - Habilidade de classe.",
+    "description": "Your abilities in hacking security systems are getting better. Starting at 5th level you can bypass Biometric Modules of level 1. The level increases to 2 at 7th, 3 at 11th, 4 at 14th, 5 at 17th and 6 at 20th level.\n\nYour understanding of systems is getting much better. Now you can use an action to actively invade a system to destroy or sabotage it. The security of the target or system need to be the same (or lower) level as yours. If the target is for combat, it need to succeed a INT saving throw. In a fail, the attacker roll a INT check to define the effects he can cause. If the Target isn for combat you can make a tech check already defining your sucess. You can use this ability a number of times equal your INT modifier.\n\n1-5: Reduce Mobility / Stunned\n6-10: Zero Mobility\n11-15: Minor Malfunctioning\n16-19: Major Malfunctioning\n20: Complete Shutdown",
+    "rules": [],
+    "tacticalTip": "Versátil para invadir módulos e desativar ameaças.",
+    "tags": [
+      "Hacker",
+      "Nível 5"
+    ]
+  },
+  {
+    "id": "hab-hacker-security-breach",
+    "code": "HCK-10",
+    "name": "Security Breach",
+    "classId": "hacker",
+    "className": "Hacker",
+    "level": 10,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Security Breach - Habilidade de classe.",
+    "description": "Your eyes now can perceive fails and weak points in systems. When you use Security Breach all your actions related to technology now have advantage, including attacks. This ability lasts 3 turns and can be used a number of times equal your WIS modifier.",
+    "rules": [],
+    "tacticalTip": "Ative para um surto de hacking perfeito.",
+    "tags": [
+      "Hacker",
+      "Nível 10"
+    ]
+  },
+  {
+    "id": "hab-hacker-quick-allocation",
+    "code": "HCK-11",
+    "name": "Quick Allocation",
+    "classId": "hacker",
+    "className": "Hacker",
+    "level": 11,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Quick Allocation - Habilidade de classe.",
+    "description": "Your ability of recognize and identify systems is getting better. As an action you can analyze and download the system so you don't need to hack similar system a bunch of times. You can use this ability once per long rest and twice at 18th level.",
+    "rules": [],
+    "tacticalTip": "Poupe tempo ao enfrentar o mesmo modelo de inimigo repetidas vezes.",
+    "tags": [
+      "Hacker",
+      "Nível 11"
+    ]
+  },
+  {
+    "id": "hab-hacker-boom",
+    "code": "HCK-13",
+    "name": "Boom",
+    "classId": "hacker",
+    "className": "Hacker",
+    "level": 13,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Boom - Habilidade de classe.",
+    "description": "When hacking systems you can now put a small auto-destruction program to destroy the machinery that the system controls (if controls any). If the machinery is of combat type the machine need to make a tech INT saving throw greater than your Class Dice, on a fail, you roll a d4 to see the effects. However if the system is non-combat type, and the hacking was succeful you can decide what to explode in control of the system. You can use this ability once per long rest.\n\n1-7: Module\n8-14: Limb\n15-19: Region\n20: Full",
+    "rules": [],
+    "tacticalTip": "Pode destruir componentes vitais de mechas e veículos!",
+    "tags": [
+      "Hacker",
+      "Nível 13"
+    ]
+  },
+  {
+    "id": "hab-hacker-ka-boom",
+    "code": "HCK-14",
+    "name": "Little-Boom (Ka-Boom)",
+    "classId": "hacker",
+    "className": "Hacker",
+    "level": 14,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Little-Boom (Ka-Boom) - Habilidade de classe.",
+    "description": "Your resilience in hacking technological things is getting out of control. Any arm with some kind of inteligent module can be hacked by you and get a automatic fail in their next shoot. You can use this ability a number of times equal your INT modifier.",
+    "rules": [],
+    "tacticalTip": "Desabilite atiradores inimigos instantaneamente.",
+    "tags": [
+      "Hacker",
+      "Nível 14"
+    ]
+  },
+  {
+    "id": "hab-hacker-unstoppable",
+    "code": "HCK-17",
+    "name": "Unstoppable",
+    "classId": "hacker",
+    "className": "Hacker",
+    "level": 17,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Unstoppable - Habilidade de classe.",
+    "description": "You are so good in invading systems now that you can just enter whenever you want. You can choose to ignore a hacking test to enter a system. You can use this ability 2 times for long rest.",
+    "rules": [],
+    "tacticalTip": "Acesso garantido a qualquer sistema blindado.",
+    "tags": [
+      "Hacker",
+      "Nível 17"
+    ]
+  },
+  {
+    "id": "hab-hacker-save-point",
+    "code": "HCK-19",
+    "name": "Save Point",
+    "classId": "hacker",
+    "className": "Hacker",
+    "level": 19,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Save Point - Habilidade de classe.",
+    "description": "The systems aren't just a bunch of codes that you can play now, they became your home. You gain the ability to make a backup of your mind to a network of your choice. You can use this ability once.",
+    "rules": [],
+    "tacticalTip": "Seguro de vida máximo digital.",
+    "tags": [
+      "Hacker",
+      "Nível 19"
+    ]
+  },
+  {
+    "id": "hab-hacker-ultron",
+    "code": "HCK-20",
+    "name": "Ultron",
+    "classId": "hacker",
+    "className": "Hacker",
+    "level": 20,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Ultron - Habilidade de classe.",
+    "description": "You are in your peak, systems, minds, whatever. Your backup mind trained in the network realm, your mind isn't limited by one body now. Your backup now can control a number of bodies connected to the system equal your WIS modifier.",
+    "rules": [],
+    "tacticalTip": "Crie seu próprio exército de drones/mechas.",
+    "tags": [
+      "Hacker",
+      "Nível 20"
+    ]
+  },
+  {
+    "id": "hab-mecha-core",
+    "code": "MCH-01",
+    "name": "Core",
+    "classId": "mecha",
+    "className": "Mecha",
+    "level": 1,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Core - Habilidade de classe.",
+    "description": "The core is everything to your mecha, it defines your strengh and energy. Choose how big is your core:\n\nHalf Core: Your mecha resembles a exo-suit. You have proficiency with small weapons, +3 meters of movement -1 STR, +1 AC and 2 EN.\nLight Core: Your mecha resembles a heavy armor. You have proficiency with medium weapons, +2 AC and 3 EN.\nHeavy Core: Your mecha is a mecha. You have proficiency with big weapons, resistence against small bullets, disadvantage in DEX rolls, -3 meters of movement, +2 AC and 4 EN.",
+    "rules": [],
+    "tacticalTip": "Seu core determina a base de sua build.",
+    "tags": [
+      "Mecha",
+      "Nível 1"
+    ]
+  },
+  {
+    "id": "hab-mecha-core-overheat",
+    "code": "MCH-02",
+    "name": "Core Overheat",
+    "classId": "mecha",
+    "className": "Mecha",
+    "level": 2,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Core Overheat - Habilidade de classe.",
+    "description": "You can, as a last resource, explode the core of your armor, dealing your max health as damage, and using your level as range.",
+    "rules": [],
+    "tacticalTip": "Uso suicida ou último recurso!",
+    "tags": [
+      "Mecha",
+      "Nível 2"
+    ]
+  },
+  {
+    "id": "hab-mecha-overkill",
+    "code": "MCH-05",
+    "name": "Overkill",
+    "classId": "mecha",
+    "className": "Mecha",
+    "level": 5,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Overkill - Habilidade de classe.",
+    "description": "Thanks to your armor, you can now use 3 weapons during combat instead of 2, two being primaries and one secondary.",
+    "rules": [],
+    "tacticalTip": "Aumente o seu poder de fogo base.",
+    "tags": [
+      "Mecha",
+      "Nível 5"
+    ]
+  },
+  {
+    "id": "hab-mecha-merge",
+    "code": "MCH-07",
+    "name": "Merge",
+    "classId": "mecha",
+    "className": "Mecha",
+    "level": 7,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Merge - Habilidade de classe.",
+    "description": "Your armor is now capable of fusing any gun into itself, allowing you to use it without any disadvantages, with proficiency, bonus damage and without needing to recharge. You can re-merge a weapon on the 11th, 15th and 19th levels. The bonus damage is defined by the type of your mecha.\nHalf Core: 1d10 | Light Core: 2d10 | Heavy Core: 3d10\n(merge does not support enormous weapons)",
+    "rules": [],
+    "tacticalTip": "Fundir arma para aumentar dano e ignorar recarga.",
+    "tags": [
+      "Mecha",
+      "Nível 7"
+    ]
+  },
+  {
+    "id": "hab-mecha-shockwave",
+    "code": "MCH-10",
+    "name": "Shockwave",
+    "classId": "mecha",
+    "className": "Mecha",
+    "level": 10,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Shockwave - Habilidade de classe.",
+    "description": "Your mecha can now use his core energie to disrupt energie flow on nearby things (including SVAs), giving them malfunction through a EMP wave. The distance of effectiveness is based on the mecha type.\nHalf Core: 1 meters\nLight Core: 3 meters\nHeavy Core: 5 meters",
+    "rules": [],
+    "tacticalTip": "Causa falhas em tecnologia próxima.",
+    "tags": [
+      "Mecha",
+      "Nível 10"
+    ]
+  },
+  {
+    "id": "hab-mecha-core-mkii",
+    "code": "MCH-11",
+    "name": "Core MKII",
+    "classId": "mecha",
+    "className": "Mecha",
+    "level": 11,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Core MKII - Habilidade de classe.",
+    "description": "Your mecha core increases in power, being now capable of some more abilities.\nHalf Core: Your movement increases by 2 meters and 3EN\nLight Core: Immunite against small bullets, +1DEX, +1STR and 5EN\nHeavy Core: Immunite against small bullets and resistence against medium bullets 6EN",
+    "rules": [],
+    "tacticalTip": "Aprimoramento drástico do núcleo.",
+    "tags": [
+      "Mecha",
+      "Nível 11"
+    ]
+  },
+  {
+    "id": "hab-mecha-tough-shock",
+    "code": "MCH-12",
+    "name": "Tough Shock",
+    "classId": "mecha",
+    "className": "Mecha",
+    "level": 12,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Tough Shock - Habilidade de classe.",
+    "description": "As a defense mechanism your mecha now has a invisible layer of eletricity, any close combat enemy recieve damage when attacking or touching you in some form.\nHalf Core: 3d6 Eletric Damage\nLight Core: 4d6 Eletric Damage\nHeavy Core: 5d8 Eletric Damage",
+    "rules": [],
+    "tacticalTip": "Pune inimigos que chegarem perto.",
+    "tags": [
+      "Mecha",
+      "Nível 12"
+    ]
+  },
+  {
+    "id": "hab-mecha-bigger-port",
+    "code": "MCH-14",
+    "name": "Bigger Port",
+    "classId": "mecha",
+    "className": "Mecha",
+    "level": 14,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Bigger Port - Habilidade de classe.",
+    "description": "Your mecha now can use weapons bigger than originaly designed. Proficiency with weapons increase by one size.\nSmall -> Medium -> Big -> Enormous",
+    "rules": [],
+    "tacticalTip": "Use armas massivas antes restritas.",
+    "tags": [
+      "Mecha",
+      "Nível 14"
+    ]
+  },
+  {
+    "id": "hab-mecha-merge-mkii",
+    "code": "MCH-17",
+    "name": "Merge MKII",
+    "classId": "mecha",
+    "className": "Mecha",
+    "level": 17,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Merge MKII - Habilidade de classe.",
+    "description": "The weapon merged with the mecha gain a boost in damage and range.\nHalf Core: 4d6 | Light Core: 8d6 | Heavy Core: 10d6\n|+5 meters| |+15 meters| |+50 meters|",
+    "rules": [],
+    "tacticalTip": "Seu braço-canhão se torna uma arma de destruição em massa.",
+    "tags": [
+      "Mecha",
+      "Nível 17"
+    ]
+  },
+  {
+    "id": "hab-mecha-melting-point",
+    "code": "MCH-19",
+    "name": "Melting Point",
+    "classId": "mecha",
+    "className": "Mecha",
+    "level": 19,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Melting Point - Habilidade de classe.",
+    "description": "Your core now can expand the energy to the plates of your mecha, giving a red/yellowish color to it. As an action you can heat your mecha to become invulnerable for 2 rounds, all projectiles and melee attacks against you don't deal damage and walls melts in contact. This ability costs 3 En and deals 2d10 per round.",
+    "rules": [],
+    "tacticalTip": "Invulnerabilidade total e destruição de ambiente.",
+    "tags": [
+      "Mecha",
+      "Nível 19"
+    ]
+  },
+  {
+    "id": "hab-mecha-death-ray",
+    "code": "MCH-20",
+    "name": "Death Ray",
+    "classId": "mecha",
+    "className": "Mecha",
+    "level": 20,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Death Ray - Habilidade de classe.",
+    "description": "The energy in your core can be channeled in one point, allowing you to make a type of death ray. As an action you can channel your energy to deal a damage equal to your HP. This ability costs 3 EN.",
+    "rules": [],
+    "tacticalTip": "Dano oblitera inimigos em um feixe de pura destruição.",
+    "tags": [
+      "Mecha",
+      "Nível 20"
+    ]
+  },
+  {
+    "id": "hab-gunner-cover-fire",
+    "code": "GNR-01",
+    "name": "Cover Fire",
+    "classId": "gunner",
+    "className": "Gunner",
+    "level": 1,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Cover Fire - Habilidade de classe.",
+    "description": "Your natural aptitude with guns and high reflexes allows you to adjust your aim and shoot a target when they are leaving their cover. You can spend a Bonus Action to mark a cover spot and any enemy who leave get certain opportunity attack.",
+    "rules": [],
+    "tacticalTip": "Marque posições inimigas para punir qualquer avanço.",
+    "tags": [
+      "Gunner",
+      "Nível 1"
+    ]
+  },
+  {
+    "id": "hab-gunner-speed-mag",
+    "code": "GNR-02",
+    "name": "Speed Mag",
+    "classId": "gunner",
+    "className": "Gunner",
+    "level": 2,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Speed Mag - Habilidade de classe.",
+    "description": "Your ability in managing both running and recharging got better. Now you can ignore the recharge time of any gun that needs one AM and lower the time of reload by 1 AM.",
+    "rules": [],
+    "tacticalTip": "Mantenha a chuva de balas contínua.",
+    "tags": [
+      "Gunner",
+      "Nível 2"
+    ]
+  },
+  {
+    "id": "hab-gunner-reflex",
+    "code": "GNR-05",
+    "name": "Reflex",
+    "classId": "gunner",
+    "className": "Gunner",
+    "level": 5,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Reflex - Habilidade de classe.",
+    "description": "Your reflexes are getting better each combat you go throught. Now, when holding a gun, you can, as a reaction, shoot anything that makes a surprise/opportunity attack against you. You can use this ability a number of times equal to your DEX modifier.",
+    "rules": [],
+    "tacticalTip": "Transforme emboscadas inimigas em contra-ataques letais.",
+    "tags": [
+      "Gunner",
+      "Nível 5"
+    ]
+  },
+  {
+    "id": "hab-gunner-gut-shoot",
+    "code": "GNR-07",
+    "name": "Gut Shoot",
+    "classId": "gunner",
+    "className": "Gunner",
+    "level": 7,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Gut Shoot - Habilidade de classe.",
+    "description": "You developed an ability that allows you to see unbelievable shots. You now make your shoots reflect in unusual surfaces, go throught small gaps, pass things in movement, make absurds movements. You don't have disadvantage when making blinding shots. You can use this ability a number of times equal to your WIS modifier.",
+    "rules": [],
+    "tacticalTip": "Acerte alvos escondidos através de geometria impossível.",
+    "tags": [
+      "Gunner",
+      "Nível 7"
+    ]
+  },
+  {
+    "id": "hab-gunner-fast-shoot",
+    "code": "GNR-10",
+    "name": "Fast Shoot",
+    "classId": "gunner",
+    "className": "Gunner",
+    "level": 10,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Fast Shoot - Habilidade de classe.",
+    "description": "Your handling with guns of any size is getting better. When in movement you don't have disadvantage making attack rolls and you can now move after making an attack.",
+    "rules": [],
+    "tacticalTip": "Atire e corra sem penalidades.",
+    "tags": [
+      "Gunner",
+      "Nível 10"
+    ]
+  },
+  {
+    "id": "hab-gunner-always-sweet",
+    "code": "GNR-11",
+    "name": "Always Sweet",
+    "classId": "gunner",
+    "className": "Gunner",
+    "level": 11,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Always Sweet - Habilidade de classe.",
+    "description": "Your precision while in movement doesn't change. When shooting in movement you can now focus your shots precisely. When in movement you can use the SS and your SS distance is doubled.",
+    "rules": [],
+    "tacticalTip": "Dobra o alcance do Sweet Spot ao se mover.",
+    "tags": [
+      "Gunner",
+      "Nível 11"
+    ]
+  },
+  {
+    "id": "hab-gunner-heavy-weight",
+    "code": "GNR-13",
+    "name": "Heavy Weight",
+    "classId": "gunner",
+    "className": "Gunner",
+    "level": 13,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Heavy Weight - Habilidade de classe.",
+    "description": "Your handling with big weapons got better. You gain proficiency with big weapons.",
+    "rules": [],
+    "tacticalTip": "Equipe canhões pesados.",
+    "tags": [
+      "Gunner",
+      "Nível 13"
+    ]
+  },
+  {
+    "id": "hab-gunner-multishot",
+    "code": "GNR-14",
+    "name": "Multishot",
+    "classId": "gunner",
+    "className": "Gunner",
+    "level": 14,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Multishot - Habilidade de classe.",
+    "description": "Your ability to manage multiple weapons got better. Now switching to another weapon don't cost anything and you can use diferent weapons in the same action without disadvantage.",
+    "rules": [],
+    "tacticalTip": "Use todo o seu arsenal num piscar de olhos.",
+    "tags": [
+      "Gunner",
+      "Nível 14"
+    ]
+  },
+  {
+    "id": "hab-gunner-tactical-improvement",
+    "code": "GNR-17",
+    "name": "Tactical Improvement",
+    "classId": "gunner",
+    "className": "Gunner",
+    "level": 17,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Tactical Improvement - Habilidade de classe.",
+    "description": "Your ability to analyze the situation in outstanding fashion is at its peak. You now can gain expertise in any check or saving throw. You can use this ability a number of times equal your DEX modifier.",
+    "rules": [],
+    "tacticalTip": "Sobreviva ao impossível usando seus reflexos para Expertise.",
+    "tags": [
+      "Gunner",
+      "Nível 17"
+    ]
+  },
+  {
+    "id": "hab-gunner-overmag",
+    "code": "GNR-19",
+    "name": "OverMag",
+    "classId": "gunner",
+    "className": "Gunner",
+    "level": 19,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "OverMag - Habilidade de classe.",
+    "description": "Who is mag? you now understand the core function of the guns you use. You can use Overmag to use all the bullets of your mag and deal the damage of all the attacks in one action. You can use this ability once per long rest.",
+    "rules": [],
+    "tacticalTip": "Descarregue o pente inteiro em um único turno obliterador.",
+    "tags": [
+      "Gunner",
+      "Nível 19"
+    ]
+  },
+  {
+    "id": "hab-gunner-deadeye",
+    "code": "GNR-20",
+    "name": "DeadEye",
+    "classId": "gunner",
+    "className": "Gunner",
+    "level": 20,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "DeadEye - Habilidade de classe.",
+    "description": "Your reflexes and velocity are maximized, you developed an attack form that allows you to spend all your shots in a inhumane speed. You can use all your shots/burst to attack diferent people in one action. You can use this ability once per long rest.",
+    "rules": [],
+    "tacticalTip": "O pesadelo de um esquadrão inteiro.",
+    "tags": [
+      "Gunner",
+      "Nível 20"
+    ]
+  },
+  {
+    "id": "hab-gunner-weapon-mastery",
+    "code": "GNR-SUB-01",
+    "name": "Weapon Mastery",
+    "classId": "gunner",
+    "className": "Gunner",
+    "level": 1,
+    "actionCost": "Passiva",
+    "usageLimit": "Passiva",
+    "range": "Arma",
+    "summary": "Weapon Mastery - Habilidade de subclasse.",
+    "description": "You gain +1 in attack rolls of the type of weapon chosed and with each point invested gain a additional +1.",
+    "rules": [],
+    "tacticalTip": "Essencial para não errar tiros com sua arma favorita.",
+    "tags": [
+      "Gunner",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-gunner-more-attachments",
+    "code": "GNR-SUB-02",
+    "name": "More Attachments",
+    "classId": "gunner",
+    "className": "Gunner",
+    "level": 2,
+    "actionCost": "Passiva",
+    "usageLimit": "Passiva",
+    "range": "Arma",
+    "summary": "More Attachments - Habilidade de subclasse.",
+    "description": "Even if the weapon doesn't have compatibility with attachments your knowledge allows you to adapt the weapon and the attachment to work with each other and gain +1 space. You can realize a crafting check one time per long rest to realize this adaptations.",
+    "rules": [],
+    "tacticalTip": "Modifique armas ao seu gosto, ignorando certas restrições.",
+    "tags": [
+      "Gunner",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-gunner-certain-shot",
+    "code": "GNR-SUB-03",
+    "name": "Certain Shot",
+    "classId": "gunner",
+    "className": "Gunner",
+    "subclassId": "certain-shot",
+    "subclassName": "Snipers",
+    "level": 3,
+    "actionCost": "Passiva",
+    "usageLimit": "Passiva",
+    "range": "Arma",
+    "summary": "Certain Shot - Habilidade de subclasse.",
+    "description": "Now you have a shoot that will 100% hit his target and if in SS distance its a certain crit. You can use this abilty once per long rest.",
+    "rules": [],
+    "tacticalTip": "O headshot perfeito e absoluto.",
+    "tags": [
+      "Gunner",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-gunner-point-blank",
+    "code": "GNR-SUB-04",
+    "name": "Point-Blank",
+    "classId": "gunner",
+    "className": "Gunner",
+    "subclassId": "point-blank",
+    "subclassName": "Shotguns",
+    "level": 3,
+    "actionCost": "Passiva",
+    "usageLimit": "Passiva",
+    "range": "Arma",
+    "summary": "Point-Blank - Habilidade de subclasse.",
+    "description": "Your SS is now the max distance defined by the weapon. Every attack realized at a distance lower than the SS will count as SS damage.",
+    "rules": [],
+    "tacticalTip": "Fique na cara do inimigo para dano máximo.",
+    "tags": [
+      "Gunner",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-gunner-fine-control",
+    "code": "GNR-SUB-05",
+    "name": "Fine Control",
+    "classId": "gunner",
+    "className": "Gunner",
+    "subclassId": "fine-control",
+    "subclassName": "Submachines",
+    "level": 3,
+    "actionCost": "Passiva",
+    "usageLimit": "Passiva",
+    "range": "Arma",
+    "summary": "Fine Control - Habilidade de subclasse.",
+    "description": "Your control over submachines became outstanding. The SS of the submachine become a interval of 7 and the SS damage doubles.",
+    "rules": [],
+    "tacticalTip": "Precisão cirúrgica num mar de balas.",
+    "tags": [
+      "Gunner",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-gunner-dual-wield",
+    "code": "GNR-SUB-06",
+    "name": "Dual Wield",
+    "classId": "gunner",
+    "className": "Gunner",
+    "subclassId": "dual-wield",
+    "subclassName": "Pistols",
+    "level": 3,
+    "actionCost": "Passiva",
+    "usageLimit": "Passiva",
+    "range": "Arma",
+    "summary": "Dual Wield - Habilidade de subclasse.",
+    "description": "You now can handle two pistols at once, using both in the same attack. When realizing an attack you roll two attack rolls using both weapons without any disadvantage.",
+    "rules": [],
+    "tacticalTip": "O dobro de tiros, o dobro de diversão.",
+    "tags": [
+      "Gunner",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-gunner-bigger-burst",
+    "code": "GNR-SUB-07",
+    "name": "Bigger Burst",
+    "classId": "gunner",
+    "className": "Gunner",
+    "subclassId": "bigger-burst",
+    "subclassName": "LMGS",
+    "level": 3,
+    "actionCost": "Passiva",
+    "usageLimit": "Passiva",
+    "range": "Arma",
+    "summary": "Bigger Burst - Habilidade de subclasse.",
+    "description": "The amount of bullets that you are capable of shooting in one attack increase. Using your bonus actions as a time extender you can shoot more bullets than the weapons defines. The weapon and SS damage double as the damage count as two attacks.",
+    "rules": [],
+    "tacticalTip": "Transforme-se em uma torreta humana intransponível.",
+    "tags": [
+      "Gunner",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-hacker-advanced-prototype",
+    "code": "HCK-SUB-01",
+    "name": "Advanced Prototype",
+    "classId": "hacker",
+    "className": "Hacker",
+    "subclassId": "laser-master",
+    "subclassName": "Laser Master",
+    "level": 1,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Advanced Prototype - Habilidade de subclasse.",
+    "description": "Melhoria de equipamento e protótipos de laser.",
+    "rules": [],
+    "tacticalTip": "Melhoria de equipamentos.",
+    "tags": [
+      "Hacker",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-hacker-image-of-photons",
+    "code": "HCK-SUB-02",
+    "name": "Image of Photons",
+    "classId": "hacker",
+    "className": "Hacker",
+    "subclassId": "laser-master",
+    "subclassName": "Laser Master",
+    "level": 2,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Image of Photons - Habilidade de subclasse.",
+    "description": "Hologramas de luz e projeções fotônicas.",
+    "rules": [],
+    "tacticalTip": "Ilusões visuais para confundir inimigos.",
+    "tags": [
+      "Hacker",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-hacker-hermetic-unbroken",
+    "code": "HCK-SUB-03",
+    "name": "Hermetic Unbroken",
+    "classId": "hacker",
+    "className": "Hacker",
+    "subclassId": "laser-master",
+    "subclassName": "Laser Master",
+    "level": 3,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Hermetic Unbroken - Habilidade de subclasse.",
+    "description": "Selamento hermético contra intrusão e dano.",
+    "rules": [],
+    "tacticalTip": "Proteção suprema para seus dispositivos.",
+    "tags": [
+      "Hacker",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-hacker-treasure-past",
+    "code": "HCK-SUB-04",
+    "name": "Treasure of the past",
+    "classId": "hacker",
+    "className": "Hacker",
+    "subclassId": "laser-master",
+    "subclassName": "Laser Master",
+    "level": 4,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Treasure of the past - Habilidade de subclasse.",
+    "description": "Acesso a tecnologias arcaicas mas devastadoras.",
+    "rules": [],
+    "tacticalTip": "Recuperação de tecnologia do Velho Mundo.",
+    "tags": [
+      "Hacker",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-hacker-backdoors-distractor",
+    "code": "HCK-SUB-05",
+    "name": "Backdoors Distractor",
+    "classId": "hacker",
+    "className": "Hacker",
+    "subclassId": "intel-tracker",
+    "subclassName": "Intel Tracker",
+    "level": 1,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Backdoors Distractor - Habilidade de subclasse.",
+    "description": "Criação de backdoors e distração de IA inimiga.",
+    "rules": [],
+    "tacticalTip": "Engane firewalls antes de invadi-los.",
+    "tags": [
+      "Hacker",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-hacker-locker-eye",
+    "code": "HCK-SUB-06",
+    "name": "Locker Eye",
+    "classId": "hacker",
+    "className": "Hacker",
+    "subclassId": "intel-tracker",
+    "subclassName": "Intel Tracker",
+    "level": 2,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Locker Eye - Habilidade de subclasse.",
+    "description": "Rastreamento ocular perfeito.",
+    "rules": [],
+    "tacticalTip": "Mantenha o alvo sempre na sua mira digital.",
+    "tags": [
+      "Hacker",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-hacker-alien-invader",
+    "code": "HCK-SUB-07",
+    "name": "Alien Invader",
+    "classId": "hacker",
+    "className": "Hacker",
+    "subclassId": "intel-tracker",
+    "subclassName": "Intel Tracker",
+    "level": 3,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Alien Invader - Habilidade de subclasse.",
+    "description": "Intrusão alienígena nos sistemas hostis.",
+    "rules": [],
+    "tacticalTip": "Injeção de código bizarro.",
+    "tags": [
+      "Hacker",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-hacker-future",
+    "code": "HCK-SUB-08",
+    "name": "Future",
+    "classId": "hacker",
+    "className": "Hacker",
+    "subclassId": "intel-tracker",
+    "subclassName": "Intel Tracker",
+    "level": 4,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Future - Habilidade de subclasse.",
+    "description": "Previsão de algoritmos.",
+    "rules": [],
+    "tacticalTip": "Preveja o movimento da IA inimiga.",
+    "tags": [
+      "Hacker",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-hacker-snap-twice",
+    "code": "HCK-SUB-09",
+    "name": "Snap Twice",
+    "classId": "hacker",
+    "className": "Hacker",
+    "subclassId": "deceiver",
+    "subclassName": "Deceiver",
+    "level": 1,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Snap Twice - Habilidade de subclasse.",
+    "description": "O dobro de ações de engano rápidas.",
+    "rules": [],
+    "tacticalTip": "Rápido e enganoso.",
+    "tags": [
+      "Hacker",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-hacker-swallow-senses",
+    "code": "HCK-SUB-10",
+    "name": "Swallow Senses",
+    "classId": "hacker",
+    "className": "Hacker",
+    "subclassId": "deceiver",
+    "subclassName": "Deceiver",
+    "level": 2,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Swallow Senses - Habilidade de subclasse.",
+    "description": "Cegueira sensorial digital.",
+    "rules": [],
+    "tacticalTip": "Desliga sensores de inimigos e mechas.",
+    "tags": [
+      "Hacker",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-hacker-devour-vision",
+    "code": "HCK-SUB-11",
+    "name": "Devour Vision",
+    "classId": "hacker",
+    "className": "Hacker",
+    "subclassId": "deceiver",
+    "subclassName": "Deceiver",
+    "level": 3,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Devour Vision - Habilidade de subclasse.",
+    "description": "Consumo do input visual das câmeras inimigas.",
+    "rules": [],
+    "tacticalTip": "Os inimigos só veem o que você quer.",
+    "tags": [
+      "Hacker",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-hacker-phantom-troupe",
+    "code": "HCK-SUB-12",
+    "name": "Phantom Troupe",
+    "classId": "hacker",
+    "className": "Hacker",
+    "subclassId": "deceiver",
+    "subclassName": "Deceiver",
+    "level": 4,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Phantom Troupe - Habilidade de subclasse.",
+    "description": "Cria exércitos de assinaturas falsas.",
+    "rules": [],
+    "tacticalTip": "Sature os radares inimigos.",
+    "tags": [
+      "Hacker",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-hacker-sweet-dreams",
+    "code": "HCK-SUB-13",
+    "name": "Sweet Dreams",
+    "classId": "hacker",
+    "className": "Hacker",
+    "subclassId": "deceiver",
+    "subclassName": "Deceiver",
+    "level": 5,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Sweet Dreams - Habilidade de subclasse.",
+    "description": "Desligamento e indução a estado de dormência cibernética.",
+    "rules": [],
+    "tacticalTip": "Inimigos cibernéticos entram em sono profundo.",
+    "tags": [
+      "Hacker",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-mecha-vtol-hover",
+    "code": "MCH-SUB-01",
+    "name": "VTOL Hover",
+    "classId": "mecha",
+    "className": "Mecha",
+    "subclassId": "northstar",
+    "subclassName": "Northstar",
+    "level": 1,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "VTOL Hover - Habilidade de subclasse.",
+    "description": "As a bonus action you can start to hover above ground (5 meters max), your height doesnt change if the floor below you changes, and you dont have disadvantage when falling/flying. This action costs 1 EN.",
+    "rules": [],
+    "tacticalTip": "Posicionamento tático vertical.",
+    "tags": [
+      "Mecha",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-mecha-core-shoot",
+    "code": "MCH-SUB-02",
+    "name": "Core Shoot",
+    "classId": "mecha",
+    "className": "Mecha",
+    "subclassId": "northstar",
+    "subclassName": "Northstar",
+    "level": 2,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Core Shoot - Habilidade de subclasse.",
+    "description": "When flying you can charge up your core to output a railgun shot type trading some of your health, dealing a obsene amount of damage and piercing throught shields. The damage is 4d6 on yourself and double on the enemy and reach up to 300 meters. On level 3 in this path the damage increases to 5d10. This ability costs 2 EN.",
+    "rules": [],
+    "tacticalTip": "Ataque orbital destruidor.",
+    "tags": [
+      "Mecha",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-mecha-flight-core",
+    "code": "MCH-SUB-03",
+    "name": "Flight Core",
+    "classId": "mecha",
+    "className": "Mecha",
+    "subclassId": "northstar",
+    "subclassName": "Northstar",
+    "level": 3,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Flight Core - Habilidade de subclasse.",
+    "description": "The really is the limit now, your mecha is capable of flying in high altitudes, depending on the type of mecha there is a height limit that your mecha support. This ability cost 2EN.\nHalf Core: 5km | Light Core: 10km | Heavy Core: 20km",
+    "rules": [],
+    "tacticalTip": "Domine os céus completamente.",
+    "tags": [
+      "Mecha",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-mecha-stellskin",
+    "code": "MCH-SUB-04",
+    "name": "StellSkin",
+    "classId": "mecha",
+    "className": "Mecha",
+    "subclassId": "schild",
+    "subclassName": "Schild",
+    "level": 1,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "StellSkin - Habilidade de subclasse.",
+    "description": "The pieces that form your mecha are irregular and strangely hard to hit, any melee attack with small/medium weapons have disadvantage against you. And as a bonus reaction you can spend 1 EN to have advantage against any check related to attack/grab your mecha.",
+    "rules": [],
+    "tacticalTip": "Defesa física formidável.",
+    "tags": [
+      "Mecha",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-mecha-energy-shield",
+    "code": "MCH-SUB-05",
+    "name": "Energy Shield",
+    "classId": "mecha",
+    "className": "Mecha",
+    "subclassId": "schild",
+    "subclassName": "Schild",
+    "level": 2,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Energy Shield - Habilidade de subclasse.",
+    "description": "The energy in your mecha now can manifest itself as a expension of yourself, creating a type of shield all around you. The shield's HP depends on the type of mecha and levels on this path. Also the shield keeps active for 1 hour. This ability cost 1 EN.\nHalf Core: 15 HP -> 20 HP -> 25 HP\nLight Core: 20 HP -> 25 HP -> 30 HP\nHeavy Core: 25 HP -> 32 HP -> 40 HP",
+    "rules": [],
+    "tacticalTip": "Camada extra de vida que salva do dano letal.",
+    "tags": [
+      "Mecha",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-mecha-multi-shields",
+    "code": "MCH-SUB-06",
+    "name": "Multi Shields",
+    "classId": "mecha",
+    "className": "Mecha",
+    "subclassId": "schild",
+    "subclassName": "Schild",
+    "level": 3,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Multi Shields - Habilidade de subclasse.",
+    "description": "Your shield isn't bound to your mecha anymore, as a bonus action you can give a shield to your ally. The shield can resist up to 15 damage, to one person. On the next level of this path the damage incrases to 25 and the shield can be applied to 2 people at once. This ability costs 2 EN.",
+    "rules": [],
+    "tacticalTip": "Proteja sua party.",
+    "tags": [
+      "Mecha",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-mecha-defense-matrix",
+    "code": "MCH-SUB-07",
+    "name": "Defense Matrix",
+    "classId": "mecha",
+    "className": "Mecha",
+    "subclassId": "schild",
+    "subclassName": "Schild",
+    "level": 4,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Defense Matrix - Habilidade de subclasse.",
+    "description": "The core of your mecha can expand the shield in a direction and absorb any kind of projectile. As a reaction you can expand your shield in a cone format and completely destroy a projectile coming from that direction. This ability costs 3 EN.",
+    "rules": [],
+    "tacticalTip": "Neutralize os piores tiros inimigos antes de atingirem você.",
+    "tags": [
+      "Mecha",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-mecha-blade-apprentice",
+    "code": "MCH-SUB-08",
+    "name": "Blade Apprentice",
+    "classId": "mecha",
+    "className": "Mecha",
+    "subclassId": "hound",
+    "subclassName": "Hound",
+    "level": 1,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Blade Apprentice - Habilidade de subclasse.",
+    "description": "Your ability with melee weapons increases slightly. You gain proficiency in melee weapons the size of your core.",
+    "rules": [],
+    "tacticalTip": "Mestre espadachim blindado.",
+    "tags": [
+      "Mecha",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-mecha-blind-spot",
+    "code": "MCH-SUB-09",
+    "name": "Blind Spot",
+    "classId": "mecha",
+    "className": "Mecha",
+    "subclassId": "hound",
+    "subclassName": "Hound",
+    "level": 2,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Blind Spot - Habilidade de subclasse.",
+    "description": "The sensors in the mecha improved slightly allowing you to feel and learn enemies attacks. When getting attacked the second time by the same attack you can spend 1 EN to give disadvantage to the attacker and realizing a counterattack. On the next level in this path the counterattack gains advantage.",
+    "rules": [],
+    "tacticalTip": "Combate adaptativo letal.",
+    "tags": [
+      "Mecha",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-mecha-heat-knuckle",
+    "code": "MCH-SUB-10",
+    "name": "Heat Knuckle",
+    "classId": "mecha",
+    "className": "Mecha",
+    "subclassId": "hound",
+    "subclassName": "Hound",
+    "level": 3,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Heat Knuckle - Habilidade de subclasse.",
+    "description": "When engaged in close combat you can use your mecha to forcefully grab someone and give a critical hit. If your melee is in range to attack an enemy you can make a STR check with advantage and realize an attack. This ability costs 1 EN.",
+    "rules": [],
+    "tacticalTip": "Soco superaquecido destruidor.",
+    "tags": [
+      "Mecha",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-mecha-ignore",
+    "code": "MCH-SUB-11",
+    "name": "Ignore",
+    "classId": "mecha",
+    "className": "Mecha",
+    "subclassId": "hound",
+    "subclassName": "Hound",
+    "level": 4,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Ignore - Habilidade de subclasse.",
+    "description": "The core of your mecha adapted to your style of fighting, when an enemy realizes a melee attack, you receive half the damage and gain an action as reaction. On the next level in this path the damage received is completely nullified by the beast. This ability costs 2 EN.",
+    "rules": [],
+    "tacticalTip": "Tanker extremo contra dano físico.",
+    "tags": [
+      "Mecha",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-mecha-beast-hunt",
+    "code": "MCH-SUB-12",
+    "name": "Beast Of The Hunt",
+    "classId": "mecha",
+    "className": "Mecha",
+    "subclassId": "hound",
+    "subclassName": "Hound",
+    "level": 5,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Beast Of The Hunt - Habilidade de subclasse.",
+    "description": "Mecha and pilot, you are now one. Your hate of someone affect the mecha in numerous ways. As a bonus action you can choose a single enemy to persue until his or your death. All attack rolls against him have advantage, all savings throws and checks too. The only way for you to lose this bonus, beside killing him, is if you lose his sight for to long. This ability costs 3 EN.",
+    "rules": [],
+    "tacticalTip": "A caçada perfeita.",
+    "tags": [
+      "Mecha",
+      "Subclasse"
+    ]
+  },
+  {
+    "id": "hab-ancient-evoker-want-a-hearth",
+    "code": "ANC-EVO-05",
+    "name": "Want a Hearth?",
+    "classId": "ancient",
+    "className": "Ancient",
+    "subclassId": "evoker",
+    "subclassName": "Evoker",
+    "level": 5,
+    "actionCost": "Especial",
+    "usageLimit": "Variável",
+    "range": "Variável",
+    "summary": "Habilidade final da subclasse Evoker.",
+    "description": "Em desenvolvimento.",
+    "rules": [],
+    "tacticalTip": "Em desenvolvimento.",
+    "tags": [
+      "Ancient",
+      "Evoker"
+    ]
+  },
+  {
+    "id": "hab-geral-extra-attack",
+    "code": "GERAL-01",
+    "name": "Extra Attack",
+    "classId": "geral",
+    "className": "Múltiplas Classes",
+    "level": "5+",
+    "actionCost": "Passiva",
+    "usageLimit": "Passiva",
+    "range": "Pessoal",
+    "summary": "Permite realizar ataques adicionais em um mesmo turno.",
+    "description": "Seu treinamento de combate atingiu um novo patamar de velocidade e letalidade. Sempre que você realizar a ação de Ataque no seu turno, você pode atacar duas vezes ao invés de uma.\n\nAlgumas classes ganham ataques adicionais extras em níveis mais altos (permitindo três ou mais ataques por ação). Isso não afeta ataques concedidos por Ações Bônus ou Reações.",
+    "rules": [
+      "Aplica-se apenas à ação padrão de Ataque.",
+      "Não dobra ataques provindos de Ações Bônus (como de armas secundárias leves).",
+      "Pode ser combinado com Surto de Ação (Action Surge) para múltiplos ataques em cada Ação."
+    ],
+    "tacticalTip": "Maximize o uso de armas pesadas, já que o Custo de Ação para atacar rende o dobro de disparos.",
+    "tags": [
+      "Ataque",
+      "Combate",
+      "Geral"
+    ]
+  }
+]

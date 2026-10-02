@@ -1,0 +1,1825 @@
+[
+  {
+    "id": "ancient",
+    "code": "01",
+    "name": "Ancient",
+    "tagline": "Guerreiro espiritual de artes marciais e canalização de reflexos paranormais.",
+    "description": "O Ancient é a conexão mais próxima das pessoas com as antigas fés do velho mundo. Especializado em combate corporal intenso e artes místicas, consegue dialogar com planos energéticos paralelos e reagir a projéteis em velocidade sobrenatural.",
+    "hitDice": "1d10",
+    "hitPointsLevel1": "10 + CON(mod)",
+    "hitPointsHigher": "1d10 (ou 6) + CON(mod)",
+    "armorProficiencies": [
+      "Armaduras Leves",
+      "Trajes Sem Armadura"
+    ],
+    "weaponProficiencies": [
+      "Armas Corpo a Corpo Leves e Médias",
+      "Pistolas Leves"
+    ],
+    "savingThrows": [
+      "DEX",
+      "WIS"
+    ],
+    "skillsText": "Acrobacia, Atletismo, Intuição, Percepção e Sobrevivência",
+    "equipmentText": "Lâmina Monomolecular ou Manoplas Táticas, Kit de Sobrevivência Ancestral",
+    "keyStats": "WIS (Sabedoria) e DEX (Destreza)",
+    "progression": [
+      {
+        "level": 1,
+        "proficiencyBonus": "+2",
+        "features": "Sixth Sense",
+        "abilityId": "hab-ancient-sixth-sense"
+      },
+      {
+        "level": 2,
+        "proficiencyBonus": "+2",
+        "features": "Action Surge",
+        "abilityId": "hab-ancient-action-surge"
+      },
+      {
+        "level": 3,
+        "proficiencyBonus": "+2",
+        "features": "Skill Point"
+      },
+      {
+        "level": 4,
+        "proficiencyBonus": "+2",
+        "features": "ABS + Feat"
+      },
+      {
+        "level": 5,
+        "proficiencyBonus": "+3",
+        "features": "Quick Response + Extra Attack",
+        "abilityId": "hab-ancient-quick-response"
+      },
+      {
+        "level": 6,
+        "proficiencyBonus": "+3",
+        "features": "Skill Point"
+      },
+      {
+        "level": 7,
+        "proficiencyBonus": "+3",
+        "features": "Hand Brake",
+        "abilityId": "hab-ancient-hand-brake"
+      },
+      {
+        "level": 8,
+        "proficiencyBonus": "+3",
+        "features": "ABS"
+      },
+      {
+        "level": 9,
+        "proficiencyBonus": "+4",
+        "features": "Skill Point"
+      },
+      {
+        "level": 10,
+        "proficiencyBonus": "+4",
+        "features": "Mind Block + Extra Attack",
+        "abilityId": "hab-ancient-mind-block"
+      },
+      {
+        "level": 11,
+        "proficiencyBonus": "+4",
+        "features": "Reflect",
+        "abilityId": "hab-ancient-reflect"
+      },
+      {
+        "level": 12,
+        "proficiencyBonus": "+4",
+        "features": "ABS + Skill Point"
+      },
+      {
+        "level": 13,
+        "proficiencyBonus": "+5",
+        "features": "Iron Sage",
+        "abilityId": "hab-ancient-iron-sage"
+      },
+      {
+        "level": 14,
+        "proficiencyBonus": "+5",
+        "features": "Iron Will",
+        "abilityId": "hab-ancient-iron-will"
+      },
+      {
+        "level": 15,
+        "proficiencyBonus": "+5",
+        "features": "Extra Attack + Skill Point"
+      },
+      {
+        "level": 16,
+        "proficiencyBonus": "+5",
+        "features": "ABS"
+      },
+      {
+        "level": 17,
+        "proficiencyBonus": "+6",
+        "features": "Aprimoramento Místico"
+      },
+      {
+        "level": 18,
+        "proficiencyBonus": "+6",
+        "features": "Skill Point"
+      },
+      {
+        "level": 19,
+        "proficiencyBonus": "+6",
+        "features": "Elusive ABS",
+        "abilityId": "hab-ancient-elusive"
+      },
+      {
+        "level": 20,
+        "proficiencyBonus": "+6",
+        "features": "Mestre da Presença Total"
+      }
+    ],
+    "classFeatures": [
+      {
+        "name": "Sixth Sense",
+        "level": 1,
+        "desc": "Sua sabedoria e percepção são excepcionais. Pode ativar o Sexto Sentido por 1 hora para esquivar de ataques de oportunidade, ataques surpresa e ataques furtivos. Usos iguais ao modificador de WIS.",
+        "abilityId": "hab-ancient-sixth-sense"
+      },
+      {
+        "name": "Action Surge",
+        "level": 2,
+        "desc": "Pode forçar seus limites para além do normal. No seu turno, ganha 1 Ação adicional além da Ação regular e da Ação Bônus. 1 uso por descanso curto/longo (2 usos no nível 17).",
+        "abilityId": "hab-ancient-action-surge"
+      },
+      {
+        "name": "Quick Response",
+        "level": 5,
+        "desc": "Adiciona proficiência às rolagens de iniciativa e seu movimento aumenta em +3 metros. Além disso, pode atacar duas vezes sempre que realizar a Ação de ataque.",
+        "abilityId": "hab-ancient-quick-response"
+      },
+      {
+        "name": "Hand Brake",
+        "level": 7,
+        "desc": "Como Reação, pode desarmar um oponente corpo a corpo durante o ataque dele e causar metade do dano da arma nele. Usos iguais ao modificador de DEX.",
+        "abilityId": "hab-ancient-hand-brake"
+      },
+      {
+        "name": "Mind Block",
+        "level": 10,
+        "desc": "Vontade reforçada contra invasores mentais e sobrecargas. Tem vantagem em testes de resistência psíquicos e pode substituir qualquer teste de resistência por um teste de WIS.",
+        "abilityId": "hab-ancient-mind-block"
+      },
+      {
+        "name": "Reflect",
+        "level": 11,
+        "desc": "Como reação contra projéteis balísticos pequenos e médios, pode refleti-los e redirecioná-los para qualquer alvo a até 10 + (2 x DEX) metros. 1 uso por descanso longo (2 no nível 15).",
+        "abilityId": "hab-ancient-reflect"
+      },
+      {
+        "name": "Iron Will",
+        "level": 14,
+        "desc": "Como Ação Bônus, remove qualquer efeito de controle mental, incapacitação ou sono forçado. Resistência permanente a invasores mentais.",
+        "abilityId": "hab-ancient-iron-will"
+      },
+      {
+        "name": "Elusive",
+        "level": 19,
+        "desc": "Tão evasivo que atacantes raramente conseguem vantagem contra você. Nenhum teste de ataque tem vantagem contra o Ancient enquanto não estiver incapacitado.",
+        "abilityId": "hab-ancient-elusive"
+      }
+    ],
+    "subclasses": [
+      {
+        "id": "evoker",
+        "name": "Evoker",
+        "tagline": "Manifestação de espectros e duplos energéticos.",
+        "abilities": [
+          {
+            "name": "BoundSoul",
+            "desc": "Conexão profunda com almas ancestrais para suporte em combate.",
+            "abilityId": "hab-ancient-bound-soul"
+          },
+          {
+            "name": "Many Senses",
+            "desc": "Percepção multidirecional através de projeções astrais.",
+            "abilityId": "hab-ancient-many-senses"
+          },
+          {
+            "name": "SoulBoost",
+            "desc": "Aumento de velocidade e dano canalizando essência espiritual.",
+            "abilityId": "hab-ancient-soulboost"
+          },
+          {
+            "name": "Clone",
+            "desc": "Gera uma cópia tangível no campo de batalha capaz de replicar golpes.",
+            "abilityId": "hab-ancient-clone"
+          },
+          {
+            "name": "Want a Hearth?",
+            "desc": "Habilidade final da subclasse Evoker.",
+            "abilityId": "hab-ancient-evoker-want-a-hearth"
+          }
+        ]
+      },
+      {
+        "id": "guardian",
+        "name": "Guardian",
+        "tagline": "Defensor inabalável e purificação corporal.",
+        "abilities": [
+          {
+            "name": "Deep Breath",
+            "desc": "Regeneração acelerada de vigor durante o combate.",
+            "abilityId": "hab-ancient-deep-breath"
+          },
+          {
+            "name": "Peace Mind",
+            "desc": "Imunidade absoluta ao medo e a condições de pânico induzido.",
+            "abilityId": "hab-ancient-peace-mind"
+          },
+          {
+            "name": "Transcendense",
+            "desc": "Transformação momentânea com redução universal de dano físico.",
+            "abilityId": "hab-ancient-transcendense"
+          },
+          {
+            "name": "Ultra Instinct",
+            "desc": "Esquiva automatizada contra rajadas de disparos à queima-roupa.",
+            "abilityId": "hab-ancient-ultra-instinct"
+          }
+        ]
+      },
+      {
+        "id": "sculptor",
+        "name": "Sculptor",
+        "tagline": "Manipulação de blindagens cinéticas e densidade.",
+        "abilities": [
+          {
+            "name": "Stone Wall",
+            "desc": "Cria barreiras minerais sólidas de cobertura no mapa.",
+            "abilityId": "hab-ancient-stone-wall"
+          },
+          {
+            "name": "Steel Wall",
+            "desc": "Barreira refratária que resiste a munições FMJ e explosivos.",
+            "abilityId": "hab-ancient-steel-wall"
+          },
+          {
+            "name": "Fortified",
+            "desc": "Aumento permanente de Classe de Armadura (+2 AC).",
+            "abilityId": "hab-ancient-fortified"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "gunner",
+    "code": "01",
+    "name": "Gunner",
+    "tagline": "Artilheiro veloz.",
+    "description": "Gunners are people who for some reason have a extreme proficiency with firearms, they know how to make good use of pretty much any weapon smaller than them. Normally they are very quick and have their combat based on strategy distance and movement, since they are always moving in search of a better spot to be.",
+    "hitDice": "1d10",
+    "hitPointsLevel1": "10 + CON(mod)",
+    "hitPointsHigher": "1d10 + CON(mod)",
+    "armorProficiencies": [
+      "Light Armor"
+    ],
+    "weaponProficiencies": [
+      "Small Submachine",
+      "Small Pistol",
+      "Medium Rifles",
+      "Small Melles"
+    ],
+    "savingThrows": [
+      "DEX",
+      "CHA"
+    ],
+    "skillsText": "Sleight of Hand, Acrobatics and Intimidation",
+    "equipmentText": "Small Uncommon Weapon or Medium Common Weapon, Small Uncommon Attachment or Small Common Melee, Small Common Melee",
+    "keyStats": "DEX (Dexterity)",
+    "progression": [
+      {
+        "level": 1,
+        "proficiencyBonus": "+2",
+        "features": "Cover Fire",
+        "abilityId": "hab-gunner-cover-fire"
+      },
+      {
+        "level": 2,
+        "proficiencyBonus": "+2",
+        "features": "Speed Mag",
+        "abilityId": "hab-gunner-speed-mag"
+      },
+      {
+        "level": 3,
+        "proficiencyBonus": "+2",
+        "features": "Skill Point"
+      },
+      {
+        "level": 4,
+        "proficiencyBonus": "+2",
+        "features": "ABS + Feat"
+      },
+      {
+        "level": 5,
+        "proficiencyBonus": "+3",
+        "features": "Reflex + Extra Attack",
+        "abilityId": "hab-gunner-reflex"
+      },
+      {
+        "level": 6,
+        "proficiencyBonus": "+3",
+        "features": "Skill Point"
+      },
+      {
+        "level": 7,
+        "proficiencyBonus": "+3",
+        "features": "Gut Shoot",
+        "abilityId": "hab-gunner-gut-shoot"
+      },
+      {
+        "level": 8,
+        "proficiencyBonus": "+3",
+        "features": "ABS"
+      },
+      {
+        "level": 9,
+        "proficiencyBonus": "+4",
+        "features": "Skill Point"
+      },
+      {
+        "level": 10,
+        "proficiencyBonus": "+4",
+        "features": "Fast Shoot + Extra Attack",
+        "abilityId": "hab-gunner-fast-shoot"
+      },
+      {
+        "level": 11,
+        "proficiencyBonus": "+4",
+        "features": "Always Sweet",
+        "abilityId": "hab-gunner-always-sweet"
+      },
+      {
+        "level": 12,
+        "proficiencyBonus": "+4",
+        "features": "ABS + Skill Point"
+      },
+      {
+        "level": 13,
+        "proficiencyBonus": "+5",
+        "features": "Heavy Weight",
+        "abilityId": "hab-gunner-heavy-weight"
+      },
+      {
+        "level": 14,
+        "proficiencyBonus": "+5",
+        "features": "Multishot",
+        "abilityId": "hab-gunner-multishot"
+      },
+      {
+        "level": 15,
+        "proficiencyBonus": "+5",
+        "features": "Extra Attack + Skill Point"
+      },
+      {
+        "level": 16,
+        "proficiencyBonus": "+5",
+        "features": "ABS"
+      },
+      {
+        "level": 17,
+        "proficiencyBonus": "+6",
+        "features": "Tactical Improvement",
+        "abilityId": "hab-gunner-tactical-improvement"
+      },
+      {
+        "level": 18,
+        "proficiencyBonus": "+6",
+        "features": "Skill Point"
+      },
+      {
+        "level": 19,
+        "proficiencyBonus": "+6",
+        "features": "OverMag + ABS",
+        "abilityId": "hab-gunner-overmag"
+      },
+      {
+        "level": 20,
+        "proficiencyBonus": "+6",
+        "features": "DeadEye",
+        "abilityId": "hab-gunner-deadeye"
+      }
+    ],
+    "classFeatures": [
+      {
+        "name": "Cover Fire",
+        "level": 1,
+        "desc": "Marque posições inimigas para punir qualquer avanço.",
+        "abilityId": "hab-gunner-cover-fire"
+      },
+      {
+        "name": "Speed Mag",
+        "level": 2,
+        "desc": "Mantenha a chuva de balas contínua.",
+        "abilityId": "hab-gunner-speed-mag"
+      },
+      {
+        "name": "Reflex",
+        "level": 5,
+        "desc": "Transforme emboscadas inimigas em contra-ataques letais.",
+        "abilityId": "hab-gunner-reflex"
+      },
+      {
+        "name": "Gut Shoot",
+        "level": 7,
+        "desc": "Acerte alvos escondidos através de geometria impossível.",
+        "abilityId": "hab-gunner-gut-shoot"
+      },
+      {
+        "name": "Fast Shoot",
+        "level": 10,
+        "desc": "Atire e corra sem penalidades.",
+        "abilityId": "hab-gunner-fast-shoot"
+      },
+      {
+        "name": "Always Sweet",
+        "level": 11,
+        "desc": "Dobra o alcance do Sweet Spot ao se mover.",
+        "abilityId": "hab-gunner-always-sweet"
+      },
+      {
+        "name": "Heavy Weight",
+        "level": 13,
+        "desc": "Equipe canhões pesados.",
+        "abilityId": "hab-gunner-heavy-weight"
+      },
+      {
+        "name": "Multishot",
+        "level": 14,
+        "desc": "Use todo o seu arsenal num piscar de olhos.",
+        "abilityId": "hab-gunner-multishot"
+      },
+      {
+        "name": "Tactical Improvement",
+        "level": 17,
+        "desc": "Sobreviva ao impossível usando seus reflexos para Expertise.",
+        "abilityId": "hab-gunner-tactical-improvement"
+      },
+      {
+        "name": "OverMag",
+        "level": 19,
+        "desc": "Descarregue o pente inteiro em um único turno obliterador.",
+        "abilityId": "hab-gunner-overmag"
+      },
+      {
+        "name": "DeadEye",
+        "level": 20,
+        "desc": "O pesadelo de um esquadrão inteiro.",
+        "abilityId": "hab-gunner-deadeye"
+      }
+    ],
+    "subclasses": [
+      {
+        "id": "certain-shot",
+        "name": "Snipers (Certain Shot)",
+        "tagline": "Your handling and precision with snipers are unmatched.",
+        "abilities": [
+          {
+            "name": "Weapon Mastery",
+            "desc": "You gain +1 in attack rolls of the type of weapon chosed and with each point invested gain a additional +1."
+          },
+          {
+            "name": "More Attachments",
+            "desc": "Even if the weapon doesn't have compatibility with attachments your knowledge allows you to adapt the weapon and the attachment to work with each other and gain +1 space. You can realize a crafting check one time per long rest to realize this adaptations."
+          },
+          {
+            "name": "Certain Shot",
+            "desc": "Now you have a shoot that will 100% hit his target and if in SS distance its a certain crit. You can use this abilty once per long rest."
+          }
+        ]
+      },
+      {
+        "id": "point-blank",
+        "name": "Shotguns (Point-Blank)",
+        "tagline": "Mestres de espingardas.",
+        "abilities": [
+          {
+            "name": "Weapon Mastery",
+            "desc": "You gain +1 in attack rolls of the type of weapon chosed and with each point invested gain a additional +1."
+          },
+          {
+            "name": "More Attachments",
+            "desc": "Even if the weapon doesn't have compatibility with attachments your knowledge allows you to adapt the weapon and the attachment to work with each other and gain +1 space. You can realize a crafting check one time per long rest to realize this adaptations."
+          },
+          {
+            "name": "Point-Blank",
+            "desc": "Your SS is now the max distance defined by the weapon. Every attack realized at a distance lower than the SS will count as SS damage."
+          }
+        ]
+      },
+      {
+        "id": "fine-control",
+        "name": "Submachines (Fine Control)",
+        "tagline": "Mestres de submetralhadoras.",
+        "abilities": [
+          {
+            "name": "Weapon Mastery",
+            "desc": "You gain +1 in attack rolls of the type of weapon chosed and with each point invested gain a additional +1."
+          },
+          {
+            "name": "More Attachments",
+            "desc": "Even if the weapon doesn't have compatibility with attachments your knowledge allows you to adapt the weapon and the attachment to work with each other and gain +1 space. You can realize a crafting check one time per long rest to realize this adaptations."
+          },
+          {
+            "name": "Fine Control",
+            "desc": "Your control over submachines became outstanding. The SS of the submachine become a interval of 7 and the SS damage doubles."
+          }
+        ]
+      },
+      {
+        "id": "dual-wield",
+        "name": "Pistols (Dual Wield)",
+        "tagline": "Mestres de pistolas duplas.",
+        "abilities": [
+          {
+            "name": "Weapon Mastery",
+            "desc": "You gain +1 in attack rolls of the type of weapon chosed and with each point invested gain a additional +1."
+          },
+          {
+            "name": "More Attachments",
+            "desc": "Even if the weapon doesn't have compatibility with attachments your knowledge allows you to adapt the weapon and the attachment to work with each other and gain +1 space. You can realize a crafting check one time per long rest to realize this adaptations."
+          },
+          {
+            "name": "Dual Wield",
+            "desc": "You now can handle two pistols at once, using both in the same attack. When realizing an attack you roll two attack rolls using both weapons without any disadvantage."
+          }
+        ]
+      },
+      {
+        "id": "bigger-burst",
+        "name": "LMGS (Bigger Burst)",
+        "tagline": "Mestres de metralhadoras pesadas.",
+        "abilities": [
+          {
+            "name": "Weapon Mastery",
+            "desc": "You gain +1 in attack rolls of the type of weapon chosed and with each point invested gain a additional +1."
+          },
+          {
+            "name": "More Attachments",
+            "desc": "Even if the weapon doesn't have compatibility with attachments your knowledge allows you to adapt the weapon and the attachment to work with each other and gain +1 space. You can realize a crafting check one time per long rest to realize this adaptations."
+          },
+          {
+            "name": "Bigger Burst",
+            "desc": "The amount of bullets that you are capable of shooting in one attack increase. Using your bonus actions as a time extender you can shoot more bullets than the weapons defines. The weapon and SS damage double as the damage count as two attacks."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mecha",
+    "code": "02",
+    "name": "Mecha",
+    "tagline": "Piloto de exoesqueleto.",
+    "description": "The Mechas are armors that enhaces the user's abilities, nothing more than a extension to its own body. Mechas can be sturdy as a rock and quick as a bullet, there are hundreds of mechas with different builds all over the world and a very popular community. They don't have an exact style of combat.",
+    "hitDice": "1d12",
+    "hitPointsLevel1": "12 + CON(mod)",
+    "hitPointsHigher": "1d12 + CON(mod)",
+    "armorProficiencies": [
+      "None"
+    ],
+    "weaponProficiencies": [
+      "None"
+    ],
+    "savingThrows": [
+      "CON",
+      "STR"
+    ],
+    "skillsText": "Intimidation, Persistence",
+    "equipmentText": "Common Medium Weapon or Common Big Weapon (3mags) - Medic Kit or Common Attachment - An Mecha armor",
+    "keyStats": "CON (Constitution) e STR (Strength)",
+    "progression": [
+      {
+        "level": 1,
+        "proficiencyBonus": "+2",
+        "features": "Core",
+        "abilityId": "hab-mecha-core"
+      },
+      {
+        "level": 2,
+        "proficiencyBonus": "+2",
+        "features": "Core Overheat",
+        "abilityId": "hab-mecha-core-overheat"
+      },
+      {
+        "level": 3,
+        "proficiencyBonus": "+2",
+        "features": "Skill Point"
+      },
+      {
+        "level": 4,
+        "proficiencyBonus": "+2",
+        "features": "ABS + Feat"
+      },
+      {
+        "level": 5,
+        "proficiencyBonus": "+3",
+        "features": "Overkill + Extra Attack",
+        "abilityId": "hab-mecha-overkill"
+      },
+      {
+        "level": 6,
+        "proficiencyBonus": "+3",
+        "features": "Skill Point"
+      },
+      {
+        "level": 7,
+        "proficiencyBonus": "+3",
+        "features": "Merge",
+        "abilityId": "hab-mecha-merge"
+      },
+      {
+        "level": 8,
+        "proficiencyBonus": "+3",
+        "features": "ABS"
+      },
+      {
+        "level": 9,
+        "proficiencyBonus": "+4",
+        "features": "Skill Point"
+      },
+      {
+        "level": 10,
+        "proficiencyBonus": "+4",
+        "features": "ShockWave",
+        "abilityId": "hab-mecha-shockwave"
+      },
+      {
+        "level": 11,
+        "proficiencyBonus": "+4",
+        "features": "Core MKII",
+        "abilityId": "hab-mecha-core-mkii"
+      },
+      {
+        "level": 12,
+        "proficiencyBonus": "+4",
+        "features": "ABS + Skill Point"
+      },
+      {
+        "level": 13,
+        "proficiencyBonus": "+5",
+        "features": "Tough Shock",
+        "abilityId": "hab-mecha-tough-shock"
+      },
+      {
+        "level": 14,
+        "proficiencyBonus": "+5",
+        "features": "Bigger Port",
+        "abilityId": "hab-mecha-bigger-port"
+      },
+      {
+        "level": 15,
+        "proficiencyBonus": "+5",
+        "features": "Extra Attack + Skill Point"
+      },
+      {
+        "level": 16,
+        "proficiencyBonus": "+5",
+        "features": "ABS"
+      },
+      {
+        "level": 17,
+        "proficiencyBonus": "+6",
+        "features": "Merge MKII",
+        "abilityId": "hab-mecha-merge-mkii"
+      },
+      {
+        "level": 18,
+        "proficiencyBonus": "+6",
+        "features": "Skill Point"
+      },
+      {
+        "level": 19,
+        "proficiencyBonus": "+6",
+        "features": "Melting Point + ABS",
+        "abilityId": "hab-mecha-melting-point"
+      },
+      {
+        "level": 20,
+        "proficiencyBonus": "+6",
+        "features": "Death Ray",
+        "abilityId": "hab-mecha-death-ray"
+      }
+    ],
+    "classFeatures": [
+      {
+        "name": "Core",
+        "level": 1,
+        "desc": "Seu core determina a base de sua build.",
+        "abilityId": "hab-mecha-core"
+      },
+      {
+        "name": "Core Overheat",
+        "level": 2,
+        "desc": "Uso suicida ou último recurso!",
+        "abilityId": "hab-mecha-core-overheat"
+      },
+      {
+        "name": "Overkill",
+        "level": 5,
+        "desc": "Aumente o seu poder de fogo base.",
+        "abilityId": "hab-mecha-overkill"
+      },
+      {
+        "name": "Merge",
+        "level": 7,
+        "desc": "Fundir arma para aumentar dano e ignorar recarga.",
+        "abilityId": "hab-mecha-merge"
+      },
+      {
+        "name": "Shockwave",
+        "level": 10,
+        "desc": "Causa falhas em tecnologia próxima.",
+        "abilityId": "hab-mecha-shockwave"
+      },
+      {
+        "name": "Core MKII",
+        "level": 11,
+        "desc": "Aprimoramento drástico do núcleo.",
+        "abilityId": "hab-mecha-core-mkii"
+      },
+      {
+        "name": "Tough Shock",
+        "level": 12,
+        "desc": "Pune inimigos que chegarem perto.",
+        "abilityId": "hab-mecha-tough-shock"
+      },
+      {
+        "name": "Bigger Port",
+        "level": 14,
+        "desc": "Use armas massivas antes restritas.",
+        "abilityId": "hab-mecha-bigger-port"
+      },
+      {
+        "name": "Merge MKII",
+        "level": 17,
+        "desc": "Seu braço-canhão se torna uma arma de destruição em massa.",
+        "abilityId": "hab-mecha-merge-mkii"
+      },
+      {
+        "name": "Melting Point",
+        "level": 19,
+        "desc": "Invulnerabilidade total e destruição de ambiente.",
+        "abilityId": "hab-mecha-melting-point"
+      },
+      {
+        "name": "Death Ray",
+        "level": 20,
+        "desc": "Dano oblitera inimigos em um feixe de pura destruição.",
+        "abilityId": "hab-mecha-death-ray"
+      }
+    ],
+    "subclasses": [
+      {
+        "id": "northstar",
+        "name": "Northstar",
+        "tagline": "O céu é o limite.",
+        "abilities": [
+          {
+            "name": "VTOL Hover",
+            "desc": "Habilidade de Subclasse"
+          },
+          {
+            "name": "Core Shoot",
+            "desc": "Habilidade de Subclasse"
+          },
+          {
+            "name": "Flight Core",
+            "desc": "Habilidade de Subclasse"
+          }
+        ]
+      },
+      {
+        "id": "hound",
+        "name": "Hound",
+        "tagline": "Focado em combate corpo a corpo.",
+        "abilities": [
+          {
+            "name": "Blade Apprentice",
+            "desc": "Habilidade de Subclasse"
+          },
+          {
+            "name": "Blind Spot",
+            "desc": "Habilidade de Subclasse"
+          },
+          {
+            "name": "Heat Knuckle",
+            "desc": "Habilidade de Subclasse"
+          },
+          {
+            "name": "Ignore",
+            "desc": "Habilidade de Subclasse"
+          },
+          {
+            "name": "Beast Of The Hunt",
+            "desc": "Habilidade de Subclasse"
+          }
+        ]
+      },
+      {
+        "id": "schild",
+        "name": "Schild",
+        "tagline": "Um escudo impenetrável.",
+        "abilities": [
+          {
+            "name": "StellSkin",
+            "desc": "Habilidade de Subclasse"
+          },
+          {
+            "name": "Shield",
+            "desc": "Habilidade de Subclasse"
+          },
+          {
+            "name": "Multi Shields",
+            "desc": "Habilidade de Subclasse"
+          },
+          {
+            "name": "Defense Matrix",
+            "desc": "Habilidade de Subclasse"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "hacker",
+    "code": "04",
+    "name": "Hacker",
+    "tagline": "Invasão cibernética, guerra eletrônica e controle remoto de sistemas.",
+    "description": "The hackers are people whom have a extreme potential power, their hacking skill can easily change the path of the combat and can help in inoumerous situations. However your skills can be overwhelmed and can fireback, your knowlodge of technology and search are very good and normally they know of minimum usage of guns.",
+    "hitDice": "1d8",
+    "hitPointsLevel1": "8 + CON(mod)",
+    "hitPointsHigher": "1d8 (ou 5) + CON(mod)",
+    "armorProficiencies": [
+      "Armaduras Leves"
+    ],
+    "weaponProficiencies": [
+      "Pistolas Pequenas",
+      "Submetralhadoras",
+      "Dispositivos de Choque"
+    ],
+    "savingThrows": [
+      "INT",
+      "WIS"
+    ],
+    "skillsText": "Software, Mecânica, Investigação e Furtividade",
+    "equipmentText": "Cyberdeck Militar, Injetor de Frequência, Pistola Silenciada",
+    "keyStats": "INT (Inteligência) e WIS (Sabedoria)",
+    "progression": [
+      {
+        "level": 1,
+        "proficiencyBonus": "+2",
+        "features": "Contacts",
+        "abilityId": "hab-hacker-contacts"
+      },
+      {
+        "level": 2,
+        "proficiencyBonus": "+2",
+        "features": "Slight Peek",
+        "abilityId": "hab-hacker-slight-peek"
+      },
+      {
+        "level": 3,
+        "proficiencyBonus": "+2",
+        "features": "Skill Point"
+      },
+      {
+        "level": 4,
+        "proficiencyBonus": "+2",
+        "features": "ABS + Feat"
+      },
+      {
+        "level": 5,
+        "proficiencyBonus": "+3",
+        "features": "Fake Finger + Extra Attack",
+        "abilityId": "hab-hacker-fake-finger"
+      },
+      {
+        "level": 6,
+        "proficiencyBonus": "+3",
+        "features": "Skill Point"
+      },
+      {
+        "level": 7,
+        "proficiencyBonus": "+3",
+        "features": "Cyber Attack"
+      },
+      {
+        "level": 8,
+        "proficiencyBonus": "+3",
+        "features": "ABS"
+      },
+      {
+        "level": 9,
+        "proficiencyBonus": "+4",
+        "features": "Skill Point"
+      },
+      {
+        "level": 10,
+        "proficiencyBonus": "+4",
+        "features": "Security Breach",
+        "abilityId": "hab-hacker-security-breach"
+      },
+      {
+        "level": 11,
+        "proficiencyBonus": "+4",
+        "features": "Quick Allocation",
+        "abilityId": "hab-hacker-quick-allocation"
+      },
+      {
+        "level": 12,
+        "proficiencyBonus": "+4",
+        "features": "ABS + Skill Point"
+      },
+      {
+        "level": 13,
+        "proficiencyBonus": "+5",
+        "features": "Boom",
+        "abilityId": "hab-hacker-boom"
+      },
+      {
+        "level": 14,
+        "proficiencyBonus": "+5",
+        "features": "Little-Boom (Ka-Boom)",
+        "abilityId": "hab-hacker-ka-boom"
+      },
+      {
+        "level": 15,
+        "proficiencyBonus": "+5",
+        "features": "Extra Attack + Skill Point"
+      },
+      {
+        "level": 16,
+        "proficiencyBonus": "+5",
+        "features": "ABS"
+      },
+      {
+        "level": 17,
+        "proficiencyBonus": "+6",
+        "features": "Unstoppable",
+        "abilityId": "hab-hacker-unstoppable"
+      },
+      {
+        "level": 18,
+        "proficiencyBonus": "+6",
+        "features": "Skill Point"
+      },
+      {
+        "level": 19,
+        "proficiencyBonus": "+6",
+        "features": "Save Point + ABS",
+        "abilityId": "hab-hacker-save-point"
+      },
+      {
+        "level": 20,
+        "proficiencyBonus": "+6",
+        "features": "Ultron",
+        "abilityId": "hab-hacker-ultron"
+      }
+    ],
+    "classFeatures": [
+      {
+        "name": "Contacts",
+        "level": 1,
+        "desc": "Use para obter informações vitais antes de missões.",
+        "abilityId": "hab-hacker-contacts"
+      },
+      {
+        "name": "Slight Peek",
+        "level": 2,
+        "desc": "Excelente defensiva, use em inimigos poderosos.",
+        "abilityId": "hab-hacker-slight-peek"
+      },
+      {
+        "name": "Fake Finger",
+        "level": 5,
+        "desc": "Versátil para invadir módulos e desativar ameaças.",
+        "abilityId": "hab-hacker-fake-finger"
+      },
+      {
+        "name": "Security Breach",
+        "level": 10,
+        "desc": "Ative para um surto de hacking perfeito.",
+        "abilityId": "hab-hacker-security-breach"
+      },
+      {
+        "name": "Quick Allocation",
+        "level": 11,
+        "desc": "Poupe tempo ao enfrentar o mesmo modelo de inimigo repetidas vezes.",
+        "abilityId": "hab-hacker-quick-allocation"
+      },
+      {
+        "name": "Boom",
+        "level": 13,
+        "desc": "Pode destruir componentes vitais de mechas e veículos!",
+        "abilityId": "hab-hacker-boom"
+      },
+      {
+        "name": "Little-Boom (Ka-Boom)",
+        "level": 14,
+        "desc": "Desabilite atiradores inimigos instantaneamente.",
+        "abilityId": "hab-hacker-ka-boom"
+      },
+      {
+        "name": "Unstoppable",
+        "level": 17,
+        "desc": "Acesso garantido a qualquer sistema blindado.",
+        "abilityId": "hab-hacker-unstoppable"
+      },
+      {
+        "name": "Save Point",
+        "level": 19,
+        "desc": "Seguro de vida máximo digital.",
+        "abilityId": "hab-hacker-save-point"
+      },
+      {
+        "name": "Ultron",
+        "level": 20,
+        "desc": "Crie seu próprio exército de drones/mechas.",
+        "abilityId": "hab-hacker-ultron"
+      }
+    ],
+    "subclasses": [
+      {
+        "id": "laser-master",
+        "name": "Laser Master",
+        "tagline": "Mestre de lasers e projeções.",
+        "abilities": [
+          {
+            "name": "Advanced Prototype",
+            "desc": "Habilidade de Subclasse"
+          },
+          {
+            "name": "Image of Photons",
+            "desc": "Habilidade de Subclasse"
+          },
+          {
+            "name": "Hermetic Unbroken",
+            "desc": "Habilidade de Subclasse"
+          },
+          {
+            "name": "Treasure of the past",
+            "desc": "Habilidade de Subclasse"
+          }
+        ]
+      },
+      {
+        "id": "intel-tracker",
+        "name": "Intel Tracker",
+        "tagline": "Rastreamento de inteligência e espionagem.",
+        "abilities": [
+          {
+            "name": "Backdoors Distractor",
+            "desc": "Habilidade de Subclasse"
+          },
+          {
+            "name": "Locker Eye",
+            "desc": "Habilidade de Subclasse"
+          },
+          {
+            "name": "Alien Invader",
+            "desc": "Habilidade de Subclasse"
+          },
+          {
+            "name": "Future",
+            "desc": "Habilidade de Subclasse"
+          }
+        ]
+      },
+      {
+        "id": "deceiver",
+        "name": "Deceiver",
+        "tagline": "Enganação, ilusões e manipulação de sensores.",
+        "abilities": [
+          {
+            "name": "Snap Twice",
+            "desc": "Habilidade de Subclasse"
+          },
+          {
+            "name": "Swallow Senses",
+            "desc": "Habilidade de Subclasse"
+          },
+          {
+            "name": "Devour Vision",
+            "desc": "Habilidade de Subclasse"
+          },
+          {
+            "name": "Phantom Troupe",
+            "desc": "Habilidade de Subclasse"
+          },
+          {
+            "name": "Sweet Dreams",
+            "desc": "Habilidade de Subclasse"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "lucky-gabbler",
+    "code": "05",
+    "name": "Lucky Gabbler",
+    "tagline": "Manipulador de probabilidades, blefes e sobrevivência improvável.",
+    "description": "Num mundo de robôs pensantes e soldados automatizados, o Lucky Gabbler sobrevive através do charme, blefes ousados e uma sorte quase sobrenatural. Consegue alterar o curso de testes decisivos e desconcertar inimigos no meio do tiroteio.",
+    "hitDice": "1d10",
+    "hitPointsLevel1": "10 + CON(mod)",
+    "hitPointsHigher": "1d10 (ou 6) + CON(mod)",
+    "armorProficiencies": [
+      "Armaduras Leves"
+    ],
+    "weaponProficiencies": [
+      "Pistolas Leves",
+      "Armas Brancas Leves",
+      "Submetralhadoras"
+    ],
+    "savingThrows": [
+      "CHA",
+      "INT"
+    ],
+    "skillsText": "Enganação, Persuasão, Furtividade e Atuação",
+    "equipmentText": "Armadura Leve, Pistola Comum, Kit de Chaves Mágicas / Ferramentas de Ladrão",
+    "keyStats": "CHA (Carisma) e DEX (Destreza)",
+    "progression": [
+      {
+        "level": 1,
+        "proficiencyBonus": "+2",
+        "features": "Protagonist",
+        "abilityId": "hab-lucky-protagonist"
+      },
+      {
+        "level": 2,
+        "proficiencyBonus": "+2",
+        "features": "Chit Chat",
+        "abilityId": "hab-lucky-chit-chat"
+      },
+      {
+        "level": 3,
+        "proficiencyBonus": "+2",
+        "features": "Skill Point"
+      },
+      {
+        "level": 4,
+        "proficiencyBonus": "+2",
+        "features": "ABS + Feat"
+      },
+      {
+        "level": 5,
+        "proficiencyBonus": "+3",
+        "features": "Manipulator + Extra Attack",
+        "abilityId": "hab-lucky-manipulator"
+      },
+      {
+        "level": 6,
+        "proficiencyBonus": "+3",
+        "features": "Skill Point"
+      },
+      {
+        "level": 7,
+        "proficiencyBonus": "+3",
+        "features": "Subclass Luck Pool"
+      },
+      {
+        "level": 8,
+        "proficiencyBonus": "+3",
+        "features": "ABS"
+      },
+      {
+        "level": 9,
+        "proficiencyBonus": "+4",
+        "features": "Skill Point"
+      },
+      {
+        "level": 10,
+        "proficiencyBonus": "+4",
+        "features": "Fortunate Escape",
+        "abilityId": "hab-lucky-fortunate-escape"
+      },
+      {
+        "level": 11,
+        "proficiencyBonus": "+4",
+        "features": "Luck Surge",
+        "abilityId": "hab-lucky-luck-surge"
+      },
+      {
+        "level": 12,
+        "proficiencyBonus": "+4",
+        "features": "ABS + Skill Point"
+      },
+      {
+        "level": 13,
+        "proficiencyBonus": "+5",
+        "features": "Double Down",
+        "abilityId": "hab-lucky-double-down"
+      },
+      {
+        "level": 14,
+        "proficiencyBonus": "+5",
+        "features": "Extra Attack + Skill Point"
+      },
+      {
+        "level": 15,
+        "proficiencyBonus": "+5",
+        "features": "Subclass Mastery"
+      },
+      {
+        "level": 16,
+        "proficiencyBonus": "+5",
+        "features": "ABS"
+      },
+      {
+        "level": 17,
+        "proficiencyBonus": "+6",
+        "features": "Twist of Fate",
+        "abilityId": "hab-lucky-twist-of-fate"
+      },
+      {
+        "level": 18,
+        "proficiencyBonus": "+6",
+        "features": "Skill Point"
+      },
+      {
+        "level": 19,
+        "proficiencyBonus": "+6",
+        "features": "ABS"
+      },
+      {
+        "level": 20,
+        "proficiencyBonus": "+6",
+        "features": "Deus Ex Machina",
+        "abilityId": "hab-lucky-deus-ex-machina"
+      }
+    ],
+    "classFeatures": [
+      {
+        "name": "Protagonist",
+        "level": 1,
+        "desc": "As coisas parecem conspirar milagrosamente a seu favor. Uma vez por nível de personagem, você pode falar algo em voz alta e a narrativa fará aquilo se concretizar.",
+        "abilityId": "hab-lucky-protagonist"
+      },
+      {
+        "name": "Chit Chat",
+        "level": 2,
+        "desc": "Como Ação Bônus, distrai um oponente com uma conversa desconcertante, concedendo vantagem a qualquer rolagem que um companheiro realize contra o alvo. Usos iguais ao modificador de CHA.",
+        "abilityId": "hab-lucky-chit-chat"
+      },
+      {
+        "name": "Manipulator",
+        "level": 5,
+        "desc": "Ganha expertise em testes de Enganação para mentiras. Em conversas, ganha vantagem em testes de Intimidação para mudar o assunto do alvo.",
+        "abilityId": "hab-lucky-manipulator"
+      }
+    ],
+    "subclasses": [
+      {
+        "id": "gambler",
+        "name": "Gambler",
+        "tagline": "Apostas arriscadas com ganhos exponenciais.",
+        "abilities": [
+          {
+            "name": "Another Shot",
+            "desc": "Rola novamente qualquer teste de d20 falho aceitando o segundo resultado."
+          },
+          {
+            "name": "ALL-IN",
+            "desc": "Aposta todo o dano da rodada num único disparo com multiplicador x3."
+          }
+        ]
+      },
+      {
+        "id": "charmer",
+        "name": "Charmer",
+        "tagline": "Fascinar alvos e desarmar tensões.",
+        "abilities": [
+          {
+            "name": "Pretty Please",
+            "desc": "Faz inimigos hesitarem antes de puxar o gatilho contra você.",
+            "abilityId": "hab-lucky-pretty-please"
+          },
+          {
+            "name": "Showstar",
+            "desc": "Atrai toda a atenção do campo para si, permitindo movimentação livre dos aliados.",
+            "abilityId": "hab-lucky-showstar"
+          }
+        ]
+      },
+      {
+        "id": "reaper",
+        "name": "Reaper",
+        "tagline": "Oportunismo fatal em brechas defensivas.",
+        "abilities": [
+          {
+            "name": "Sneak Attack",
+            "desc": "Dano extra surpresa (+2d6 escalonando) contra alvos distraídos."
+          },
+          {
+            "name": "Execution",
+            "desc": "Finalização instantânea em alvos com HP crítico.",
+            "abilityId": "hab-lucky-execution"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ai-rtificer",
+    "code": "06",
+    "name": "AI-rtificer",
+    "tagline": "Engenheiro mestre em nanotecnologia, adaptação de attachments e implantes.",
+    "description": "Cientista de campo especializado em modificar armas, criar antídotos para contaminação de Elemento 115 e forjar attachments experimentais em tempo recorde no calor da batalha.",
+    "hitDice": "1d8",
+    "hitPointsLevel1": "8 + CON(mod)",
+    "hitPointsHigher": "1d8 (ou 5) + CON(mod)",
+    "armorProficiencies": [
+      "Armaduras Leves",
+      "Armaduras Médias",
+      "Escudos"
+    ],
+    "weaponProficiencies": [
+      "Armas Simples",
+      "Pistolas",
+      "Ferramentas Tecnológicas"
+    ],
+    "savingThrows": [
+      "CON",
+      "INT"
+    ],
+    "skillsText": "Fabricação, Mecânica, Software e Investigação",
+    "equipmentText": "Kit de Engenharia Avançado, Ferramentas de Precisão, Arma Leve Modificada",
+    "keyStats": "INT (Inteligência) e CON (Constituição)",
+    "progression": [
+      {
+        "level": 1,
+        "proficiencyBonus": "+2",
+        "features": "Ammo Proficiency",
+        "abilityId": "hab-artificer-ammo-proficiency"
+      },
+      {
+        "level": 2,
+        "proficiencyBonus": "+2",
+        "features": "Improvised Specialist",
+        "abilityId": "hab-artificer-improvised"
+      },
+      {
+        "level": 3,
+        "proficiencyBonus": "+2",
+        "features": "Skill Point"
+      },
+      {
+        "level": 4,
+        "proficiencyBonus": "+2",
+        "features": "ABS + Feat"
+      },
+      {
+        "level": 5,
+        "proficiencyBonus": "+3",
+        "features": "Tool Expertise + Extra Attack",
+        "abilityId": "hab-artificer-tool-expertise"
+      },
+      {
+        "level": 6,
+        "proficiencyBonus": "+3",
+        "features": "Skill Point"
+      },
+      {
+        "level": 7,
+        "proficiencyBonus": "+3",
+        "features": "Armor Tweaker",
+        "abilityId": "hab-artificer-armor-tweaker"
+      },
+      {
+        "level": 8,
+        "proficiencyBonus": "+3",
+        "features": "ABS"
+      },
+      {
+        "level": 9,
+        "proficiencyBonus": "+4",
+        "features": "Skill Point"
+      },
+      {
+        "level": 10,
+        "proficiencyBonus": "+4",
+        "features": "Flash Of Genius",
+        "abilityId": "hab-artificer-flash-of-genius"
+      },
+      {
+        "level": 11,
+        "proficiencyBonus": "+4",
+        "features": "Implanter",
+        "abilityId": "hab-artificer-implanter"
+      },
+      {
+        "level": 12,
+        "proficiencyBonus": "+4",
+        "features": "ABS + Skill Point"
+      },
+      {
+        "level": 13,
+        "proficiencyBonus": "+5",
+        "features": "Full Specialist",
+        "abilityId": "hab-artificer-full-specialist"
+      },
+      {
+        "level": 14,
+        "proficiencyBonus": "+5",
+        "features": "Fusion",
+        "abilityId": "hab-artificer-fusion"
+      },
+      {
+        "level": 15,
+        "proficiencyBonus": "+5",
+        "features": "Extra Attack + Skill Point"
+      },
+      {
+        "level": 16,
+        "proficiencyBonus": "+5",
+        "features": "ABS"
+      },
+      {
+        "level": 17,
+        "proficiencyBonus": "+6",
+        "features": "High Nanotech",
+        "abilityId": "hab-artificer-high-nanotech"
+      },
+      {
+        "level": 18,
+        "proficiencyBonus": "+6",
+        "features": "Skill Point"
+      },
+      {
+        "level": 19,
+        "proficiencyBonus": "+6",
+        "features": "H + ABS"
+      },
+      {
+        "level": 20,
+        "proficiencyBonus": "+6",
+        "features": "God Mechanic",
+        "abilityId": "hab-artificer-god-mechanic"
+      }
+    ],
+    "classFeatures": [
+      {
+        "name": "Ammo Proficiency",
+        "level": 1,
+        "desc": "Conhecimento aprofundado na manipulação e síntese de munições experimentais (FMJ, Plasma, Cryo, MD).",
+        "abilityId": "hab-artificer-ammo-proficiency"
+      },
+      {
+        "name": "Tool Expertise",
+        "level": 5,
+        "desc": "Dobra o bônus de proficiência em qualquer teste com ferramentas tecnológicas e de fabricação.",
+        "abilityId": "hab-artificer-tool-expertise"
+      },
+      {
+        "name": "Armor Tweaker",
+        "level": 7,
+        "desc": "Permite tunar a armadura de um companheiro concedendo +2 AC ou resistência elemental temporária.",
+        "abilityId": "hab-artificer-armor-tweaker"
+      },
+      {
+        "name": "Flash Of Genius",
+        "level": 10,
+        "desc": "Como Reação, adiciona seu modificador de INT ao teste de salvaguarda ou perícia de qualquer aliado a até 9 metros.",
+        "abilityId": "hab-artificer-flash-of-genius"
+      },
+      {
+        "name": "Implanter",
+        "level": 11,
+        "desc": "Capacidade de instalar e calibrar próteses cibernéticas e membros mecânicos sem perda excessiva de Cybersanity.",
+        "abilityId": "hab-artificer-implanter"
+      },
+      {
+        "name": "God Mechanic",
+        "level": 20,
+        "desc": "Pode reconstruir ou reparar instantaneamente qualquer máquina, mecha ou arma destruída com 1 turno de trabalho.",
+        "abilityId": "hab-artificer-god-mechanic"
+      }
+    ],
+    "subclasses": [
+      {
+        "id": "battle-smith",
+        "name": "Battle Smith",
+        "tagline": "Criação de drones de assalto e núcleos defensores.",
+        "abilities": [
+          {
+            "name": "Defender Core",
+            "desc": "Constrói um cão robótico bípede autônomo que protege os aliados em campo."
+          },
+          {
+            "name": "Shadow Martyr",
+            "desc": "O drone salta na linha de tiro para absorver dano que atingiria o operador.",
+            "abilityId": "hab-artificer-shadow-martyr"
+          },
+          {
+            "name": "Core Boost",
+            "desc": "Sobrecarga de pulso que eletrocuta adversários adjacentes.",
+            "abilityId": "hab-artificer-core-boost"
+          }
+        ]
+      },
+      {
+        "id": "doc",
+        "name": "D.O.C (Medic Specialist)",
+        "tagline": "Química biológica, cura rápida e antídotos de infecção.",
+        "abilities": [
+          {
+            "name": "Drugshot",
+            "desc": "Injeta estimulantes à distância para acelerar a regeneração de aliados."
+          },
+          {
+            "name": "Picked Healing",
+            "desc": "Cura automatizada de nanobots com restauração de HP e estancamento de sangramento.",
+            "abilityId": "hab-artificer-picked-healing"
+          },
+          {
+            "name": "Antidote",
+            "desc": "Neutraliza efeitos de zumbificação por Elemento 115 e toxinas oripáticas.",
+            "abilityId": "hab-artificer-antidote"
+          }
+        ]
+      },
+      {
+        "id": "puppeteer",
+        "name": "Puppeteer",
+        "tagline": "Neuro-controle de marionetes sintéticas.",
+        "abilities": [
+          {
+            "name": "Inspiration",
+            "desc": "Ajuste de frequências mentais aumentando o foco da equipe.",
+            "abilityId": "hab-artificer-inspiration"
+          },
+          {
+            "name": "Puppet",
+            "desc": "Domina remotamente um androide desativado para agir como sentinela.",
+            "abilityId": "hab-artificer-puppet"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "chargercaster",
+    "code": "07",
+    "name": "Chargercaster",
+    "tagline": "Canalizador de energia destrutiva e manipulação elemental.",
+    "description": "O Chargercaster é um operador que aprendeu a canalizar e manipular fontes de energia bruta — seja ela oriunda do Elemento 142, de geradores militares de plasma, ou de sua própria força vital. Através de dispositivos de amplificação e treinamento intensivo, transformam energia pura em projéteis devastadores, escudos cinéticos e surtos elétricos. São a artilharia viva do campo de batalha.",
+    "hitDice": "1d8",
+    "hitPointsLevel1": "8 + CON(mod)",
+    "hitPointsHigher": "1d8 (ou 5) + CON(mod)",
+    "armorProficiencies": [
+      "Armaduras Leves"
+    ],
+    "weaponProficiencies": [
+      "Pistolas Leves",
+      "Dispositivos de Canalização"
+    ],
+    "savingThrows": [
+      "INT",
+      "CHA"
+    ],
+    "skillsText": "Arcana, Investigação e Percepção",
+    "equipmentText": "Amplificador de Energia ou Pistola Leve, Kit de Canalização",
+    "keyStats": "INT (Inteligência) e CHA (Carisma)",
+    "progression": [
+      {
+        "level": 1,
+        "proficiencyBonus": "+2",
+        "features": "Energy Channeling"
+      },
+      {
+        "level": 2,
+        "proficiencyBonus": "+2",
+        "features": "Em desenvolvimento"
+      },
+      {
+        "level": 3,
+        "proficiencyBonus": "+2",
+        "features": "Skill Point"
+      },
+      {
+        "level": 4,
+        "proficiencyBonus": "+2",
+        "features": "ABS + Feat"
+      },
+      {
+        "level": 5,
+        "proficiencyBonus": "+3",
+        "features": "Extra Attack"
+      },
+      {
+        "level": 6,
+        "proficiencyBonus": "+3",
+        "features": "Skill Point"
+      },
+      {
+        "level": 7,
+        "proficiencyBonus": "+3",
+        "features": "Em desenvolvimento"
+      },
+      {
+        "level": 8,
+        "proficiencyBonus": "+3",
+        "features": "ABS"
+      },
+      {
+        "level": 9,
+        "proficiencyBonus": "+4",
+        "features": "Skill Point"
+      },
+      {
+        "level": 10,
+        "proficiencyBonus": "+4",
+        "features": "Em desenvolvimento"
+      },
+      {
+        "level": 11,
+        "proficiencyBonus": "+4",
+        "features": "Em desenvolvimento"
+      },
+      {
+        "level": 12,
+        "proficiencyBonus": "+4",
+        "features": "ABS + Skill Point"
+      },
+      {
+        "level": 13,
+        "proficiencyBonus": "+5",
+        "features": "Em desenvolvimento"
+      },
+      {
+        "level": 14,
+        "proficiencyBonus": "+5",
+        "features": "Em desenvolvimento"
+      },
+      {
+        "level": 15,
+        "proficiencyBonus": "+5",
+        "features": "Skill Point"
+      },
+      {
+        "level": 16,
+        "proficiencyBonus": "+5",
+        "features": "ABS"
+      },
+      {
+        "level": 17,
+        "proficiencyBonus": "+6",
+        "features": "Em desenvolvimento"
+      },
+      {
+        "level": 18,
+        "proficiencyBonus": "+6",
+        "features": "Skill Point"
+      },
+      {
+        "level": 19,
+        "proficiencyBonus": "+6",
+        "features": "Em desenvolvimento"
+      },
+      {
+        "level": 20,
+        "proficiencyBonus": "+6",
+        "features": "Em desenvolvimento"
+      }
+    ],
+    "classFeatures": [],
+    "subclasses": []
+  },
+  {
+    "id": "biotechnician",
+    "code": "08",
+    "name": "Biotechnician",
+    "tagline": "Especialista em bioengenharia, cura avançada e manipulação genética.",
+    "description": "O Biotechnician é o médico de combate e engenheiro genético do mundo pós-catástrofe. Combina conhecimentos de medicina avançada, biotecnologia e farmacologia militar para curar aliados, fortalecer organismos e manipular patógenos. Pode tanto salvar vidas com soros regenerativos quanto usar armas biológicas devastadoras contra inimigos.",
+    "hitDice": "1d8",
+    "hitPointsLevel1": "8 + CON(mod)",
+    "hitPointsHigher": "1d8 (ou 5) + CON(mod)",
+    "armorProficiencies": [
+      "Armaduras Leves",
+      "Armaduras Médias"
+    ],
+    "weaponProficiencies": [
+      "Pistolas",
+      "Armas Corpo a Corpo Leves",
+      "Dispositivos Médicos"
+    ],
+    "savingThrows": [
+      "WIS",
+      "CON"
+    ],
+    "skillsText": "Medicina, Natureza e Sobrevivência",
+    "equipmentText": "Kit Médico Avançado, Pistola Leve ou Bisturi Tático",
+    "keyStats": "WIS (Sabedoria) e CON (Constituição)",
+    "progression": [
+      {
+        "level": 1,
+        "proficiencyBonus": "+2",
+        "features": "Field Medic"
+      },
+      {
+        "level": 2,
+        "proficiencyBonus": "+2",
+        "features": "Em desenvolvimento"
+      },
+      {
+        "level": 3,
+        "proficiencyBonus": "+2",
+        "features": "Skill Point"
+      },
+      {
+        "level": 4,
+        "proficiencyBonus": "+2",
+        "features": "ABS + Feat"
+      },
+      {
+        "level": 5,
+        "proficiencyBonus": "+3",
+        "features": "Extra Attack"
+      },
+      {
+        "level": 6,
+        "proficiencyBonus": "+3",
+        "features": "Skill Point"
+      },
+      {
+        "level": 7,
+        "proficiencyBonus": "+3",
+        "features": "Em desenvolvimento"
+      },
+      {
+        "level": 8,
+        "proficiencyBonus": "+3",
+        "features": "ABS"
+      },
+      {
+        "level": 9,
+        "proficiencyBonus": "+4",
+        "features": "Skill Point"
+      },
+      {
+        "level": 10,
+        "proficiencyBonus": "+4",
+        "features": "Em desenvolvimento"
+      },
+      {
+        "level": 11,
+        "proficiencyBonus": "+4",
+        "features": "Em desenvolvimento"
+      },
+      {
+        "level": 12,
+        "proficiencyBonus": "+4",
+        "features": "ABS + Skill Point"
+      },
+      {
+        "level": 13,
+        "proficiencyBonus": "+5",
+        "features": "Em desenvolvimento"
+      },
+      {
+        "level": 14,
+        "proficiencyBonus": "+5",
+        "features": "Em desenvolvimento"
+      },
+      {
+        "level": 15,
+        "proficiencyBonus": "+5",
+        "features": "Skill Point"
+      },
+      {
+        "level": 16,
+        "proficiencyBonus": "+5",
+        "features": "ABS"
+      },
+      {
+        "level": 17,
+        "proficiencyBonus": "+6",
+        "features": "Em desenvolvimento"
+      },
+      {
+        "level": 18,
+        "proficiencyBonus": "+6",
+        "features": "Skill Point"
+      },
+      {
+        "level": 19,
+        "proficiencyBonus": "+6",
+        "features": "Em desenvolvimento"
+      },
+      {
+        "level": 20,
+        "proficiencyBonus": "+6",
+        "features": "Em desenvolvimento"
+      }
+    ],
+    "classFeatures": [],
+    "subclasses": []
+  }
+]

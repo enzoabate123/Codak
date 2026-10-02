@@ -1,0 +1,58 @@
+--- src/components/views/CharactersView.tsx
++++ src/components/views/CharactersView.tsx
+@@ -32,15 +32,36 @@
+       {/* SIDEBAR TOGGLE WHEN CLOSED */}
+       {!isSidebarOpen && (
+         <div style={{ padding: '12px', borderRight: 'var(--border-subtle)', display: 'flex', alignItems: 'flex-start', flexShrink: 0 }}>
+           <button
+             type="button"
+             className="hud-btn hud-btn-ghost"
+             style={{ width: '32px', height: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+             onClick={() => { tacticalAudio.playWheelToggle(true); setIsSidebarOpen(true); }}
+             onMouseEnter={() => tacticalAudio.playHover()}
+             title="Mostrar painel"
+           >
+             <PanelLeft size={16} />
+           </button>
+         </div>
++      )}
++
++      {/* MASTER (Sidebar) */}
++      {isSidebarOpen && (
++        <div className="grimoire-sidebar view-enter">
++          <div style={{ padding: '16px', borderBottom: 'var(--border-subtle)', flexShrink: 0, display: 'flex', gap: '8px' }}>
++            <button
++              type="button"
++              className="hud-btn hud-btn-amber"
++              style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
++              onClick={() => { tacticalAudio.playSelect(); createCharacter(); }}
++              onMouseEnter={() => tacticalAudio.playHover()}
++            >
++              <Plus size={14} /> NOVO
++            </button>
++            <button
++              type="button"
++              className="hud-btn hud-btn-ghost"
++              style={{ width: '32px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}
++              onClick={() => { tacticalAudio.playWheelToggle(false); setIsSidebarOpen(false); }}
++              onMouseEnter={() => tacticalAudio.playHover()}
++              title="Esconder painel"
++            >
++              <PanelLeftClose size={16} />
++            </button>
++          </div>
++          
++          <div className="grimoire-item-list">
++            {characters.map((char, idx) => {
++              const isActive = char.id === activeCharacterId;
++              return (
++                <div
++                  key={char.id}
++                  className={`grimoire-sidebar-item sidebar-cascade-item ${isActive ? 'grimoire-sidebar-item--active' : ''}`}
++                  style={{ '--item-idx': idx } as React.CSSProperties}
+-                onClick={() => { tacticalAudio.playSelect(); selectCharacter(char.id); }}
++                  onClick={() => { tacticalAudio.playSelect(); selectCharacter(char.id); }}
+-                onMouseEnter={() => tacticalAudio.playHover()}
++                  onMouseEnter={() => tacticalAudio.playHover()}
+-              >
++                >

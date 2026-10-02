@@ -1,0 +1,31 @@
+--- src/components/layout/TacticalAppShell.tsx
++++ src/components/layout/TacticalAppShell.tsx
+@@ -21,6 +21,7 @@
+   const { fetchCompendium } = useCompendiumStore();
+   const { backgroundImage } = useConfigStore();
+   const [showLoader, setShowLoader] = React.useState(true);
++  const [mounted, setMounted] = React.useState(false);
+ 
+   useEffect(() => {
+     checkSession();
+     fetchCompendium();
++    setMounted(true);
+   }, [checkSession, fetchCompendium]);
+ 
+   // Protect Admin view from non-admins
+@@ -43,7 +44,7 @@
+     >
+       {/* Background Image Layer */}
+-      {backgroundImage && (
++      {mounted && backgroundImage && (
+         <div
+           style={{
+             position: 'absolute',
+@@ -58,7 +59,7 @@
+ 
+       {/* Glassmorphism Overlay to darken and blur the background */}
+-      {backgroundImage && (
++      {mounted && backgroundImage && (
+         <div
+           style={{
+             position: 'absolute',

@@ -1,0 +1,33 @@
+
+# Local dependencies and build artifacts
+node_modules/
+.next/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+__pycache__/
+*.pyc
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+.cloudflared/
+
+# Local databases, logs and OS files
+*.db
+*.db-*
+*.db.*
+*.sqlite
+*.sqlite3
+*.log
+.DS_Store
+
+# Private runtime records
+src/data/compendium/users.json
+src/data/compendium/audit-logs.json
+check_passwords.js

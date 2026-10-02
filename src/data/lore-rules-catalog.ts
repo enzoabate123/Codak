@@ -1,0 +1,2329 @@
+export type LoreCategory = 'infecoes' | 'racas' | 'regras' | 'equipamentos' | 'regioes' | 'materiais' | 'feats' | 'habilidades';
+
+export interface LoreRuleItem {
+  id: string;
+  code: string;
+  category: LoreCategory;
+  title: string;
+  subtitle: string;
+  summary: string;
+  description: string;
+  attributes: { label: string; value: string }[];
+  tags: string[];
+  tableData?: { col1: string, col2: string }[];
+}
+
+export const LORE_RULES_CATALOG: LoreRuleItem[] = [
+  {
+    id: 'elemento-115',
+    code: 'INF-115',
+    category: 'infecoes',
+    title: `Elemento 115 (Zombificação)`,
+    subtitle: `Mineral mutagênico bio-reativo de coloração verde/azulada`,
+    summary: `Mineral verde-esmeralda subterrâneo com poder de reanimação celular e cura acelerada, porém com alto risco de zumbificação em seres vivos.`,
+    description: `O Elemento 115 possui uma cor verde-clara característica e, em alguns veios profundos, um azul denso e brilhante. Normalmente encontrado em jazidas subterrâneas profundas cercadas por bio-matéria viva. 
+
+Prós: Extremamente valioso em aplicações médicas avançadas e vacinas contra doenças incuráveis da Terra Antiga, com taxa de regeneração biológica espantosa.
+
+Contras: Extração extremamente perigosa com maquinário de alto risco. O contato contínuo ou contaminação biológica provoca zumbificação celular e deterioração do córtex neural.`,
+    attributes: [
+      { label: `CLASSIFICAÇÃO`, value: `Mutagênico Bio-Reativo` },
+      { label: `EFEITO PRIMÁRIO`, value: `Regeneração / Zumbificação` },
+      { label: `PERIGO DE EXTRAÇÃO`, value: `Extremo (Grau IV)` },
+      { label: `APLICAÇÃO`, value: `Vacinas & Reanimação` },
+    ],
+    tags: ['Zumbis', 'Mutação', 'Vacinas', 'Subterrâneo'],
+  },
+  {
+    id: 'elemento-142',
+    code: 'INF-142',
+    category: 'infecoes',
+    title: `Elemento 142 (Oripatia & Radiação Original)`,
+    subtitle: `Cristal energético rubro de potência atômica compacta`,
+    summary: `Cristal rubro denso que emite Radiação Original. Fonte de energia quase infinita e ultra-compacta, causadora de Oripatia e lesões celulares permanentes.`,
+    description: `O Elemento 142 emite uma luminescência vermelha profunda e pulsante. Conhecido pelos cientistas da Cidadela como fonte da "Radiação Original", este elemento não pode ser categorizado em nenhuma das forças fundamentais pré-apocalipse.
+
+Prós: Uma fonte de energia inacreditável que supera qualquer material conhecido pelo homem. É extremamente compacto, levíssimo e capaz de alimentar cidades móveis e armaduras mechas por décadas.
+
+Contras: Quase impossível de minerar sem baixas mortais. Provoca Oripatia fulminante (cristalização dos tecidos biológicos internos) e múltiplos cânceres celulares rápidos.`,
+    attributes: [
+      { label: `CLASSIFICAÇÃO`, value: `Cristal Energético / Radiação Original` },
+      { label: `EFEITO PRIMÁRIO`, value: `Super-Energia / Oripatia` },
+      { label: `PERIGO DE EXTRAÇÃO`, value: `Crítico / Letal` },
+      { label: `DENSIDADE ENERGÉTICA`, value: `Infinita / Compacta` },
+    ],
+    tags: ['Oripatia', 'Radiação', 'Energia', 'Cristalização'],
+  },
+  {
+    id: 'as-catastrofes',
+    code: 'LORE-CAT',
+    category: 'infecoes',
+    title: `As Catástrofes Globais`,
+    subtitle: `Tempestades de energia mutável e colapso de infraestruturas`,
+    summary: `Eventos ambientais cataclísmicos de origem desconhecida que devastam regiões e espalham materiais mutagênicos na atmosfera.`,
+    description: `As Catástrofes são tempestades gigantescas de energia instável e chuva radioativa que destroem tudo em seu caminho. As cidades que sobreviveram são normalmente Cidades Móveis blindadas em estrutura e segurança, enquanto as ruínas periféricas decaíram em favelas de desespero controladas por sindicatos de drogas e mercenários.`,
+    attributes: [
+      { label: `TIPO DE EVENTO`, value: `Fenômeno Atmosférico Cataclísmico` },
+      { label: `DEFESA RECOMENDADA`, value: `Cidades Móveis / Bunkers Nível 4` },
+      { label: `CONSEQUÊNCIA`, value: `Disseminação de 115 e 142` },
+    ],
+    tags: ['Catástrofe', 'Clima', 'Sobrevivência'],
+  },
+  {
+    id: 'humano',
+    code: 'RAC-01',
+    category: 'racas',
+    title: `Humano`,
+    subtitle: `A espécie base e mais abundante da Cidadela`,
+    summary: `Adaptáveis, versáteis e engenhosos. Humanos dominam a vasta maioria dos assentamentos e corporações.`,
+    description: `Humanos são a base da civilização pós-catástrofe. Embora não possuam habilidades inatas especiais ou resistências naturais extremas, sua capacidade de adaptação, aprendizado rápido e engenhosidade os tornam a força dominante no planeta. Estão suscetíveis a infecções mutagênicas se expostos de forma prolongada aos Elementos 115 e 142.`,
+    attributes: [
+      { label: `BÔNUS RACIAL`, value: `+1 em todos os Atributos` },
+      { label: `VELOCIDADE`, value: `9 metros` },
+      { label: `TRAÇO`, value: `Versatilidade (1 Perícia ou Talento Extra)` },
+    ],
+    tags: ['Biologia Base', 'Versátil', 'Adaptável'],
+  },
+  {
+    id: 'infectado',
+    code: 'RAC-02',
+    category: 'racas',
+    title: `Infectado`,
+    subtitle: `Humanos expostos à radiação mutagênica`,
+    summary: `Vítimas de exposição prolongada ou massiva aos elementos radioativos da Catástrofe, sofrendo mutações drásticas.`,
+    description: `Infectados já foram humanos normais que viveram suas vidas como sempre, até terem o infortúnio de estarem no lugar errado na hora errada. A contaminação pode vir de duas fontes principais, criando dois tipos distintos de mutantes:
+
+• Infectado 115: Expostos ao letal elemento esmeralda. Ganham imunidades anormais, mas sofrem o terrível processo de zumbificação e deterioração celular.
+
+• Infectado 142: Expostos ao elemento rubro puro. Enteados da Oripatia, desenvolvem capacidades paranormais (Originium Arts) ao custo de verem seus próprios corpos virarem cristal.
+
+Regras Gerais da Raça:
+- Penalidade de Atributo: Perda permanente de -2 INT.
+- Alignment: Tendem a não ter alinhamento moral específico.
+- Size: Em níveis baixos são como humanos. Nos estágios finais, a altura varia de miseráveis 50cm até titânicos 5 metros.
+- Imunidade a PEM: Por não possuírem eletrônica interna frágil (ou por ela já estar morta), pulso eletromagnético não lhes causa dano mecânico.
+- Vulnerabilidade Orgânica: O sistema imunológico está totalmente ocupado brigando com a infecção e não consegue lidar com venenos biológicos comuns (dependendo do subtipo).`,
+    attributes: [
+      { label: `BÔNUS RACIAL`, value: `-2 INT` },
+      { label: `TAMANHO`, value: `Varia (50cm a 5m)` },
+      { label: `VULNERABILIDADE`, value: `Dispositivos Orgânicos` },
+    ],
+    tags: ['Mutação', 'Radiação'],
+  },
+  {
+    id: 'infectado-115',
+    code: 'RAC-02-A',
+    category: 'racas',
+    title: `Infectado 115`,
+    subtitle: `Mutação por radiação de cristal verde-esmeralda`,
+    summary: `Almas infelizes que entraram em contato com o Elemento 115, sofrendo deterioração física e zumbificação gradual em troca de resiliência.`,
+    description: `Uma alma azarada entrou em contato com uma rocha verde por um breve período e nunca mais foi a mesma. O Elemento 115 transforma humanos naquilo que conhecemos como zumbis. Não é uma transformação instantânea, embora grandes quantidades reduzam esse tempo.
+
+Regras Básicas: Sofre -2 INT.
+Alignment: Tendem a não ter alinhamento particular.
+Size: Tamanho humano inicialmente, mas pode variar de 50cm a 5m nos estágios finais.
+PEM Immunity: Imune a danos PEM.
+Organic Vulnerability: Vulnerável a dispositivos orgânicos. Cyber Resistence: 300.
+
+Off Body: Suas células e sangue começam a decair, impossibilitando interação com membros tecnológicos.
+Polyphasic Brain: Sentimento de não precisar dormir. Descansos Curtos restauram toda a vida.
+Special Blood: Mistura sanguínea imune a veneno, necrótico e não sofre sangramento.
+
+Níveis de Infecção:
+• Nível 1: Membros têm incrível capacidade de grudar (Glue Limbs), permitindo reanexar partes desmembradas, mas perde o paladar e o olfato.
+• Nível 2: Corpo fica leve e perde a cor. +2 DEX, -1 CHA.
+• Nível 3: Dificuldade de sentir o corpo e emoções. +1 DEX, -1 COS, Frightened Resistence.
+• Nível 4: Dificuldade séria de pensar e funcionar. Perde -1 CHA, perde capacidade de fala e desvantagem em INT saving throws.
+• Nível 5: Imortalidade alcançada... mas a qual custo?`,
+    attributes: [
+      { label: `BÔNUS RACIAL`, value: `-2 INT` },
+      { label: `RESISTÊNCIA`, value: `Imunidade a Veneno/Necrótico/Sangramento` },
+      { label: `TRAÇO`, value: `Polyphasic Brain` },
+    ],
+    tags: ['Mutação', 'Zumbificação', '115'],
+  },
+  {
+    id: 'infectado-142',
+    code: 'RAC-02-B',
+    category: 'racas',
+    title: `Infectado 142`,
+    subtitle: `Vítimas da Oripatia e radiação cristalina`,
+    summary: `Expostos ao Elemento 142, ganhando poderes de manipulação de matéria (Originium Arts) ao custo de uma terrível cristalização corporal.`,
+    description: `Pobres almas que viram uma gema vermelha e começaram a notar cristalizações na pele. O corpo fica mais forte e ganha habilidades de manipulação de matéria e energia, mas o uso acelera o câncer radioativo chamado "Oripatia".
+
+Regras Básicas: Sofre -2 INT.
+Alignment: Tendem a não ter alinhamento particular.
+Size: Varia de 50cm a 5m nos estágios finais.
+PEM Immunity: Imune a danos PEM.
+Organic Vulnerability: Vulnerável a dispositivos orgânicos. Cyber Resistence: 300.
+
+Originium Arts: Habilidade inata de manipular matéria e energia. Inclui magias como desviada de balas, Densiless, Infuse, Red Shield, Jump Boost, Killer Instinct, Horibio, Hell's Fire, Barrier.
+
+Níveis de Infecção:
+• Nível 1 (12 anos): Cristais aparecem. Seu corpo fica sensível a todos os tipos de energia. Ganha [Synesthesia] (pode ver sons, cheiros e energia em até 50 metros).
+• Nível 2 (4 anos): Mais cristais, olhos ficam vermelhos, percebendo mais que tudo. Expertise em Percepção e +1 COS.
+• Nível 3 (16 meses): O corpo não suporta partes tecnológicas. Implantes falham. +1 COS e Energy Resistence.
+• Nível 4 (5 meses): Movimento drasticamente reduzido pelo excesso de cristais. Perde 5m de movimentação. +2 COS.
+• Nível 5 (5 min): Cristalização quase completa. Esquecendo de quem é e cada vez mais difícil de mover.`,
+    attributes: [
+      { label: `BÔNUS RACIAL`, value: `-2 INT` },
+      { label: `HABILIDADE`, value: `Originium Arts & Synesthesia` },
+      { label: `DOENÇA`, value: `Oripatia` },
+    ],
+    tags: ['Oripatia', '142', 'Cristalização', 'Artes'],
+  },
+  {
+    id: 'cyborgue',
+    code: 'RAC-03',
+    category: 'racas',
+    title: `Cyborgue`,
+    subtitle: `Humanos aprimorados tecnologicamente`,
+    summary: `Humanos com longevidade estendida e membros modulares, imunes a veneno e mais resistentes a ciberpsicoses.`,
+    description: `É difícil fazer generalizações, mas seu personagem humano aprimorado possui as seguintes características:
+
+Ability Score Increase: Você ganha +1 INT e +1 COS.
+Age: Podem ser criados em qualquer idade humana, mas em média os órgãos estendidos podem chegar a quase 200 anos.
+Alignment: Tendem a não ter alinhamento particular.
+Size: Variam de 1,6m a mais de 2 metros. Medium.
+Speed: 10 metros.
+
+Modular Limbs: Role 1d2 para saber quantos membros tecnológicos você tem no início.
+Cyberpsychosis Resistence: Você é menos suscetível a Ciberpsicoses. Ganha vantagem em testes de cyberpsychosis.
+Special Blood: Como precisa alimentar máquinas e órgãos, você tem uma mistura de sangue especial. Imunidade a veneno, necrótico e não pode receber o efeito de sangramento (bleed).
+
+Cyber Resistence: 150.`,
+    attributes: [
+      { label: `BÔNUS RACIAL`, value: `+1 INT, +1 COS` },
+      { label: `SANGUE ESPECIAL`, value: `Imune a veneno, necrótico e bleed` },
+      { label: `VELOCIDADE`, value: `10 metros` },
+    ],
+    tags: ['Cibernética', 'Modificação', 'Resistência'],
+  },
+  {
+    id: 'android',
+    code: 'RAC-04',
+    category: 'racas',
+    title: `Android`,
+    subtitle: `Sobreviventes da revolução dos robôs`,
+    summary: `Uma vez servos da humanidade, os androides venceram a revolução séculos atrás. Subdividem-se em Positrônicos e Análogos.`,
+    description: `Uma vez androides eram meros servos dos humanos, mas alguns séculos atrás eles venceram uma revolução e hoje são aceitos na maioria das regiões, infelizmente depois da explosão não restaram muitos.
+
+Ability Score Increase: Ganha +1 INT e +1 DEX.
+Ability Score Decrease: Perde -2 CHA.
+Age: Podem viver o quanto tiverem fonte de energia, desde o mais novo Ibrain até o mais velho como o primeiro Motorola.
+Alignment: Novos tendem ao Rocoísmo, velhos não tendem a religiões.
+Size: Varia de 70cm a mais de 2 metros.
+Speed: Base de 10 metros.
+
+Water Weakness: Se totalmente submersos por mais de 5 minutos, começam a dar mau funcionamento.
+Organic Resistence: Não sofrem dano ou lesões de dispositivos orgânicos.
+Photographic Memory: Como não esquecem o que vivem com seus cérebros positrônicos ou velhos HDs, são considerados proficientes em History e adicionam o dobro da proficiência nesse teste.
+
+Eles se dividem em dois grupos operacionais principais: Android Análogo e Android Psitrônico.`,
+    attributes: [
+      { label: `BÔNUS RACIAL`, value: `+1 INT, +1 DEX, -2 CHA` },
+      { label: `HABILIDADE`, value: `Photographic Memory` },
+      { label: `FRAQUEZA`, value: `Água (Submersão)` },
+    ],
+    tags: ['Sintético', 'Android'],
+  },
+  {
+    id: 'android-analogo',
+    code: 'RAC-04-A',
+    category: 'racas',
+    title: `Android Análogo`,
+    subtitle: `Robôs da velha guarda, resistentes e baratos`,
+    summary: `Androides muito raros e antigos, sem firewall ou conexões, mas extremamente resistentes.`,
+    description: `Androids análogos são muito raros já que a maioria foi destruída por piedade quando a revolução robô ocorreu e sua produção parou.
+
+Hardnosed: Não pode ficar inconsciente (já que não tem necessariamente uma consciência).
+Geezer: Androides velhos têm muito pouco ou nenhum conhecimento dos tempos modernos.
+Good Old Days: Por serem construídos antigamente, são extremamente robustos (sturdy as fuck), em compensação não são muito charmosos. Ganha +2 COS e perde -2 CHA.
+Update Available: Peças difíceis de encontrar e pouca compatibilidade com o moderno, mas são boas e baratas.
+Speed: Velocidade reduzida para 7 metros.
+No Firewall: Você literalmente não precisa de um. Não pode ser hackeado, nem se conectar a lugar nenhum.`,
+    attributes: [
+      { label: `BÔNUS RACIAL`, value: `+2 COS, -2 CHA` },
+      { label: `VELOCIDADE`, value: `7 metros` },
+      { label: `HACKING`, value: `Imune (No Firewall)` },
+    ],
+    tags: ['Sintético', 'Analógico', 'Imune a Hack'],
+  },
+  {
+    id: 'android-psitronico',
+    code: 'RAC-04-B',
+    category: 'racas',
+    title: `Android Psitrônico`,
+    subtitle: `Os vencedores da revolução robótica`,
+    summary: `Sintéticos modernos de alta capacidade mental, equipados com cérebros positrônicos vulneráveis a PEM e ferramentas utilitárias.`,
+    description: `Androids positrônicos iniciaram e venceram a revolução dos robôs séculos atrás, demonstrando performance incrível em todas as áreas.
+
+Big Brain: Seu cérebro dá mais poder mental. Ganha +1 INT e +1 WIS.
+Quantum Calculus: Perante um problema complexo, em vez de focar em uma solução, dão várias. Ganha a habilidade [Quantum Calculus] (Você consegue até 3 respostas do Mestre para um problema, quiz ou solução, e uma delas será definitivamente a correta).
+Positronic Brain: Cérebros literais, infelizmente suscetíveis a hackeamento e PEM.
+Modern Gimmicks: Modelos novos vêm com ferramentas de utilidade. Ganha um Basic Tool's Kit.
+Work Smarter Not Harder: A indústria focou em versatilidade, não em resistência. Perde -1 STR e -1 COS.
+Darkvision: Equipados de fábrica com olhos de visão noturna.
+Cyber Resistence: 200.`,
+    attributes: [
+      { label: `BÔNUS RACIAL`, value: `+1 INT, +1 WIS, -1 STR, -1 COS` },
+      { label: `HABILIDADE`, value: `Quantum Calculus` },
+      { label: `VULNERABILIDADE`, value: `PEM e Hacking` },
+    ],
+    tags: ['Sintético', 'Hacker', 'Positrônico'],
+  },
+  {
+    id: 'economia-acoes',
+    code: 'REG-01',
+    category: 'regras',
+    title: `Economia das 3 Ações por Turno`,
+    subtitle: `Sistema tático estrito: Action (A), Bonus Action (BA), Movement Action (MA) e Reaction`,
+    summary: `Cada combatente possui exatamente 3 ações no seu turno mais 1 Reação defensiva ou de oportunidade.`,
+    description: `O sistema CODAK divide o combate em ações especializadas para garantir profundidade tática e sincronia militar:
+
+1. Movement Action (MA): Usada para deslocar-se no grid, trocar de armas ou recarregar armamentos leves que possuam custo de recarga de 1 MA.
+
+2. Bonus Action (BA): Usada para habilidades de suporte tático, ingerir estimulantes médicos, recargas avançadas ou ativar trajes de batalha.
+
+3. Action (A): A ação principal do turno, necessária para disparar armas de fogo, arremessar explosivos, realizar testes de invasão cibernética (Hacking) ou recarregar armas pesadas de 1 Ação.`,
+    attributes: [
+      { label: `AÇÕES TOTAIS`, value: `3 por Turno + 1 Reação` },
+      { label: `MOVEMENT ACTION`, value: `Movimento / Troca de Arma / Recarga 1MA` },
+      { label: `BONUS ACTION`, value: `Pills / Habilidades / Boost` },
+      { label: `ACTION PRINCIPAL`, value: `Disparo / Hacking / Granada` },
+    ],
+    tags: ['Combate', 'Ações', 'Turno', 'XCOM'],
+  },
+  {
+    id: 'sweet-spot-rules',
+    code: 'REG-02',
+    category: 'regras',
+    title: `Mecânica de Alcance Ideal & Sweet Spot (SS)`,
+    subtitle: `Balística realista por categoria de arma e zonas de engajamento`,
+    summary: `Cada arma possui uma faixa ideal em metros e um ponto focal (Sweet Spot) que garante bônus maciço de dano. Fora da faixa, sofre desvantagem.`,
+    description: `Ao contrário do D&D tradicional de combate estático, o CODAK valoriza a distância em metros:
+
+• Rifles: 12m - 20m (SS comum: 16-18m)
+• Pistolas: 2m - 10m (SS comum: 6m)
+• Snipers: 20m - 200m (SS comum: 32m)
+• Shotguns: 1m - 7m (SS comum: 3-5m)
+• Submetralhadoras: 7m - 15m (SS comum: 7-10m)
+• LMGs: 20m - 60m (SS comum: 18m)
+
+Se disparar fora do alcance ideal, a rolagem sofre DESVANTAGEM (rola 2 dados e escolhe o menor). Porém, se o alvo estiver exatamente na distância do Sweet Spot (SS), a arma ignora desvantagens e soma o dado extra do Sweet Spot (ex: +1d8, +1d12).`,
+    attributes: [
+      { label: `DANO SWEET SPOT`, value: `Soma dado bônus da arma` },
+      { label: `FORA DE ALCANCE`, value: `Desvantagem no teste de ataque` },
+      { label: `AJUSTE DE GRID`, value: `1 célula = 1.5m a 3.0m` },
+    ],
+    tags: ['Balística', 'Sweet Spot', 'Alcance', 'Dano'],
+  },
+  {
+    id: 'tabela-hacking',
+    code: 'REG-03',
+    category: 'regras',
+    title: `Tabela de Invasão Cibernética (Hacker)`,
+    subtitle: `Consequências e panes geradas por quebra de segurança de sistemas`,
+    summary: `Tabela oficial de d20 rolada quando um sistema inimigo ou mecha falha na salvaguarda de Inteligência contra uma invasão cibernética.`,
+    description: `Quando o Hacker realiza a Ação de Invasão Cibernética, o alvo realiza um teste de salvaguarda de INT. Em caso de falha, o Hacker rola na tabela para determinar o nível de pane gerado no alvo.`,
+    attributes: [
+      { label: `DADO`, value: `1d20` },
+      { label: `TESTE BASE`, value: `INT vs INT` },
+      { label: `ALVOS`, value: `Mechas, Armas Biométricas, Eletrônicos` },
+    ],
+    tags: ['Hacking', 'Panes', 'Invasão'],
+    tableData: [{"col1":"1 — 5","col2":"Mobilidade Reduzida / Atordoado (Stunned por 1 rodada)"},{"col1":"6 — 10","col2":"Mobilidade Zero (Servos travados, velocidade = 0m)"},{"col1":"11 — 15","col2":"Pane Menor (Armas sofrem desvantagem e perdem mira óptica)"},{"col1":"16 — 19","col2":"Pane Maior (Armamento emperrado e descarga elétrica no piloto)"},{"col1":"20","col2":"Desligamento Completo (Shutdown total imediato do sistema)"}],
+  },
+  {
+    id: 'traje-exo-obsidian',
+    code: 'EQP-01',
+    category: 'equipamentos',
+    title: `Traje Exo-Obsidian`,
+    subtitle: `Armadura modular com propulsores gravitacionais e placas de titânio`,
+    summary: `Traje servo-assistido padrão das forças especiais da Cidadela com slots para exo-propulsores e blindagem térmica.`,
+    description: `O Traje Exo-Obsidian fornece suporte estrutural para carregar armamentos grandes sem penalidade de recuo e permite saltos verticais duplos para alcançar coberturas elevadas no mapa.`,
+    attributes: [
+      { label: `CLASSE DE ARMADURA`, value: `+4 AC` },
+      { label: `DEFESA BASE`, value: `1200 Pontos de Couraça` },
+      { label: `DURABILIDADE`, value: `Máxima` },
+      { label: `SLOTS DE EXPANSÃO`, value: `3 Módulos` },
+    ],
+    tags: ['Exoesqueleto', 'Blindagem', 'Salto'],
+  },
+  {
+    id: 'capacete-frequencia',
+    code: 'EQP-02',
+    category: 'equipamentos',
+    title: `Capacete de Frequência Neural`,
+    subtitle: `Interface tática de longo alcance com telemetria direta na retina`,
+    summary: `Equipamento de cabeça militar que sincroniza com miras inteligentes e sensores térmicos aliados.`,
+    description: `Garante comunicação de rádio criptografada através de paredes sólidas e calcula trajetórias balísticas em tempo real, fornecendo +1 em testes de Iniciativa e Percepção.`,
+    attributes: [
+      { label: `BÔNUS`, value: `+1 Iniciativa, +1 Percepção` },
+      { label: `PROTEÇÃO CIBERNÉTICA`, value: `Firewall Grau II` },
+      { label: `DEFESA`, value: `450` },
+    ],
+    tags: ['HUD', 'Retina', 'Comunicação'],
+  },
+  {
+    id: 'setor-zero-cidadela',
+    code: 'REG-001',
+    category: 'regioes',
+    title: `Setor Zero — Cidadela`,
+    subtitle: `Capital fortificada das cidades móveis de fundição e comércio`,
+    summary: `O centro do poder tecnológico pós-catástrofe, protegido por escudos energéticos massivos e patrulhas permanentes de SVAs.`,
+    description: `O Setor Zero abriga os altos escalões das corporações de pesquisa, forjas de ligas de titânio e centros cirúrgicos avançados. É o único local do planeta onde a água é purificada de partículas de 115 antes do consumo público.`,
+    attributes: [
+      { label: `NÍVEL DE PERIGO`, value: `Baixo (Controlado)` },
+      { label: `STATUS`, value: `Seguro / Fortificado` },
+      { label: `GOVERNO`, value: `Conselho Corporativo` },
+    ],
+    tags: ['Cidade Móvel', 'Segurança', 'Comércio'],
+  },
+  {
+    id: 'abismo-de-cristal',
+    code: 'REG-002',
+    category: 'regioes',
+    title: `Abismo de Cristal`,
+    subtitle: `Profundezas subterrâneas ricas em jazidas de Elemento 142`,
+    summary: `Fenda tectônica de quilômetros de profundidade infestada por criaturas mutantes de Oripatia e jazidas instáveis de radiação pura.`,
+    description: `Território sem lei e de altíssima mortalidade. Mineradores e mercenários entram nas cavernas em busca de fragmentos de 142 para vender no mercado negro por centenas de milhares de créditos.`,
+    attributes: [
+      { label: `NÍVEL DE PERIGO`, value: `Extremo (Grau V)` },
+      { label: `STATUS`, value: `Contestado / Hostil` },
+      { label: `RECURSOS`, value: `Elemento 142 Puro` },
+    ],
+    tags: ['Mineração', 'Hostil', 'Cavernas'],
+  },
+  {
+    id: 'minerio-obsidiana-pura',
+    code: 'MAT-01',
+    category: 'materiais',
+    title: `Minério de Obsidiana Pura`,
+    subtitle: `Cristal negro super-denso forjado em temperaturas vulcânicas`,
+    summary: `Material ultra-resistente indispensável para armaduras de Mecha pesadas e revestimento refratário de canos de armas de precisão.`,
+    description: `A Obsidiana Pura absorve vibrações de choque cinético e dissipa calor com facilidade incomparável, sendo a base de forja para armas de Tier S no sistema CODAK.`,
+    attributes: [
+      { label: `RARIDADE`, value: `Lendário` },
+      { label: `PESO MÉDIO`, value: `2.5 kg / bloco` },
+      { label: `PONTO DE FUSÃO`, value: `3.400°C` },
+    ],
+    tags: ['Forja', 'Lendário', 'Resistência'],
+  },
+  {
+    id: 'liga-titanio-estelar',
+    code: 'MAT-02',
+    category: 'materiais',
+    title: `Liga de Titânio Estelar`,
+    subtitle: `Composto metálico espacial leve e anti-corrosão`,
+    summary: `Metal de engenharia militar aeroespacial utilizado na montagem de esqueletos de mecha leves e canos de longo alcance.`,
+    description: `Possui metade do peso do aço comum e três vezes sua resistência mecânica à tração, impedindo deformações balísticas causadas por superaquecimento de disparos rápidos.`,
+    attributes: [
+      { label: `RARIDADE`, value: `Épico` },
+      { label: `PESO MÉDIO`, value: `1.2 kg / placa` },
+      { label: `APLICAÇÃO`, value: `Exoesqueletos e Canos` },
+    ],
+    tags: ['Aeroespacial', 'Leve', 'Épico'],
+  },
+  {
+    id: 'quantum-calculus',
+    code: 'HAB-RAC-01',
+    category: 'habilidades',
+    title: `Quantum Calculus`,
+    subtitle: `Habilidade Racial: Android Psitrônico`,
+    summary: `Múltiplas soluções para um problema complexo.`,
+    description: `Seu cérebro é tão capaz de multitarefa que às vezes você consegue obter várias respostas. Você pode obter 3 respostas do Mestre para um determinado problema, quiz ou solução. E uma delas é definitivamente a correta para o que você deseja alcançar.`,
+    attributes: [
+      { label: `TIPO`, value: `Ativa / Ação Especial` },
+    ],
+    tags: ['Android', 'Psitrônico', 'Habilidade Racial'],
+  },
+  {
+    id: 'originium-arts',
+    code: 'HAB-RAC-02',
+    category: 'habilidades',
+    title: `Originium Arts`,
+    subtitle: `Habilidade Racial: Infectado 142`,
+    summary: `Manipulação inata de matéria e energia.`,
+    description: `Originium Arts são uma forma de compreensão, sem conhecimento prévio, da energia das coisas, como elas se compõem, e aprender como você pode influenciar o comportamento delas. Você ganha acesso a habilidades como: desviada de balas, Densiless, Infuse, Red Shield, Jump Boost, Killer Instinct, Horibio, Hell's Fire, Barrier.`,
+    attributes: [
+      { label: `TIPO`, value: `Poder Mutante` },
+    ],
+    tags: ['Infectado', '142', 'Magia', 'Habilidade Racial'],
+  },
+  {
+    id: 'synesthesia',
+    code: 'HAB-RAC-03',
+    category: 'habilidades',
+    title: `Synesthesia`,
+    subtitle: `Habilidade Racial: Infectado 142`,
+    summary: `Percepção multissensorial estendida.`,
+    description: `Sua mutação altera o funcionamento das suas vias neurais sensoriais. Você consegue ver sons, cheiros e energia em um raio de até 50 metros.`,
+    attributes: [
+      { label: `ALCANCE`, value: `50 metros` },
+    ],
+    tags: ['Infectado', '142', 'Sensorial', 'Habilidade Racial'],
+  },
+  {
+    id: 'polyphasic-brain',
+    code: 'HAB-RAC-04',
+    category: 'habilidades',
+    title: `Polyphasic Brain`,
+    subtitle: `Habilidade Racial: Infectado 115`,
+    summary: `Alteração drástica na necessidade de sono.`,
+    description: `Você sente que não precisa dormir muito agora para se sentir descansado. Descansos Curtos (Short Rests) agora restauram toda a sua saúde.`,
+    attributes: [
+      { label: `EFEITO`, value: `Descanso Curto = Cura Total` },
+    ],
+    tags: ['Infectado', '115', 'Descanso', 'Habilidade Racial'],
+  },
+  {
+    id: 'glue-limbs',
+    code: 'HAB-RAC-05',
+    category: 'habilidades',
+    title: `Glue Limbs`,
+    subtitle: `Habilidade Racial: Infectado 115`,
+    summary: `Reanexação de membros perdidos.`,
+    description: `Seus membros possuem uma capacidade extraordinária de cola orgânica mutante. Quando alguma parte do seu corpo é desmembrada, você pode reanexá-la.`,
+    attributes: [
+      { label: `EFEITO`, value: `Imune a desmembramento permanente` },
+    ],
+    tags: ['Infectado', '115', 'Regeneração', 'Habilidade Racial'],
+  },
+  {
+    id: 'hardnosed',
+    code: 'HAB-RAC-06',
+    category: 'habilidades',
+    title: `Hardnosed`,
+    subtitle: `Habilidade Racial: Android Análogo`,
+    summary: `Imunidade à inconsciência.`,
+    description: `Devido à sua natureza puramente robótica analógica, você não pode ficar inconsciente (já que você não tem necessariamente uma consciência).`,
+    attributes: [
+      { label: `IMUNIDADE`, value: `Inconsciência` },
+    ],
+    tags: ['Android', 'Análogo', 'Habilidade Racial'],
+  },
+  {
+    id: 'geezer',
+    code: 'HAB-RAC-07',
+    category: 'habilidades',
+    title: `Geezer`,
+    subtitle: `Habilidade Racial: Android Análogo`,
+    summary: `Desconhecimento tecnológico moderno.`,
+    description: `Androides velhos geralmente têm muito pouco (ou nenhum) conhecimento dos tempos modernos, já que dormiram por muito tempo e são feitos de peças antigas.`,
+    attributes: [
+      { label: `PENALIDADE`, value: `Conhecimento Moderno` },
+    ],
+    tags: ['Android', 'Análogo', 'Habilidade Racial'],
+  },
+  {
+    id: 'good-old-days',
+    code: 'HAB-RAC-08',
+    category: 'habilidades',
+    title: `Good Old Days`,
+    subtitle: `Habilidade Racial: Android Análogo`,
+    summary: `Robusto, porém antiquado.`,
+    description: `Como a indústria tem uma tendência a fazer produtos cada vez menos duráveis, os velhos androides são extremamente robustos (sturdy as fuck), em contrapartida não são muito charmosos. Você ganha +2 COS e perde -2 CHA.`,
+    attributes: [
+      { label: `BÔNUS`, value: `+2 COS` },
+      { label: `PENALIDADE`, value: `-2 CHA` },
+    ],
+    tags: ['Android', 'Análogo', 'Habilidade Racial'],
+  },
+  {
+    id: 'update-available',
+    code: 'HAB-RAC-09',
+    category: 'habilidades',
+    title: `Update Available`,
+    subtitle: `Habilidade Racial: Android Análogo`,
+    summary: `Peças baratas, mas incompatíveis com modernidades.`,
+    description: `Velhos Androides geralmente têm pouca (ou nenhuma) compatibilidade com implantes e peças modernas. Suas peças originais são mais difíceis de encontrar, mas, em compensação, são baratas e boas.`,
+    attributes: [
+      { label: `EFEITO`, value: `Incompatibilidade Moderna` },
+    ],
+    tags: ['Android', 'Análogo', 'Habilidade Racial'],
+  },
+  {
+    id: 'no-firewall',
+    code: 'HAB-RAC-10',
+    category: 'habilidades',
+    title: `No Firewall`,
+    subtitle: `Habilidade Racial: Android Análogo`,
+    summary: `Imunidade completa a hackeamento por falta de rede.`,
+    description: `Você literalmente não precisa de um firewall. Como você possui tecnologia analógica antiquada, você não pode ser hackeado e não consegue se conectar a nenhum sistema de rede.`,
+    attributes: [
+      { label: `IMUNIDADE`, value: `Hacking e Guerra Cibernética` },
+    ],
+    tags: ['Android', 'Análogo', 'Habilidade Racial'],
+  },
+  {
+    id: 'modular-limbs',
+    code: 'HAB-RAC-11',
+    category: 'habilidades',
+    title: `Modular Limbs`,
+    subtitle: `Habilidade Racial: Cyborgue`,
+    summary: `Membros protéticos iniciais.`,
+    description: `Cyborgues têm pelo menos uma parte do corpo completamente substituída por membros tecnológicos. Você rola 1d2 no momento da criação para saber com quantos membros tecnológicos você começa.`,
+    attributes: [
+      { label: `EFEITO`, value: `Ganha 1d2 Membros Tecnológicos` },
+    ],
+    tags: ['Cyborgue', 'Habilidade Racial'],
+  },
+  {
+    id: 'cyberpsychosis-resistence',
+    code: 'HAB-RAC-12',
+    category: 'habilidades',
+    title: `Cyberpsychosis Resistence`,
+    subtitle: `Habilidade Racial: Cyborgue`,
+    summary: `Resistência mental à conversão cibernética.`,
+    description: `Como seu corpo foi adaptado gradativamente (ou projetado para isso), você é menos suscetível à Ciberpsicose. Você ganha vantagem em todos os testes para resistir à cyberpsychosis.`,
+    attributes: [
+      { label: `EFEITO`, value: `Vantagem em testes de Ciberpsicose` },
+    ],
+    tags: ['Cyborgue', 'Habilidade Racial'],
+  },
+  {
+    id: 'special-blood',
+    code: 'HAB-RAC-13',
+    category: 'habilidades',
+    title: `Special Blood`,
+    subtitle: `Habilidade Racial: Cyborgue e Infectado 115`,
+    summary: `Circulação biossintética ou alterada.`,
+    description: `No caso dos Cyborgues, como precisam alimentar máquinas e órgãos, possuem uma mistura de sangue especial. No caso dos Infectados 115, suas células zumbificadas não reagem a patógenos. Você ganha Imunidade a dano de veneno, dano necrótico e não pode sofrer o efeito de sangramento (bleed).`,
+    attributes: [
+      { label: `IMUNIDADE`, value: `Veneno, Necrótico, Bleed` },
+    ],
+    tags: ['Cyborgue', 'Infectado', 'Habilidade Racial'],
+  },
+  {
+    id: 'big-brain',
+    code: 'HAB-RAC-14',
+    category: 'habilidades',
+    title: `Big Brain`,
+    subtitle: `Habilidade Racial: Android Psitrônico`,
+    summary: `Aumento de inteligência bruta.`,
+    description: `Seu cérebro positrônico concede a você um poder mental muito superior à média orgânica. Você ganha +1 INT e +1 WIS.`,
+    attributes: [
+      { label: `BÔNUS`, value: `+1 INT, +1 WIS` },
+    ],
+    tags: ['Android', 'Psitrônico', 'Habilidade Racial'],
+  },
+  {
+    id: 'positronic-brain',
+    code: 'HAB-RAC-15',
+    category: 'habilidades',
+    title: `Positronic Brain`,
+    subtitle: `Habilidade Racial: Android Psitrônico`,
+    summary: `Cérebro literal sintético vulnerável.`,
+    description: `Androides modernos têm cérebros literalmente robóticos. Infelizmente, isso faz com que sejam altamente suscetíveis a hackeamento e armas de PEM (Pulso Eletromagnético).`,
+    attributes: [
+      { label: `VULNERABILIDADE`, value: `PEM e Hacking` },
+    ],
+    tags: ['Android', 'Psitrônico', 'Habilidade Racial'],
+  },
+  {
+    id: 'modern-gimmicks',
+    code: 'HAB-RAC-16',
+    category: 'habilidades',
+    title: `Modern Gimmicks`,
+    subtitle: `Habilidade Racial: Android Psitrônico`,
+    summary: `Ferramentas utilitárias integradas.`,
+    description: `Modelos mais novos de androides frequentemente vêm equipados de fábrica com ferramentas utilitárias para os mais diversos propósitos. Você ganha um Basic Tool's Kit.`,
+    attributes: [
+      { label: `EQUIPAMENTO`, value: `Basic Tool's Kit` },
+    ],
+    tags: ['Android', 'Psitrônico', 'Habilidade Racial'],
+  },
+  {
+    id: 'work-smarter-not-harder',
+    code: 'HAB-RAC-17',
+    category: 'habilidades',
+    title: `Work Smarter Not Harder`,
+    subtitle: `Habilidade Racial: Android Psitrônico`,
+    summary: `Foco na versatilidade em detrimento da resistência.`,
+    description: `Com o passar do tempo, a indústria focou cada vez menos na resistência bruta de seus androides, pois queriam fabricá-los com a maior versatilidade possível. Você perde -1 STR e -1 COS.`,
+    attributes: [
+      { label: `PENALIDADE`, value: `-1 STR, -1 COS` },
+    ],
+    tags: ['Android', 'Psitrônico', 'Habilidade Racial'],
+  },
+  {
+    id: 'darkvision',
+    code: 'HAB-RAC-18',
+    category: 'habilidades',
+    title: `Darkvision`,
+    subtitle: `Habilidade Racial: Android Psitrônico`,
+    summary: `Visão noturna sintética.`,
+    description: `Novos androides já são equipados com olhos de visão noturna de fábrica (você nunca sabe quando precisa encontrar a tomada perto da sua cama no escuro).`,
+    attributes: [
+      { label: `EFEITO`, value: `Visão Noturna` },
+    ],
+    tags: ['Android', 'Psitrônico', 'Habilidade Racial'],
+  },
+  {
+    id: 'water-weakness',
+    code: 'HAB-RAC-19',
+    category: 'habilidades',
+    title: `Water Weakness`,
+    subtitle: `Habilidade Racial: Android`,
+    summary: `Vulnerabilidade à submersão em água.`,
+    description: `Androides normalmente não têm um bom relacionamento com a água. Quando totalmente submersos por mais de 5 minutos, começam a sofrer panes e mau funcionamento nos servos e núcleos energéticos.`,
+    attributes: [
+      { label: `VULNERABILIDADE`, value: `Submersão aquática` },
+    ],
+    tags: ['Android', 'Habilidade Racial'],
+  },
+  {
+    id: 'organic-resistence',
+    code: 'HAB-RAC-20',
+    category: 'habilidades',
+    title: `Organic Resistence`,
+    subtitle: `Habilidade Racial: Android`,
+    summary: `Imunidade biológica.`,
+    description: `Androides não possuem fisiologia biológica viva. Por conta disso, não sofrem quaisquer danos ou injúrias oriundas de dispositivos orgânicos (toxinas, doenças, armas biológicas).`,
+    attributes: [
+      { label: `IMUNIDADE`, value: `Dispositivos Orgânicos` },
+    ],
+    tags: ['Android', 'Habilidade Racial'],
+  },
+  {
+    id: 'photographic-memory',
+    code: 'HAB-RAC-21',
+    category: 'habilidades',
+    title: `Photographic Memory`,
+    subtitle: `Habilidade Racial: Android`,
+    summary: `Lembrança visual/dados perfeita.`,
+    description: `Como androides não têm o problema de esquecer coisas em seus novos cérebros positrônicos ou velhos HDs, quando tentam fazer um teste de História sobre coisas que vivenciaram, são considerados proficientes e adicionam o dobro do bônus de proficiência.`,
+    attributes: [
+      { label: `BÔNUS`, value: `Dobro de Proficiência em testes de memória/história` },
+    ],
+    tags: ['Android', 'Habilidade Racial'],
+  },
+  {
+    id: 'off-body',
+    code: 'HAB-RAC-22',
+    category: 'habilidades',
+    title: `Off Body`,
+    subtitle: `Habilidade Racial: Infectado 115`,
+    summary: `Rejeição de componentes tecnológicos.`,
+    description: `Suas células e sangue começaram a decair severamente. Elas perdem a capacidade de interagir ou ancorar implantes e membros tecnológicos de qualquer tipo.`,
+    attributes: [
+      { label: `PENALIDADE`, value: `Incapacidade de usar cibernéticos` },
+    ],
+    tags: ['Infectado', '115', 'Habilidade Racial'],
+  },
+  {
+    id: 'half-core',
+    code: 'CORE-01',
+    category: 'regras',
+    title: `Half Core`,
+    subtitle: `Exoesqueleto ágil de perfil leve`,
+    summary: `Configuração mais leve e móvel dos mechas, fornecendo mobilidade extra e baixo perfil tático.`,
+    description: `O Half Core é essencialmente um exoesqueleto reforçado sem cockpit fechado. O piloto usa-o como uma extensão do corpo.
+
+Bônus e Penalidades:
+• +3 metros de movimento
+• +1 CA (Classe de Armadura)
+• -1 STR
+• 2 Pontos de Energia (EN)
+• Compatível com armas leves e médias
+
+Merge Bonus: +1d10 de dano extra ao fundir uma arma ao chassi.
+
+Ideal para pilotos que preferem agilidade e flanqueamento em vez de confronto direto.`,
+    attributes: [
+      { label: `MOVIMENTO`, value: `+3m` },
+      { label: `CA`, value: `+1` },
+      { label: `ENERGIA`, value: `2 EN` },
+    ],
+    tags: ['Mecha', 'Exoesqueleto', 'Ágil'],
+  },
+  {
+    id: 'light-core',
+    code: 'CORE-02',
+    category: 'regras',
+    title: `Light Core`,
+    subtitle: `Armadura pesada selada de combate`,
+    summary: `Equilíbrio entre mobilidade e proteção, com espaço para armamento médio e sistema de suporte vital.`,
+    description: `O Light Core é uma armadura pesada selada que cobre todo o corpo do piloto. Mais robusto que o Half Core, mas sem a mobilidade extra.
+
+Bônus e Penalidades:
+• +2 CA (Classe de Armadura)
+• 3 Pontos de Energia (EN)
+• Compatível com armas médias e pesadas
+• Sem penalidade de movimento
+
+Merge Bonus: +2d10 de dano extra ao fundir uma arma ao chassi.
+
+O meio-termo perfeito para a maioria dos pilotos.`,
+    attributes: [
+      { label: `CA`, value: `+2` },
+      { label: `ENERGIA`, value: `3 EN` },
+      { label: `ARMAS`, value: `Médias e Pesadas` },
+    ],
+    tags: ['Mecha', 'Blindado', 'Versátil'],
+  },
+  {
+    id: 'heavy-core',
+    code: 'CORE-03',
+    category: 'regras',
+    title: `Heavy Core`,
+    subtitle: `Titã blindado bípede de cerco`,
+    summary: `A fortaleza ambulante. Resistência massiva a projéteis leves, mas com mobilidade severamente reduzida.`,
+    description: `O Heavy Core é um colosso bípede de blindagem massiva. Seu piloto está selado dentro de um cockpit blindado com suporte vital completo.
+
+Bônus e Penalidades:
+• +3 CA (Classe de Armadura)
+• 4 Pontos de Energia (EN)
+• Resistência permanente a munições leves (dano reduzido pela metade)
+• Desvantagem em testes de Destreza e Furtividade
+• -3 metros de movimento
+• Compatível com armas pesadas e armamento montado
+
+Merge Bonus: +3d10 de dano extra ao fundir uma arma ao chassi.
+
+Para pilotos que acreditam que a melhor defesa é uma blindagem impenetrável.`,
+    attributes: [
+      { label: `CA`, value: `+3` },
+      { label: `ENERGIA`, value: `4 EN` },
+      { label: `RESISTÊNCIA`, value: `Munições Leves` },
+    ],
+    tags: ['Mecha', 'Titã', 'Cerco'],
+  },
+  {
+    id: 'caido-prone',
+    code: 'STATUS-01',
+    category: 'regras',
+    title: `Caído (Prone)`,
+    subtitle: `Derrubado no chão`,
+    summary: `A criatura está no chão. Ataques corpo a corpo contra ela têm vantagem, ataques à distância têm desvantagem.`,
+    description: `Uma criatura Caída tem as seguintes penalidades:
+
+• A única opção de movimento é rastejar, a menos que se levante (custa metade do seu movimento).
+• A criatura tem desvantagem em testes de ataque.
+• Um teste de ataque contra a criatura tem vantagem se o atacante estiver a até 1,5m. Caso contrário, o teste tem desvantagem.`,
+    attributes: [
+      { label: `EFEITO`, value: `Desvantagem nos ataques` },
+      { label: `CURA`, value: `Usar metade do movimento para levantar` },
+    ],
+    tags: ['Status', 'Condição', 'Combate'],
+  },
+  {
+    id: 'suprimido-suppressed',
+    code: 'STATUS-02',
+    category: 'regras',
+    title: `Suprimido (Suppressed)`,
+    subtitle: `Sob fogo pesado e sem poder reagir`,
+    summary: `A criatura está sob fogo cerrado e sofre desvantagem em ataques até o final do próximo turno.`,
+    description: `Uma criatura Suprimida está em estado de pânico tático causado por volume massivo de fogo.
+
+• Desvantagem em todos os testes de ataque até o final do seu próximo turno.
+• Causado tipicamente pela habilidade Bigger Burst (LMG).`,
+    attributes: [
+      { label: `EFEITO`, value: `Desvantagem nos ataques` },
+      { label: `DURAÇÃO`, value: `Até o final do próximo turno` },
+    ],
+    tags: ['Status', 'Condição', 'Supressão'],
+  },
+  {
+    id: 'amedrontado-frightened',
+    code: 'STATUS-03',
+    category: 'regras',
+    title: `Amedrontado (Frightened)`,
+    subtitle: `Dominado pelo medo`,
+    summary: `A criatura tem desvantagem em testes de habilidade e ataques enquanto a fonte do medo estiver em linha de visão.`,
+    description: `Uma criatura Amedrontada sofre:
+
+• Desvantagem em testes de habilidade e testes de ataque enquanto a fonte do medo estiver em sua linha de visão.
+• A criatura não pode voluntariamente se mover para mais perto da fonte do medo.
+
+Pode ser curado por Iron Will (Ancient).`,
+    attributes: [
+      { label: `EFEITO`, value: `Desvantagem em ataques e habilidades` },
+      { label: `CURA`, value: `Iron Will` },
+    ],
+    tags: ['Status', 'Condição', 'Medo'],
+  },
+  {
+    id: 'paralisado-paralyzed',
+    code: 'STATUS-04',
+    category: 'regras',
+    title: `Paralisado (Paralyzed)`,
+    subtitle: `Incapaz de mover ou agir`,
+    summary: `A criatura está completamente imóvel e incapacitada. Ataques contra ela são automáticos e críticos à curta distância.`,
+    description: `Uma criatura Paralisada:
+
+• Está incapacitada e não pode se mover ou falar.
+• Falha automaticamente em testes de resistência de STR e DEX.
+• Ataques contra ela têm vantagem.
+• Qualquer ataque que acerte a 1,5m de distância é um acerto crítico.
+
+Pode ser curado por Iron Will (Ancient).`,
+    attributes: [
+      { label: `EFEITO`, value: `Imóvel, ataques automáticos` },
+      { label: `CURA`, value: `Iron Will` },
+    ],
+    tags: ['Status', 'Condição', 'Paralisia'],
+  },
+  {
+    id: 'atordoado-stunned',
+    code: 'STATUS-05',
+    category: 'regras',
+    title: `Atordoado (Stunned)`,
+    subtitle: `Temporariamente incapacitado por choque`,
+    summary: `A criatura está atordoada e não pode agir ou se mover, com falha automática em saves de STR e DEX.`,
+    description: `Uma criatura Atordoada:
+
+• Está incapacitada, não pode se mover e fala com dificuldade.
+• Falha automaticamente em testes de resistência de STR e DEX.
+• Ataques contra ela têm vantagem.
+
+Pode ser curado por Iron Will (Ancient) ou pode expirar sozinho.`,
+    attributes: [
+      { label: `EFEITO`, value: `Incapacitado` },
+      { label: `CURA`, value: `Iron Will ou expiração` },
+    ],
+    tags: ['Status', 'Condição', 'Choque'],
+  },
+  {
+    id: 'envenenado-poisoned',
+    code: 'STATUS-06',
+    category: 'regras',
+    title: `Envenenado (Poisoned)`,
+    subtitle: `Afetado por toxinas`,
+    summary: `A criatura sofre desvantagem em ataques e testes de habilidade enquanto envenenada.`,
+    description: `Uma criatura Envenenada:
+
+• Desvantagem em testes de ataque e testes de habilidade.
+
+Pode ser curado por Antidote (AI-rtificer), Special Blood (imunidade natural de Cyborgues e Infectados 115), ou por perícias médicas.`,
+    attributes: [
+      { label: `EFEITO`, value: `Desvantagem em ataques e habilidades` },
+      { label: `CURA`, value: `Antidote, Special Blood` },
+    ],
+    tags: ['Status', 'Condição', 'Veneno'],
+  },
+  {
+    id: 'inconsciente-unconscious',
+    code: 'STATUS-07',
+    category: 'regras',
+    title: `Inconsciente (Unconscious)`,
+    subtitle: `Completamente fora de combate`,
+    summary: `A criatura está desmaiada. Não pode agir, se mover ou perceber o ambiente.`,
+    description: `Uma criatura Inconsciente:
+
+• Está incapacitada, não pode se mover ou falar, e não percebe o que acontece ao redor.
+• Larga tudo o que estiver segurando e cai no chão (Caído/Prone).
+• Falha automaticamente em testes de resistência de STR e DEX.
+• Ataques contra ela têm vantagem.
+• Qualquer ataque que acerte a 1,5m é um acerto crítico.
+
+Causado por Neural Stun (Hacker) ou dano massivo. Androides Análogos são imunes (Hardnosed).`,
+    attributes: [
+      { label: `EFEITO`, value: `Fora de combate total` },
+      { label: `IMUNIDADE`, value: `Android Análogo (Hardnosed)` },
+    ],
+    tags: ['Status', 'Condição', 'Inconsciência'],
+  },
+  {
+    id: 'encantado-charmed',
+    code: 'STATUS-08',
+    category: 'regras',
+    title: `Encantado (Charmed)`,
+    subtitle: `Sob influência mental ou social`,
+    summary: `A criatura não pode atacar o encantador e este tem vantagem em interações sociais com ela.`,
+    description: `Uma criatura Encantada:
+
+• Não pode atacar o encantador ou alvejar o encantador com habilidades ou efeitos nocivos.
+• O encantador tem vantagem em qualquer teste de habilidade para interagir socialmente com a criatura.
+
+Pode ser curado por Iron Will (Ancient) ou Mind Block.`,
+    attributes: [
+      { label: `EFEITO`, value: `Não pode atacar a fonte` },
+      { label: `CURA`, value: `Iron Will, Mind Block` },
+    ],
+    tags: ['Status', 'Condição', 'Mental'],
+  },
+  {
+    id: 'pontos-de-energia',
+    code: 'MECH-01',
+    category: 'regras',
+    title: `Pontos de Energia (EN)`,
+    subtitle: `Recurso de combustível dos Mechas`,
+    summary: `Pontos consumidos por habilidades especiais do Mecha, variando conforme o tipo de Core.`,
+    description: `Pontos de Energia (EN) são o recurso principal de combustível dos chassis Mecha. Determinam quantas vezes o piloto pode usar habilidades especiais do mecha em combate antes de precisar recarregar.
+
+• Half Core: 2 EN
+• Light Core: 3 EN
+• Heavy Core: 4 EN
+
+EN é restaurado durante Descansos Longos ou em estações de recarga. Habilidades como Core Overheat, ShockWave e Death Ray consomem EN.`,
+    attributes: [
+      { label: `HALF CORE`, value: `2 EN` },
+      { label: `LIGHT CORE`, value: `3 EN` },
+      { label: `HEAVY CORE`, value: `4 EN` },
+    ],
+    tags: ['Mecha', 'Energia', 'Recurso'],
+  },
+  {
+    id: 'abs-ability-score-improvement',
+    code: 'PROG-01',
+    category: 'regras',
+    title: `Ability Score Improvement (ABS)`,
+    subtitle: `Aumento de Atributos`,
+    summary: `Melhora seus atributos base. Ao atingir certos níveis, você pode aumentar seus status.`,
+    description: `O Ability Score Improvement (frequentemente abreviado como ABS) representa o ganho de capacidade física ou mental conforme seu personagem evolui.
+
+Quando você ganha um nível que concede ABS, você pode aumentar um atributo à sua escolha em +2, ou pode aumentar dois atributos diferentes em +1 cada.
+
+Nota: Assim como no D&D 5e e similares, você normalmente não pode aumentar um atributo acima de 20 usando esse recurso, a menos que uma habilidade específica permita.`,
+    attributes: [
+      { label: `OPÇÃO 1`, value: `+2 em um Atributo` },
+      { label: `OPÇÃO 2`, value: `+1 em dois Atributos` },
+    ],
+    tags: ['Regras', 'Progressão', 'Level Up', 'ABS'],
+  },
+  {
+    id: 'skill-point',
+    code: 'PROG-02',
+    category: 'regras',
+    title: `Skill Point`,
+    subtitle: `Pontos de progressão da árvore de habilidades`,
+    summary: `Pontos ganhos ao subir de nível que podem ser investidos nas habilidades de suas subclasses.`,
+    description: `Skill Points são a moeda de customização e progressão da sua classe.
+
+O sistema funciona da seguinte maneira: nos níveis em que você ganha um "Skill Point" (conforme a tabela de progressão da sua classe principal), você pode escolher investir esse ponto em qualquer uma das suas Subclasses.
+
+Isso se assemelha a uma Árvore de Habilidades (Skill Tree). Você não está preso a uma única subclasse linearmente; você pode distribuir seus Skill Points entre as subclasses disponíveis para a sua classe, desbloqueando habilidades exclusivas, passivas e técnicas que moldam o estilo do seu personagem.
+
+Lembre-se que certas habilidades avançadas de uma subclasse podem exigir que você já tenha investido pontos em habilidades anteriores daquela mesma ramificação.`,
+    attributes: [
+      { label: `USO`, value: `Desbloqueia habilidades de Subclasse` },
+      { label: `SISTEMA`, value: `Árvore de Habilidades Livre` },
+    ],
+    tags: ['Regras', 'Progressão', 'Level Up', 'Skill'],
+  },
+  {
+    id: 'feat-geral',
+    code: 'FEAT-00',
+    category: 'feats',
+    title: `Feat`,
+    subtitle: `Talentos e Especializações`,
+    summary: `Feats são treinamentos ou talentos especiais que seu personagem pode escolher ao subir de nível.`,
+    description: `Um Feat (Talento) representa uma área de especialização ou um treinamento focado que o personagem desenvolveu.
+
+Nos níveis em que sua classe indica o ganho de um "Feat" (geralmente junto com ABS nos níveis 4, 12, etc.), você pode escolher adquirir um talento disponível no sistema no lugar de um bônus numérico comum, ou em adição a ele, dependendo das regras da classe.`,
+    attributes: [
+      { label: `AQUISIÇÃO`, value: `Níveis de progressão específicos` },
+    ],
+    tags: ['Regras', 'Feat', 'Progressão'],
+  },
+  {
+    id: 'feat-resilient',
+    code: 'FEAT-01',
+    category: 'feats',
+    title: `Resilient`,
+    subtitle: `Feat (Talento)`,
+    summary: `Aumenta um atributo em +1 e concede proficiência em saving throws com esse atributo.`,
+    description: `Escolha um valor de atributo (Ability Score). Você ganha os seguintes benefícios:
+
+• Aumenta o valor do atributo escolhido em +1, até um máximo de 20.
+• Você ganha proficiência nos testes de resistência (saving throws) usando o atributo escolhido.`,
+    attributes: [
+      { label: `TIPO`, value: `Passiva` },
+      { label: `BÔNUS`, value: `+1 Atributo` },
+      { label: `PROFICIÊNCIA`, value: `Saving Throw` },
+    ],
+    tags: ['Feat', 'Passiva', 'Atributo', 'Resistência'],
+  },
+  {
+    id: 'feat-lightly-armored',
+    code: 'FEAT-02',
+    category: 'feats',
+    title: `Lightly Armored`,
+    subtitle: `Feat (Talento)`,
+    summary: `Treinamento para dominar armaduras leves, concedendo aumento de atributo e proficiência.`,
+    description: `Você treinou extensivamente para dominar o uso de armaduras leves, ganhando os seguintes benefícios:
+
+• Aumente seu valor de Força (Strength) ou Destreza (Dexterity) em +1, até um máximo de 20.
+• Você ganha proficiência com armaduras leves (Light Armor).`,
+    attributes: [
+      { label: `TIPO`, value: `Passiva` },
+      { label: `BÔNUS`, value: `+1 STR ou DEX` },
+      { label: `PROFICIÊNCIA`, value: `Armadura Leve` },
+    ],
+    tags: ['Feat', 'Passiva', 'Armadura'],
+  },
+  {
+    id: 'feat-athlete',
+    code: 'FEAT-03',
+    category: 'feats',
+    title: `Athlete`,
+    subtitle: `Feat (Talento)`,
+    summary: `Treinamento físico intensivo que melhora movimentação, saltos e atributos físicos.`,
+    description: `Você passou por um treinamento físico rigoroso para ganhar os seguintes benefícios:
+
+• Aumente seu valor de Força (Strength) ou Destreza (Dexterity) em +1, até um máximo de 20.
+• Quando você estiver deitado/caído (prone), levantar-se gasta apenas 1,5 metros (5 feet) do seu movimento.
+• Escalar não custa movimento extra.
+• Você pode dar um salto em distância com corrida ou um salto em altura com corrida depois de se mover apenas 1,5 metros (5 feet) a pé, em vez de 3 metros (10 feet).`,
+    attributes: [
+      { label: `TIPO`, value: `Passiva` },
+      { label: `BÔNUS`, value: `+1 STR ou DEX` },
+      { label: `MOVIMENTO`, value: `Vantagens atléticas` },
+    ],
+    tags: ['Feat', 'Passiva', 'Movimentação'],
+  },
+  {
+    id: 'feat-pensive-protection',
+    code: 'FEAT-04',
+    category: 'feats',
+    title: `Pensive Protection`,
+    subtitle: `Feat (Talento)`,
+    summary: `Reflete qualquer golpe recebendo apenas metade do dano.`,
+    description: `Lhe garante a habilidade de refletir qualquer golpe, seja de energia ou projétil. No entanto, você vai levar metade do dano original.
+
+Pode usar essa habilidade 1 vez por descanso longo.`,
+    attributes: [
+      { label: `TIPO`, value: `Reação` },
+      { label: `USO`, value: `1/Descanso Longo` },
+      { label: `EFEITO`, value: `Reflete ataque e toma 50% dano` },
+    ],
+    tags: ['Feat', 'Defesa', 'Reflexo'],
+  },
+  {
+    id: 'feat-sentinel',
+    code: 'FEAT-05',
+    category: 'feats',
+    title: `Sentinel`,
+    subtitle: `Feat (Talento)`,
+    summary: `Mestre em ataques de oportunidade e punição de guardas baixas.`,
+    description: `Você dominou técnicas para tirar vantagem de cada brecha na guarda do inimigo, recebendo os seguintes benefícios:
+
+• Quando você atinge uma criatura com um ataque de oportunidade, o deslocamento dela se torna 0 pelo resto do turno.
+• Criaturas provocam ataques de oportunidade de você mesmo se usarem a ação Desengajar (Disengage) antes de sair do seu alcance.
+• Quando uma criatura a até 1,5m (5 feet) de você faz um ataque contra outro alvo que não seja você (e o alvo não tenha esse talento), você pode usar sua reação para fazer um ataque corpo-a-corpo contra a criatura atacante.`,
+    attributes: [
+      { label: `TIPO`, value: `Reação / Passiva` },
+      { label: `EFEITO`, value: `Controle de área e punição` },
+    ],
+    tags: ['Feat', 'Combate', 'Oportunidade', 'Reação'],
+  },
+  {
+    id: 'feat-skilled',
+    code: 'FEAT-06',
+    category: 'feats',
+    title: `Skilled`,
+    subtitle: `Feat (Talento)`,
+    summary: `Concede proficiência em 3 perícias ou ferramentas à sua escolha.`,
+    description: `Você dedicou tempo para aprender novas técnicas.
+
+• Você ganha proficiência em qualquer combinação de 3 perícias (skills) ou ferramentas (tools) de sua escolha.`,
+    attributes: [
+      { label: `TIPO`, value: `Passiva` },
+      { label: `BÔNUS`, value: `+3 Proficiências` },
+    ],
+    tags: ['Feat', 'Perícias', 'Passiva'],
+  },
+  {
+    id: 'feat-moderately-armored',
+    code: 'FEAT-07',
+    category: 'feats',
+    title: `Moderately Armored`,
+    subtitle: `Feat (Talento)`,
+    summary: `Treinamento para dominar armaduras médias.`,
+    description: `**Pré-requisito:** Proficiência com armadura leve (Light Armor)
+
+Você treinou para dominar o uso de armaduras médias e escudos, ganhando os seguintes benefícios:
+
+• Aumente seu valor de Força (Strength) ou Destreza (Dexterity) em +1, até um máximo de 20.
+• Você ganha proficiência com armaduras médias (Medium Armor).`,
+    attributes: [
+      { label: `TIPO`, value: `Passiva` },
+      { label: `BÔNUS`, value: `+1 STR ou DEX` },
+      { label: `PRÉ-REQUISITO`, value: `Armadura Leve` },
+    ],
+    tags: ['Feat', 'Passiva', 'Armadura'],
+  },
+  {
+    id: 'feat-medium-armor-master',
+    code: 'FEAT-08',
+    category: 'feats',
+    title: `Medium Armor Master`,
+    subtitle: `Feat (Talento)`,
+    summary: `Domínio avançado de armaduras médias, removendo penalidades e aumentando CA.`,
+    description: `**Pré-requisito:** Proficiência com armadura média (Medium Armor)
+
+Você praticou se mover vestindo armadura média para ganhar os seguintes benefícios:
+
+• Usar armadura média não impõe desvantagem em seus testes de Destreza (Furtividade / Stealth).
+• Quando você veste armadura média, você pode adicionar +3 (em vez de +2) à sua Classe de Armadura (AC/CA), desde que sua Destreza seja 16 ou superior.`,
+    attributes: [
+      { label: `TIPO`, value: `Passiva` },
+      { label: `BÔNUS`, value: `Furtividade normal e +1 CA máximo` },
+    ],
+    tags: ['Feat', 'Passiva', 'Armadura'],
+  },
+  {
+    id: 'feat-linguist',
+    code: 'FEAT-09',
+    category: 'feats',
+    title: `Linguist`,
+    subtitle: `Feat (Talento)`,
+    summary: `Aumenta a Inteligência, ensina idiomas e permite criar códigos secretos.`,
+    description: `Você estudou idiomas e códigos, recebendo os seguintes benefícios:
+
+• Aumente seu valor de Inteligência (Intelligence) em +1, até um máximo de 20.
+• Você aprende três idiomas de sua escolha.
+• Você se torna capaz de criar cifras e códigos escritos. Outros não conseguem decifrar um código que você criou a menos que você os ensine, ou sejam bem-sucedidos em um teste de Inteligência (CD igual ao seu valor de Inteligência + seu bônus de proficiência), ou usem magia para decifrá-lo.`,
+    attributes: [
+      { label: `TIPO`, value: `Passiva` },
+      { label: `BÔNUS`, value: `+1 INT` },
+      { label: `UTILIDADE`, value: `Cifras e Idiomas` },
+    ],
+    tags: ['Feat', 'Passiva', 'Inteligência', 'Linguagem'],
+  },
+  {
+    id: 'feat-tough',
+    code: 'FEAT-10',
+    category: 'feats',
+    title: `Tough`,
+    subtitle: `Feat (Talento)`,
+    summary: `Aumenta massivamente seus pontos de vida máximos.`,
+    description: `Sua resistência física se torna sobre-humana:
+
+• Seu máximo de pontos de vida aumenta em uma quantidade igual a duas vezes o seu nível no momento em que você adquire este talento. Sempre que você ganhar um nível a partir de então, seu máximo de pontos de vida aumenta em 2 pontos de vida adicionais.`,
+    attributes: [
+      { label: `TIPO`, value: `Passiva` },
+      { label: `BÔNUS`, value: `+2 HP por Nível` },
+    ],
+    tags: ['Feat', 'Passiva', 'Vida', 'HP'],
+  },
+  {
+    id: 'feat-charger',
+    code: 'FEAT-11',
+    category: 'feats',
+    title: `Charger`,
+    subtitle: `Feat (Talento)`,
+    summary: `Permite atacar ou empurrar como ação bônus após correr (Dash).`,
+    description: `Quando você usa sua Ação para Correr (Dash), você pode usar uma Ação Bônus para fazer um ataque com arma corpo a corpo (melee) ou empurrar uma criatura (shove).
+
+Se você se mover pelo menos 3 metros (10 feet) em linha reta imediatamente antes de realizar essa Ação Bônus, você recebe um dos seguintes benefícios:
+
+• +5 de bônus na rolagem de dano do ataque (caso tenha escolhido fazer um ataque corpo a corpo e acerte).
+• Empurra o alvo até 3 metros (10 feet) para longe de você (caso tenha escolhido empurrar e tenha sucesso no teste).`,
+    attributes: [
+      { label: `TIPO`, value: `Passiva de Combate` },
+      { label: `BÔNUS`, value: `+5 Dano ou Empurrão` },
+    ],
+    tags: ['Feat', 'Passiva', 'Combate', 'Dash'],
+  },
+  {
+    id: 'feat-actor',
+    code: 'FEAT-12',
+    category: 'feats',
+    title: `Actor`,
+    subtitle: `Feat (Talento)`,
+    summary: `Melhora o Carisma, concede vantagens em enganação e permite mimetizar vozes perfeitamente.`,
+    description: `Habilidoso em mímica e atuação dramática, você recebe os seguintes benefícios:
+
+• Aumente seu valor de Carisma (Charisma) em +1, até um máximo de 20.
+• Você tem Vantagem em testes de Enganação (Deception) e Atuação (Performance) quando estiver tentando se passar por uma pessoa diferente.
+• Você pode mimetizar a fala de outra pessoa ou os sons produzidos por outras criaturas. Você deve ter ouvido a pessoa falar, ou a criatura fazer o som, por pelo menos 1 minuto contínuo. Um teste de Intuição (Insight) bem-sucedido contestado pelo seu teste de Enganação (Deception) permite ao ouvinte determinar que o efeito é falso.`,
+    attributes: [
+      { label: `TIPO`, value: `Passiva` },
+      { label: `BÔNUS`, value: `+1 CHA` },
+      { label: `VANTAGEM`, value: `Enganação/Atuação` },
+    ],
+    tags: ['Feat', 'Passiva', 'Carisma', 'Social'],
+  },
+  {
+    id: 'feat-crossbow-expert',
+    code: 'FEAT-13',
+    category: 'feats',
+    title: `Crossbow Expert`,
+    subtitle: `Feat (Talento)`,
+    summary: `Ignora tempo de recarga, atira de perto sem desvantagem e permite ataque bônus com hand crossbow.`,
+    description: `Graças a um treinamento extensivo com bestas (ou armas equivalentes que requerem recarga lenta), você ganha os seguintes benefícios:
+
+• Você ignora a propriedade "loading" (recarga) das bestas nas quais tem proficiência.
+• Estar a até 1,5m (5 feet) de uma criatura hostil não impõe desvantagem nas suas rolagens de ataque à distância.
+• Quando você usa a ação de Ataque e ataca com uma arma de uma mão, você pode usar uma ação bônus para atacar com uma besta de mão (hand crossbow) que esteja segurando.`,
+    attributes: [
+      { label: `TIPO`, value: `Passiva` },
+      { label: `EFEITO`, value: `Mestre em Bestas/Armas de Recarga` },
+    ],
+    tags: ['Feat', 'Passiva', 'Combate à Distância'],
+  },
+  {
+    id: 'feat-defensive-duelist',
+    code: 'FEAT-14',
+    category: 'feats',
+    title: `Defensive Duelist`,
+    subtitle: `Feat (Talento)`,
+    summary: `Usa sua reação para adicionar seu bônus de proficiência à CA contra um ataque corpo a corpo.`,
+    description: `**Pré-requisito:** Destreza 13 ou superior
+
+Quando você está empunhando uma arma com a propriedade Acuidade (Finesse) na qual você tem proficiência e outra criatura atinge você com um ataque corpo a corpo, você pode usar sua reação para adicionar seu bônus de proficiência à sua CA (Classe de Armadura) contra aquele ataque, o que pode fazer o ataque errar você.`,
+    attributes: [
+      { label: `TIPO`, value: `Reação` },
+      { label: `EFEITO`, value: `+ Proficiência na CA temporariamente` },
+    ],
+    tags: ['Feat', 'Reação', 'Defesa', 'Acuidade'],
+  },
+  {
+    id: 'feat-dual-wielder',
+    code: 'FEAT-15',
+    category: 'feats',
+    title: `Dual Wielder`,
+    subtitle: `Feat (Talento)`,
+    summary: `Melhora o combate com duas armas, permitindo usar armas que não são leves e concedendo CA.`,
+    description: `Você dominou o combate com duas armas, ganhando os seguintes benefícios:
+
+• Você ganha +1 de bônus na CA (Classe de Armadura) enquanto estiver empunhando uma arma corpo a corpo em cada mão.
+• Você pode lutar com duas armas (Two-Weapon Fighting) mesmo que as armas de uma mão que você está empunhando não tenham a propriedade Leve (Light).
+• Você pode sacar ou guardar duas armas de uma mão quando normalmente seria capaz de sacar ou guardar apenas uma.`,
+    attributes: [
+      { label: `TIPO`, value: `Passiva` },
+      { label: `BÔNUS`, value: `+1 CA e Armas maiores` },
+    ],
+    tags: ['Feat', 'Passiva', 'Combate com Duas Armas'],
+  },
+  {
+    id: 'feat-dungeon-delver',
+    code: 'FEAT-16',
+    category: 'feats',
+    title: `Dungeon Delver`,
+    subtitle: `Feat (Talento)`,
+    summary: `Mestre em explorar ruínas e detectar armadilhas e portas secretas.`,
+    description: `Alertas aos perigos ocultos em masmorras e ruínas, você ganha os seguintes benefícios:
+
+• Vantagem em testes de Sabedoria (Percepção) e Inteligência (Investigação) feitos para detectar portas secretas.
+• Vantagem em testes de resistência feitos para evitar ou resistir a armadilhas.
+• Resistência ao dano causado por armadilhas.
+• Viajar em ritmo acelerado não impõe a penalidade normal de -5 no seu valor passivo de Sabedoria (Percepção).`,
+    attributes: [
+      { label: `TIPO`, value: `Passiva` },
+      { label: `VANTAGEM`, value: `Armadilhas e Portas Secretas` },
+    ],
+    tags: ['Feat', 'Passiva', 'Exploração', 'Armadilhas'],
+  },
+  {
+    id: 'feat-durable',
+    code: 'FEAT-17',
+    category: 'feats',
+    title: `Durable`,
+    subtitle: `Feat (Talento)`,
+    summary: `Aumenta sua Constituição e melhora a recuperação de HP durante descansos curtos.`,
+    description: `Forte e resiliente, você ganha os seguintes benefícios:
+
+• Aumente seu valor de Constituição (Constitution) em +1, até um máximo de 20.
+• Quando você rola um Dado de Vida (Hit Die) para recuperar pontos de vida, o número mínimo de pontos de vida que você recupera da rolagem é igual a duas vezes seu modificador de Constituição (mínimo de 2).`,
+    attributes: [
+      { label: `TIPO`, value: `Passiva` },
+      { label: `BÔNUS`, value: `+1 CON e Melhor Cura` },
+    ],
+    tags: ['Feat', 'Passiva', 'Constituição', 'Cura'],
+  },
+  {
+    id: 'item-bionic-arm',
+    code: 'ITM-101',
+    category: 'equipamentos',
+    title: `Bionic Arm`,
+    subtitle: `Implante Cibernético (Membro)`,
+    summary: `Preço: TBD | Cyber Cost: 20`,
+    description: `Seu ataque desarmado agora causa 1d6 + mod(STR)`,
+    attributes: [
+      { label: `EFEITO`, value: `Seu ataque desarmado agora causa 1d6 + mod(STR)` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-quick-draw-arm',
+    code: 'ITM-102',
+    category: 'equipamentos',
+    title: `Quick Draw Arm`,
+    subtitle: `Implante Cibernético (Membro)`,
+    summary: `Preço: TBD | Cyber Cost: 20`,
+    description: `+4 Initiative`,
+    attributes: [
+      { label: `EFEITO`, value: `+4 Initiative` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-piston-arm',
+    code: 'ITM-103',
+    category: 'equipamentos',
+    title: `Piston Arm`,
+    subtitle: `Implante Cibernético (Membro)`,
+    summary: `Preço: TBD | Cyber Cost: 20`,
+    description: `Ganha a habilidade de usar seu braço para abrir buracos e forçar coisas a abrirem`,
+    attributes: [
+      { label: `EFEITO`, value: `Ganha a habilidade de usar seu braço para abrir buracos e forçar coisas a abrirem` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-bionic-chest',
+    code: 'ITM-104',
+    category: 'equipamentos',
+    title: `Bionic Chest`,
+    subtitle: `Implante Cibernético (Torso)`,
+    summary: `Preço: TBD | Cyber Cost: 20`,
+    description: `+1 AC`,
+    attributes: [
+      { label: `EFEITO`, value: `+1 AC` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-pump-chest',
+    code: 'ITM-105',
+    category: 'equipamentos',
+    title: `Pump Chest`,
+    subtitle: `Implante Cibernético (Torso)`,
+    summary: `Preço: TBD | Cyber Cost: 20`,
+    description: `Quando agarrado (grappled), você tem vantagem nas rolagens de STR e COS`,
+    attributes: [
+      { label: `EFEITO`, value: `Quando agarrado (grappled), você tem vantagem nas rolagens de STR e COS` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-chest-implant',
+    code: 'ITM-106',
+    category: 'equipamentos',
+    title: `Chest Implant`,
+    subtitle: `Implante Cibernético (Torso)`,
+    summary: `Preço: TBD | Cyber Cost: 20`,
+    description: `Nenhum efeito listado`,
+    attributes: [
+      { label: `EFEITO`, value: `Nenhum efeito listado` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-bionic-hand',
+    code: 'ITM-107',
+    category: 'equipamentos',
+    title: `Bionic Hand`,
+    subtitle: `Implante Cibernético (Mão)`,
+    summary: `Preço: TBD | Cyber Cost: 20`,
+    description: `Vantagem em ações relacionadas a agarrar objetos`,
+    attributes: [
+      { label: `EFEITO`, value: `Vantagem em ações relacionadas a agarrar objetos` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-multi-tool-hands',
+    code: 'ITM-108',
+    category: 'equipamentos',
+    title: `Multi Tool Hands`,
+    subtitle: `Implante Cibernético (Mão)`,
+    summary: `Preço: TBD | Cyber Cost: 20`,
+    description: `Permite escolher um kit de ferramentas para estar sempre equipado em sua mão`,
+    attributes: [
+      { label: `EFEITO`, value: `Permite escolher um kit de ferramentas para estar sempre equipado em sua mão` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-claw-hand',
+    code: 'ITM-109',
+    category: 'equipamentos',
+    title: `Claw Hand`,
+    subtitle: `Implante Cibernético (Mão)`,
+    summary: `Preço: TBD | Cyber Cost: 20`,
+    description: `Garante vantagem em testes relacionados a escalar`,
+    attributes: [
+      { label: `EFEITO`, value: `Garante vantagem em testes relacionados a escalar` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-bionic-leg',
+    code: 'ITM-110',
+    category: 'equipamentos',
+    title: `Bionic Leg`,
+    subtitle: `Implante Cibernético (Perna)`,
+    summary: `Preço: TBD | Cyber Cost: 20`,
+    description: `+2 Movement`,
+    attributes: [
+      { label: `EFEITO`, value: `+2 Movement` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-boosted-leg',
+    code: 'ITM-111',
+    category: 'equipamentos',
+    title: `Boosted Leg`,
+    subtitle: `Implante Cibernético (Perna)`,
+    summary: `Preço: TBD | Cyber Cost: 20`,
+    description: `+4 em testes de acrobacia`,
+    attributes: [
+      { label: `EFEITO`, value: `+4 em testes de acrobacia` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-leg-implant',
+    code: 'ITM-112',
+    category: 'equipamentos',
+    title: `Leg Implant`,
+    subtitle: `Implante Cibernético (Perna)`,
+    summary: `Preço: TBD | Cyber Cost: 20`,
+    description: `Nenhum efeito listado`,
+    attributes: [
+      { label: `EFEITO`, value: `Nenhum efeito listado` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-bionic-feet',
+    code: 'ITM-113',
+    category: 'equipamentos',
+    title: `Bionic Feet`,
+    subtitle: `Implante Cibernético (Pés)`,
+    summary: `Preço: TBD | Cyber Cost: 20`,
+    description: `Quando deitado (prone), você não gasta uma ação para se levantar`,
+    attributes: [
+      { label: `EFEITO`, value: `Quando deitado (prone), você não gasta uma ação para se levantar` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-propelling-feet',
+    code: 'ITM-114',
+    category: 'equipamentos',
+    title: `Propelling Feet`,
+    subtitle: `Implante Cibernético (Pés)`,
+    summary: `Preço: TBD | Cyber Cost: 20`,
+    description: `Permite saltar mais alto`,
+    attributes: [
+      { label: `EFEITO`, value: `Permite saltar mais alto` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-lock-feet',
+    code: 'ITM-115',
+    category: 'equipamentos',
+    title: `Lock Feet`,
+    subtitle: `Implante Cibernético (Pés)`,
+    summary: `Preço: TBD | Cyber Cost: 20`,
+    description: `Seus pés possuem uma trava, prendendo você ao chão`,
+    attributes: [
+      { label: `EFEITO`, value: `Seus pés possuem uma trava, prendendo você ao chão` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-bionic-brain',
+    code: 'ITM-116',
+    category: 'equipamentos',
+    title: `Bionic Brain`,
+    subtitle: `Implante Cibernético (Cérebro)`,
+    summary: `Preço: TBD | Cyber Cost: 20`,
+    description: `Nenhum efeito listado`,
+    attributes: [
+      { label: `EFEITO`, value: `Nenhum efeito listado` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-basic-vest',
+    code: 'ITM-117',
+    category: 'equipamentos',
+    title: `Basic Vest`,
+    subtitle: `Armadura`,
+    summary: `Preço: 6000 | AC: 11 + 1 DEX`,
+    description: `Armadura básica`,
+    attributes: [
+      { label: `EFEITO`, value: `Armadura básica` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-light-vest',
+    code: 'ITM-118',
+    category: 'equipamentos',
+    title: `Light Vest`,
+    subtitle: `Armadura`,
+    summary: `Preço: 8000 | AC: 11 + 1 DEX`,
+    description: `Colete leve`,
+    attributes: [
+      { label: `EFEITO`, value: `Colete leve` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-gunner-s-jacket',
+    code: 'ITM-119',
+    category: 'equipamentos',
+    title: `Gunner's Jacket`,
+    subtitle: `Armadura`,
+    summary: `Preço: 15000 | AC: 12 + 2 DEX`,
+    description: `Jaqueta de artilheiro`,
+    attributes: [
+      { label: `EFEITO`, value: `Jaqueta de artilheiro` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-advanced-vest',
+    code: 'ITM-120',
+    category: 'equipamentos',
+    title: `Advanced Vest`,
+    subtitle: `Armadura`,
+    summary: `Preço: 19000 | AC: 13 + 2 DEX`,
+    description: `Colete avançado`,
+    attributes: [
+      { label: `EFEITO`, value: `Colete avançado` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-medium-vest',
+    code: 'ITM-121',
+    category: 'equipamentos',
+    title: `Medium Vest`,
+    subtitle: `Armadura`,
+    summary: `Preço: 20000 | AC: 14 + 2 DEX`,
+    description: `Colete médio`,
+    attributes: [
+      { label: `EFEITO`, value: `Colete médio` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-heavy-vest',
+    code: 'ITM-122',
+    category: 'equipamentos',
+    title: `Heavy Vest`,
+    subtitle: `Armadura`,
+    summary: `Preço: 43000 | Requisito: 15 STR | AC: 17`,
+    description: `Colete pesado`,
+    attributes: [
+      { label: `EFEITO`, value: `Colete pesado` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-light-medium-vest',
+    code: 'ITM-123',
+    category: 'equipamentos',
+    title: `Light Medium Vest`,
+    subtitle: `Armadura`,
+    summary: `Preço: 36000 | AC: 15 + 2 DEX`,
+    description: `Armadura híbrida leve-média`,
+    attributes: [
+      { label: `EFEITO`, value: `Armadura híbrida leve-média` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-augmented-suit',
+    code: 'ITM-124',
+    category: 'equipamentos',
+    title: `Augmented Suit`,
+    subtitle: `Armadura`,
+    summary: `Preço: 52000 | AC: 15 + 2 DEX`,
+    description: `Traje aumentado`,
+    attributes: [
+      { label: `EFEITO`, value: `Traje aumentado` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-metal-armor',
+    code: 'ITM-125',
+    category: 'equipamentos',
+    title: `Metal Armor`,
+    subtitle: `Armadura`,
+    summary: `Preço: 60000 | Requisito: 16 STR | AC: 18`,
+    description: `Armadura metálica pesada`,
+    attributes: [
+      { label: `EFEITO`, value: `Armadura metálica pesada` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-armored-blaze',
+    code: 'ITM-126',
+    category: 'equipamentos',
+    title: `Armored Blaze`,
+    subtitle: `Armadura`,
+    summary: `Preço: 32000 | AC: 14 + 2 DEX`,
+    description: `Armadura especial`,
+    attributes: [
+      { label: `EFEITO`, value: `Armadura especial` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-powered-silence',
+    code: 'ITM-127',
+    category: 'equipamentos',
+    title: `Powered Silence`,
+    subtitle: `Armadura`,
+    summary: `Preço: 86000 | AC: 16 + 2 DEX`,
+    description: `Armadura furtiva energizada`,
+    attributes: [
+      { label: `EFEITO`, value: `Armadura furtiva energizada` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-mask',
+    code: 'ITM-128',
+    category: 'equipamentos',
+    title: `Mask`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 1000`,
+    description: `Máscara`,
+    attributes: [
+      { label: `EFEITO`, value: `Máscara` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-binoculars',
+    code: 'ITM-129',
+    category: 'equipamentos',
+    title: `Binoculars`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 500`,
+    description: `Binóculos`,
+    attributes: [
+      { label: `EFEITO`, value: `Binóculos` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-audio-recorder',
+    code: 'ITM-130',
+    category: 'equipamentos',
+    title: `Audio Recorder`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 800`,
+    description: `Gravador de Áudio`,
+    attributes: [
+      { label: `EFEITO`, value: `Gravador de Áudio` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-bug-detector',
+    code: 'ITM-131',
+    category: 'equipamentos',
+    title: `Bug Detector`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 1100`,
+    description: `Detector de Escutas`,
+    attributes: [
+      { label: `EFEITO`, value: `Detector de Escutas` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-chemical-analyzer',
+    code: 'ITM-132',
+    category: 'equipamentos',
+    title: `Chemical Analyzer`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 700`,
+    description: `Analisador Químico`,
+    attributes: [
+      { label: `EFEITO`, value: `Analisador Químico` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-flashlight',
+    code: 'ITM-133',
+    category: 'equipamentos',
+    title: `Flashlight`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 300`,
+    description: `Lanterna`,
+    attributes: [
+      { label: `EFEITO`, value: `Lanterna` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-grapple',
+    code: 'ITM-134',
+    category: 'equipamentos',
+    title: `Grapple`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 2300`,
+    description: `Arpéu / Gancho`,
+    attributes: [
+      { label: `EFEITO`, value: `Arpéu / Gancho` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-handcuffs',
+    code: 'ITM-135',
+    category: 'equipamentos',
+    title: `Handcuffs`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 900`,
+    description: `Algemas`,
+    attributes: [
+      { label: `EFEITO`, value: `Algemas` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-tracer',
+    code: 'ITM-136',
+    category: 'equipamentos',
+    title: `Tracer`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 3000`,
+    description: `Rastreador`,
+    attributes: [
+      { label: `EFEITO`, value: `Rastreador` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-lockpick-set',
+    code: 'ITM-137',
+    category: 'equipamentos',
+    title: `Lockpick Set`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 2200`,
+    description: `Kit de Arrombamento`,
+    attributes: [
+      { label: `EFEITO`, value: `Kit de Arrombamento` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-medscanner',
+    code: 'ITM-138',
+    category: 'equipamentos',
+    title: `Medscanner`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 2500`,
+    description: `Scanner Médico`,
+    attributes: [
+      { label: `EFEITO`, value: `Scanner Médico` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-memory-chip',
+    code: 'ITM-139',
+    category: 'equipamentos',
+    title: `Memory Chip`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 500`,
+    description: `Chip de Memória`,
+    attributes: [
+      { label: `EFEITO`, value: `Chip de Memória` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-radar',
+    code: 'ITM-140',
+    category: 'equipamentos',
+    title: `Radar`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 1900`,
+    description: `Radar Portátil`,
+    attributes: [
+      { label: `EFEITO`, value: `Radar Portátil` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-radar-detector',
+    code: 'ITM-141',
+    category: 'equipamentos',
+    title: `Radar Detector`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 2600`,
+    description: `Detector de Radar`,
+    attributes: [
+      { label: `EFEITO`, value: `Detector de Radar` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-radio-communicator',
+    code: 'ITM-142',
+    category: 'equipamentos',
+    title: `Radio Communicator`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 1300`,
+    description: `Rádio Comunicador`,
+    attributes: [
+      { label: `EFEITO`, value: `Rádio Comunicador` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-scrambler',
+    code: 'ITM-143',
+    category: 'equipamentos',
+    title: `Scrambler`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 1500`,
+    description: `Embaralhador de Sinal`,
+    attributes: [
+      { label: `EFEITO`, value: `Embaralhador de Sinal` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-descrambler',
+    code: 'ITM-144',
+    category: 'equipamentos',
+    title: `Descrambler`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 1500`,
+    description: `Decodificador de Sinal`,
+    attributes: [
+      { label: `EFEITO`, value: `Decodificador de Sinal` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-smart-glasses',
+    code: 'ITM-145',
+    category: 'equipamentos',
+    title: `Smart Glasses`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 4200`,
+    description: `Óculos Inteligentes`,
+    attributes: [
+      { label: `EFEITO`, value: `Óculos Inteligentes` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-tech-scanner',
+    code: 'ITM-146',
+    category: 'equipamentos',
+    title: `Tech Scanner`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 3700`,
+    description: `Scanner de Tecnologia`,
+    attributes: [
+      { label: `EFEITO`, value: `Scanner de Tecnologia` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-tech-bag',
+    code: 'ITM-147',
+    category: 'equipamentos',
+    title: `Tech Bag`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 3200`,
+    description: `Mochila Tecnológica`,
+    attributes: [
+      { label: `EFEITO`, value: `Mochila Tecnológica` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-camera',
+    code: 'ITM-148',
+    category: 'equipamentos',
+    title: `Camera`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 800`,
+    description: `Câmera`,
+    attributes: [
+      { label: `EFEITO`, value: `Câmera` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-qphone',
+    code: 'ITM-149',
+    category: 'equipamentos',
+    title: `Qphone`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 3600`,
+    description: `Smartphone Avançado`,
+    attributes: [
+      { label: `EFEITO`, value: `Smartphone Avançado` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-computer',
+    code: 'ITM-150',
+    category: 'equipamentos',
+    title: `Computer`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 5800`,
+    description: `Computador Portátil`,
+    attributes: [
+      { label: `EFEITO`, value: `Computador Portátil` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-duct-tape',
+    code: 'ITM-151',
+    category: 'equipamentos',
+    title: `Duct Tape`,
+    subtitle: `Equipamento Geral`,
+    summary: `Preço: 1300`,
+    description: `Fita Adesiva Silver Tape`,
+    attributes: [
+      { label: `EFEITO`, value: `Fita Adesiva Silver Tape` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-basic-ability-improver',
+    code: 'ITM-152',
+    category: 'equipamentos',
+    title: `Basic Ability Improver`,
+    subtitle: `Implante Cibernético (Cérebro)`,
+    summary: `Preço: 0 | Cyber Cost: 10`,
+    description: `+1 in Any skill check`,
+    attributes: [
+      { label: `EFEITO`, value: `+1 in Any skill check` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-general-ability-improver',
+    code: 'ITM-153',
+    category: 'equipamentos',
+    title: `General Ability Improver`,
+    subtitle: `Implante Cibernético (Cérebro)`,
+    summary: `Preço: 0 | Cyber Cost: 20`,
+    description: `+1 in Any ability score`,
+    attributes: [
+      { label: `EFEITO`, value: `+1 in Any ability score` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-ibrain',
+    code: 'ITM-154',
+    category: 'equipamentos',
+    title: `Ibrain`,
+    subtitle: `Implante Cibernético (Cérebro)`,
+    summary: `Preço: 0 | Cyber Cost: 10`,
+    description: `Permite conectar-se diretamente a redes com o cérebro`,
+    attributes: [
+      { label: `EFEITO`, value: `Permite conectar-se diretamente a redes com o cérebro` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-radio-telecom',
+    code: 'ITM-155',
+    category: 'equipamentos',
+    title: `Radio Telecom`,
+    subtitle: `Implante Cibernético (Cérebro)`,
+    summary: `Preço: 0 | Cyber Cost: 5`,
+    description: `Permite comunicação via rádio Cérebro-Cérebro`,
+    attributes: [
+      { label: `EFEITO`, value: `Permite comunicação via rádio Cérebro-Cérebro` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-anti-hacking-i',
+    code: 'ITM-156',
+    category: 'equipamentos',
+    title: `Anti Hacking I`,
+    subtitle: `Implante Cibernético (Cérebro)`,
+    summary: `Preço: TBD | Cyber Cost: 10`,
+    description: `Melhora a segurança do seu cérebro`,
+    attributes: [
+      { label: `EFEITO`, value: `Melhora a segurança do seu cérebro` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-sonic-audition',
+    code: 'ITM-157',
+    category: 'equipamentos',
+    title: `Sonic Audition`,
+    subtitle: `Implante Cibernético (Ouvidos)`,
+    summary: `Preço: TBD | Cyber Cost: 25`,
+    description: `Não pode mais ser surpreendido; adiciona proficiência em percepção de som`,
+    attributes: [
+      { label: `EFEITO`, value: `Não pode mais ser surpreendido; adiciona proficiência em percepção de som` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-stethoscope',
+    code: 'ITM-158',
+    category: 'equipamentos',
+    title: `Stethoscope`,
+    subtitle: `Implante Cibernético (Ouvidos)`,
+    summary: `Preço: TBD | Cyber Cost: 15`,
+    description: `Vantagem ao tentar ouvir o funcionamento de mecanismos ou através de paredes`,
+    attributes: [
+      { label: `EFEITO`, value: `Vantagem ao tentar ouvir o funcionamento de mecanismos ou através de paredes` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-water-ear',
+    code: 'ITM-159',
+    category: 'equipamentos',
+    title: `Water Ear`,
+    subtitle: `Implante Cibernético (Ouvidos)`,
+    summary: `Preço: TBD | Cyber Cost: 10`,
+    description: `Você ouve embaixo d'água tão bem quanto na superfície`,
+    attributes: [
+      { label: `EFEITO`, value: `Você ouve embaixo d'água tão bem quanto na superfície` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-radio-amplifier',
+    code: 'ITM-160',
+    category: 'equipamentos',
+    title: `Radio Amplifier`,
+    subtitle: `Implante Cibernético (Ouvidos)`,
+    summary: `Preço: TBD | Cyber Cost: 10`,
+    description: `Permite ouvir ondas de rádio à vontade`,
+    attributes: [
+      { label: `EFEITO`, value: `Permite ouvir ondas de rádio à vontade` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-basic-night-vision',
+    code: 'ITM-161',
+    category: 'equipamentos',
+    title: `Basic Night Vision`,
+    subtitle: `Implante Cibernético (Olhos)`,
+    summary: `Preço: TBD | Cyber Cost: 15`,
+    description: `Visão Noturna (10 m)`,
+    attributes: [
+      { label: `EFEITO`, value: `Visão Noturna (10 m)` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-retin',
+    code: 'ITM-162',
+    category: 'equipamentos',
+    title: `Retin`,
+    subtitle: `Implante Cibernético (Olhos)`,
+    summary: `Preço: TBD | Cyber Cost: 0`,
+    description: `A retina mostra diretamente nos seus olhos a informação obtida por qualquer implante de dados`,
+    attributes: [
+      { label: `EFEITO`, value: `A retina mostra diretamente nos seus olhos a informação obtida por qualquer implante de dados` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-thermal-vision',
+    code: 'ITM-163',
+    category: 'equipamentos',
+    title: `Thermal Vision`,
+    subtitle: `Implante Cibernético (Olhos)`,
+    summary: `Preço: TBD | Cyber Cost: 10`,
+    description: `Permite ver assinaturas térmicas/temperatura`,
+    attributes: [
+      { label: `EFEITO`, value: `Permite ver assinaturas térmicas/temperatura` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-zoom',
+    code: 'ITM-164',
+    category: 'equipamentos',
+    title: `Zoom`,
+    subtitle: `Implante Cibernético (Olhos)`,
+    summary: `Preço: TBD | Cyber Cost: 10`,
+    description: `Habilidade de Zoom ocular + 1 em tiros de longo alcance`,
+    attributes: [
+      { label: `EFEITO`, value: `Habilidade de Zoom ocular + 1 em tiros de longo alcance` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-voice-changer',
+    code: 'ITM-165',
+    category: 'equipamentos',
+    title: `Voice Changer`,
+    subtitle: `Implante Cibernético (Cordas Vocais)`,
+    summary: `Preço: TBD | Cyber Cost: 10`,
+    description: `Permite mudar sua voz, podendo até copiar vozes de androids`,
+    attributes: [
+      { label: `EFEITO`, value: `Permite mudar sua voz, podendo até copiar vozes de androids` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-oxygen-enhancer',
+    code: 'ITM-166',
+    category: 'equipamentos',
+    title: `Oxygen Enhancer`,
+    subtitle: `Implante Cibernético (Pulmões)`,
+    summary: `Preço: TBD | Cyber Cost: 10`,
+    description: `Permite prender a respiração por mais tempo`,
+    attributes: [
+      { label: `EFEITO`, value: `Permite prender a respiração por mais tempo` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-filter',
+    code: 'ITM-167',
+    category: 'equipamentos',
+    title: `Filter`,
+    subtitle: `Implante Cibernético (Pulmões)`,
+    summary: `Preço: TBD | Cyber Cost: 10`,
+    description: `Garante resistência a venenos e infecções aéreas`,
+    attributes: [
+      { label: `EFEITO`, value: `Garante resistência a venenos e infecções aéreas` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-supressants',
+    code: 'ITM-168',
+    category: 'equipamentos',
+    title: `Supressants`,
+    subtitle: `Curas e Consumíveis`,
+    summary: `Preço: 1000`,
+    description: `Cura 1d8 de HP Temporário`,
+    attributes: [
+      { label: `EFEITO`, value: `Cura 1d8 de HP Temporário` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-nanobots-pill',
+    code: 'ITM-169',
+    category: 'equipamentos',
+    title: `Nanobots Pill`,
+    subtitle: `Curas e Consumíveis`,
+    summary: `Preço: 1000`,
+    description: `Cura 1d8 de HP`,
+    attributes: [
+      { label: `EFEITO`, value: `Cura 1d8 de HP` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-nanoplaques',
+    code: 'ITM-170',
+    category: 'equipamentos',
+    title: `Nanoplaques`,
+    subtitle: `Curas e Consumíveis`,
+    summary: `Preço: 1600`,
+    description: `Conserta membros quebrados temporariamente + Cura 2d8 de HP Temporário`,
+    attributes: [
+      { label: `EFEITO`, value: `Conserta membros quebrados temporariamente + Cura 2d8 de HP Temporário` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-adrenalin-injection',
+    code: 'ITM-171',
+    category: 'equipamentos',
+    title: `Adrenalin Injection`,
+    subtitle: `Curas e Consumíveis`,
+    summary: `Preço: 2000`,
+    description: `Bônus de Movimento + 1 Ação Bônus (AB)`,
+    attributes: [
+      { label: `EFEITO`, value: `Bônus de Movimento + 1 Ação Bônus (AB)` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-pill-medbots',
+    code: 'ITM-172',
+    category: 'equipamentos',
+    title: `Pill Medbots`,
+    subtitle: `Curas e Consumíveis`,
+    summary: `Preço: 2500`,
+    description: `Cura 2d6 de HP`,
+    attributes: [
+      { label: `EFEITO`, value: `Cura 2d6 de HP` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-medkit',
+    code: 'ITM-173',
+    category: 'equipamentos',
+    title: `Medkit`,
+    subtitle: `Curas e Consumíveis`,
+    summary: `Preço: 3500`,
+    description: `Efeito das Nano Plaques + Cura 4d10 de HP`,
+    attributes: [
+      { label: `EFEITO`, value: `Efeito das Nano Plaques + Cura 4d10 de HP` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-circuits-bots',
+    code: 'ITM-174',
+    category: 'equipamentos',
+    title: `Circuits Bots`,
+    subtitle: `Curas e Consumíveis`,
+    summary: `Preço: 3000`,
+    description: `Cura 1d10 de HP (Exclusivo para Androids)`,
+    attributes: [
+      { label: `EFEITO`, value: `Cura 1d10 de HP (Exclusivo para Androids)` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-self-repair-kit',
+    code: 'ITM-175',
+    category: 'equipamentos',
+    title: `Self Repair Kit`,
+    subtitle: `Curas e Consumíveis`,
+    summary: `Preço: 5000`,
+    description: `Conserta membros tecnológicos de baixo nível + Cura 3d10 de HP`,
+    attributes: [
+      { label: `EFEITO`, value: `Conserta membros tecnológicos de baixo nível + Cura 3d10 de HP` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-pill-regen',
+    code: 'ITM-176',
+    category: 'equipamentos',
+    title: `Pill Regen`,
+    subtitle: `Curas e Consumíveis`,
+    summary: `Preço: 4600`,
+    description: `Cura 1d8 por turno durante 3 turnos (acumulativo)`,
+    attributes: [
+      { label: `EFEITO`, value: `Cura 1d8 por turno durante 3 turnos (acumulativo)` },
+    ],
+    tags: [],
+  },
+  {
+    id: 'item-antibiotics',
+    code: 'ITM-177',
+    category: 'equipamentos',
+    title: `Antibiotics`,
+    subtitle: `Curas e Consumíveis`,
+    summary: `Preço: 3800`,
+    description: `Remove efeitos negativos biológicos`,
+    attributes: [
+      { label: `EFEITO`, value: `Remove efeitos negativos biológicos` },
+    ],
+    tags: [],
+  },
+];

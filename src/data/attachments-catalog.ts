@@ -1,0 +1,361 @@
+import { Attachment, Ammunition } from '@/types/codak-rules';
+
+export const ATTACHMENTS_CATALOG: Attachment[] = [
+  // STOCKS
+  {
+    id: 'tactical-stock',
+    name: 'Tactical Stock',
+    category: 'Stock',
+    slots: 1,
+    compatibility: { weaponSizes: ['Small', 'Medium'] },
+    effect: '+1 Accuracy',
+    price: 4200,
+  },
+  {
+    id: 'wire-stock',
+    name: 'Wire Stock',
+    category: 'Stock',
+    slots: 1,
+    compatibility: { all: true },
+    effect: '+1 Initiative',
+    price: 5400,
+  },
+  {
+    id: 'no-stock',
+    name: 'No Stock',
+    category: 'Stock',
+    slots: 1,
+    compatibility: { weaponSizes: ['Medium', 'Big'] },
+    effect: 'Make Weapon Smaller, -2 Accuracy',
+    price: 11500,
+  },
+  {
+    id: 'shotgun-stock',
+    name: 'Shotgun Stock',
+    category: 'Stock',
+    slots: 1,
+    compatibility: { weaponTypes: ['Shotgun'] },
+    effect: '+Range (Sweet Spot & Ideal)',
+    price: 4100,
+  },
+  {
+    id: 'long-stock',
+    name: 'Long Stock',
+    category: 'Stock',
+    slots: 1,
+    compatibility: { weaponSizes: ['Big'] },
+    effect: '+1 Accuracy',
+    price: 6000,
+  },
+  {
+    id: 'bipod',
+    name: 'Bipod',
+    category: 'Stock',
+    slots: 1,
+    compatibility: { weaponSizes: ['Medium', 'Big'] },
+    effect: 'Drastically +Range (prone)',
+    price: 8100,
+  },
+
+  // MAGS
+  {
+    id: 'light-mag',
+    name: 'Light Mag',
+    category: 'Mags',
+    slots: 1,
+    compatibility: { ammoCategories: ['Fire'] },
+    effect: '+5 / +10 bullets',
+    price: 2000,
+  },
+  {
+    id: 'long-mag',
+    name: 'Long Mag',
+    category: 'Mags',
+    slots: 1,
+    compatibility: { ammoCategories: ['Fire'] },
+    effect: '+10 / +15 bullets',
+    price: 9100,
+  },
+  {
+    id: 'large-mag',
+    name: 'Large Mag',
+    category: 'Mags',
+    slots: 1,
+    compatibility: { ammoCategories: ['Fire'] },
+    effect: '+20 / +30 bullets',
+    price: 18700,
+  },
+  {
+    id: 'battery-extender',
+    name: 'Battery Extender',
+    category: 'Mags',
+    slots: 1,
+    compatibility: { ammoCategories: ['Energy'] },
+    effect: '+15 / +30 energy',
+    price: 10600,
+  },
+  {
+    id: 'fast-mag',
+    name: 'Fast Mag',
+    category: 'Mags',
+    slots: 1,
+    compatibility: { firingModes: ['Automatic', 'Semi-auto'] },
+    effect: 'Reduces recharge cost: 1A -> 1MA | 2A -> 1A',
+    price: 15000,
+  },
+
+  // GRIPS
+  {
+    id: 'fast-grip',
+    name: 'Fast Grip',
+    category: 'Grips',
+    slots: 1,
+    compatibility: { all: true },
+    effect: '+2 Initiative',
+    price: 4600,
+  },
+  {
+    id: 'rubber-grip',
+    name: 'Rubber Grip',
+    category: 'Grips',
+    slots: 1,
+    compatibility: { all: true },
+    effect: '+1 Accuracy',
+    price: 3200,
+  },
+  {
+    id: 'tough-grip',
+    name: 'Tough Grip',
+    category: 'Grips',
+    slots: 2,
+    compatibility: { weaponSizes: ['Medium', 'Big'] },
+    effect: 'Advantage on saving throws while aimed',
+    price: 4000,
+  },
+  {
+    id: 'field-tape',
+    name: 'Field Tape',
+    category: 'Grips',
+    slots: 1,
+    compatibility: { all: true },
+    effect: '+1 Initiative',
+    price: 1700,
+  },
+  {
+    id: 'biometric-grip',
+    name: 'Biometric Grip',
+    category: 'Grips',
+    slots: 1,
+    compatibility: { all: true },
+    effect: 'Give basic biometric protection to your gun',
+    price: 6000,
+  },
+
+  // BARRELS
+  {
+    id: 'extended-barrel',
+    name: 'Extended Barrel',
+    category: 'Barrels',
+    slots: 1,
+    compatibility: { all: true },
+    effect: '+Range (+3m to max range and Sweet Spot)',
+    price: 3300,
+  },
+  {
+    id: 'muzzle-flash',
+    name: 'Muzzle Flash',
+    category: 'Barrels',
+    slots: 1,
+    compatibility: { all: true },
+    effect: '+1 Accuracy',
+    price: 4500,
+  },
+  {
+    id: 'liberator',
+    name: 'Liberator',
+    category: 'Barrels',
+    slots: 1,
+    compatibility: { weaponTypes: ['Shotgun'], firingModes: ['Shells'] },
+    effect: '-Range, More targets (spread cone)',
+    price: 4300,
+  },
+  {
+    id: 'cavalry-lancer',
+    name: 'Cavalry Lancer',
+    category: 'Barrels',
+    slots: 1,
+    compatibility: { weaponTypes: ['Rifle', 'LMG'] },
+    effect: '+Vehicle Damage',
+    price: 3200,
+  },
+  {
+    id: 'suppressor',
+    name: 'Suppressor',
+    category: 'Barrels',
+    slots: 1,
+    compatibility: { all: true },
+    effect: '-Range, Silenced shot (Stealth fire)',
+    price: 5000,
+  },
+
+  // OPTICS
+  {
+    id: 'red-dot-1x',
+    name: 'Red Dot 1x',
+    category: 'Optics',
+    slots: 1,
+    compatibility: { all: true },
+    effect: 'No disadvantage when shooting close target',
+    price: 7000,
+  },
+  {
+    id: 'heartbeat-sensor',
+    name: 'Heartbeat Sensor',
+    category: 'Optics',
+    slots: 1,
+    compatibility: { all: true },
+    effect: 'Can see vital signs through 1 layer of wall',
+    price: 11000,
+  },
+  {
+    id: 'optic-sight-3x',
+    name: 'Optic Sight 3x',
+    category: 'Optics',
+    slots: 1,
+    compatibility: { all: true },
+    effect: '+Range (+5m Sweet Spot)',
+    price: 6000,
+  },
+  {
+    id: 'thermal',
+    name: 'Thermal Sight',
+    category: 'Optics',
+    slots: 1,
+    compatibility: { all: true },
+    effect: 'Can see heat, ignores smoke & darkness disadvantage',
+    price: 12000,
+  },
+
+  // MODIFIERS
+  {
+    id: 'rapid-fire',
+    name: 'Rapid Fire',
+    category: 'Modifiers',
+    slots: 2,
+    compatibility: { firingModes: ['Automatic', 'Semi-auto'] },
+    effect: 'More bullets per bursts',
+    price: 10000,
+  },
+  {
+    id: 'shatter-caps',
+    name: 'Shatter Caps',
+    category: 'Modifiers',
+    slots: 2,
+    compatibility: { all: true },
+    effect: 'Bullets shatter if missed and still deals partial damage',
+    price: 10000,
+  },
+  {
+    id: 'hammer-points',
+    name: 'Hammer Points',
+    category: 'Modifiers',
+    slots: 2,
+    compatibility: { all: true },
+    effect: '+Vehicle Damage',
+    price: 10000,
+  },
+  {
+    id: 'skullpiercer',
+    name: 'Skullpiercer',
+    category: 'Modifiers',
+    slots: 2,
+    compatibility: { all: true },
+    effect: '19 is critical roll',
+    price: 10000,
+  },
+  {
+    id: 'boosted-loader',
+    name: 'Boosted Loader',
+    category: 'Modifiers',
+    slots: 2,
+    compatibility: { firingModes: ['Single-fire'] },
+    effect: 'Recharge before end of mag gives extra ammo on next mag',
+    price: 10000,
+  },
+  {
+    id: 'anvil-receiver',
+    name: 'Anvil Receiver',
+    category: 'Modifiers',
+    slots: 2,
+    compatibility: { all: true },
+    effect: 'Knock enemy back on hit',
+    price: 10000,
+  },
+  {
+    id: 'disruptor-rounds',
+    name: 'Disruptor Rounds',
+    category: 'Modifiers',
+    slots: 2,
+    compatibility: { all: true },
+    effect: 'Deals massive damage to energy shields',
+    price: 10000,
+  },
+  {
+    id: 'dual-shell',
+    name: 'Dual Shell',
+    category: 'Modifiers',
+    slots: 2,
+    compatibility: { firingModes: ['Shells'] },
+    effect: 'Double mag capacity',
+    price: 10000,
+  },
+  {
+    id: 'precision-choke',
+    name: 'Precision Choke',
+    category: 'Modifiers',
+    slots: 2,
+    compatibility: { weaponTypes: ['Sniper', 'Shotgun'] },
+    effect: 'Charged shots for max damage',
+    price: 10000,
+  },
+  {
+    id: 'biometric-security',
+    name: 'Biometric Security',
+    category: 'Modifiers',
+    slots: 2,
+    compatibility: { all: true },
+    effect: 'Higher biometric protection against Hackers',
+    price: 10000,
+  },
+];
+
+export const AMMUNITIONS_CATALOG: Ammunition[] = (() => {
+  const baseTypes = [
+    { type: 'Normal', price: 1 },
+    { type: 'Fire', price: 5, specialEffect: 'Incendiary burning effect' },
+    { type: 'Cryo', price: 5, specialEffect: 'Slows movement speed' },
+    { type: 'Plasma', price: 10, bonusDamage: '+1d4', specialEffect: 'Plasma thermal burn' },
+    { type: 'Corrosion', price: 10, specialEffect: 'Starts corrosion on metal armors' },
+    { type: 'Electric', price: 10, specialEffect: 'Causes short circuits in electronics' },
+    { type: 'Nuke', price: 15, specialEffect: 'Wounds cannot be healed with nanobots' },
+    { type: 'MD', price: 20, bonusDamage: '+2d4', specialEffect: 'Each shot can cause wither necrosis' },
+    { type: 'Etched', price: 8, bonusDamage: '+1d4' },
+    { type: 'FMJ', price: 15, bonusDamage: '+2d4', specialEffect: 'Can penetrate through thick walls' },
+  ];
+
+  const result = [];
+
+  // Generate Small, Medium, Large for each non-energy type
+  baseTypes.forEach(bt => {
+    result.push({ ...bt, size: 'Pequena', pricePerBullet: bt.price * 10 });
+    result.push({ ...bt, size: 'Média', pricePerBullet: bt.price * 25 });
+    result.push({ ...bt, size: 'Grande', pricePerBullet: bt.price * 50 });
+  });
+
+  // Batteries
+  result.push({ type: 'Energy', size: 'Bateria', pricePerBullet: 500, capacity: 50 });
+  result.push({ type: 'Energy', size: 'Bateria', pricePerBullet: 1200, capacity: 150 });
+  result.push({ type: 'Energy', size: 'Bateria', pricePerBullet: 2500, capacity: 400 });
+
+  return result as any;
+})();

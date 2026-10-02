@@ -1,0 +1,11 @@
+Model Information:
+* title:	Realistic Male Character
+* source:	https://sketchfab.com/3d-models/realistic-male-character-c67725338c4d40fcafa5918009ccbc37
+* author:	adhamasalah (https://sketchfab.com/adhamAsalah)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Realistic Male Character" (https://sketchfab.com/3d-models/realistic-male-character-c67725338c4d40fcafa5918009ccbc37) by adhamasalah (https://sketchfab.com/adhamAsalah) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

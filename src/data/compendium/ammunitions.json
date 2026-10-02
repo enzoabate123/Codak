@@ -1,0 +1,58 @@
+[
+  {
+    "type": "Normal",
+    "pricePerBullet": 50
+  },
+  {
+    "type": "Fire",
+    "pricePerBullet": 100,
+    "specialEffect": "Incendiary burning effect"
+  },
+  {
+    "type": "Cryo",
+    "pricePerBullet": 100,
+    "specialEffect": "Slows movement speed"
+  },
+  {
+    "type": "Plasma",
+    "pricePerBullet": 600,
+    "bonusDamage": "+1d4",
+    "specialEffect": "Plasma thermal burn"
+  },
+  {
+    "type": "Corrosion",
+    "pricePerBullet": 500,
+    "specialEffect": "Starts corrosion on metal armors"
+  },
+  {
+    "type": "Electric",
+    "pricePerBullet": 500,
+    "specialEffect": "Causes short circuits in electronics"
+  },
+  {
+    "type": "Nuke",
+    "pricePerBullet": 500,
+    "specialEffect": "Wounds cannot be healed with nanobots"
+  },
+  {
+    "type": "MD",
+    "pricePerBullet": 800,
+    "bonusDamage": "+2d4",
+    "specialEffect": "Each shot can cause wither necrosis"
+  },
+  {
+    "type": "Etched",
+    "pricePerBullet": 100,
+    "bonusDamage": "+1d4"
+  },
+  {
+    "type": "Energy",
+    "pricePerBullet": 100
+  },
+  {
+    "type": "FMJ",
+    "pricePerBullet": 1000,
+    "bonusDamage": "+2d4",
+    "specialEffect": "Can penetrate through thick walls"
+  }
+]

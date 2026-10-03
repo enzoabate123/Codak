@@ -49,6 +49,7 @@ export interface CharacterSheetData {
   hpMax: number;
   tempHp: number;
   armorClass: number;
+  initiativeOverride?: number;
   speedMeters: number;
 
   featuresAndTraits: string[];
@@ -92,7 +93,7 @@ export interface CharacterStore extends CharacterSheetData {
   updateAttribute: (attr: CoreAttribute, value: number) => void;
   toggleSkillProficiency: (skill: SkillKey) => void;
   updateHp: (delta: number) => void;
-  updateVitals: (fields: Partial<Pick<CharacterSheetData, 'hpCurrent' | 'hpMax' | 'tempHp' | 'armorClass' | 'speedMeters'>>) => void;
+  updateVitals: (fields: Partial<Pick<CharacterSheetData, 'hpCurrent' | 'hpMax' | 'tempHp' | 'armorClass' | 'speedMeters'>> & { initiativeOverride?: number | null }) => void;
   updateResource: (delta: number) => void;
   setTempHp: (val: number) => void;
   addManualFeat: (feat: string) => void;
@@ -430,6 +431,11 @@ export const useCharacterStore = create<CharacterStore>((set, get) => ({
         hpCurrent: Math.max(0, Math.min(hpMax, Number(fields.hpCurrent ?? char.hpCurrent) || 0)),
         tempHp: Math.max(0, Number(fields.tempHp ?? char.tempHp) || 0),
         armorClass: Math.max(0, Number(fields.armorClass ?? char.armorClass) || 0),
+        initiativeOverride: fields.initiativeOverride === null
+          ? undefined
+          : fields.initiativeOverride === undefined
+            ? char.initiativeOverride
+            : Number(fields.initiativeOverride) || 0,
         speedMeters: Math.max(0, Number(fields.speedMeters ?? char.speedMeters) || 0),
       };
       const updatedChars = state.characters.map(c => c.id === state.activeCharacterId ? updated : c);

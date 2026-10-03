@@ -7,6 +7,7 @@ import { Heart, Shield, Zap, Footprints, Award } from 'lucide-react';
 
 export const VitalsAndStats: React.FC = () => {
   const { characters, activeCharacterId, updateHp, updateVitals, setTempHp, updateResource } = useCharacterStore();
+  const [manualEdit, setManualEdit] = React.useState({ hp: false, ac: false, initiative: false, speed: false });
   const char = characters.find(c => c.id === activeCharacterId);
   if (!char) return null;
 
@@ -19,6 +20,7 @@ export const VitalsAndStats: React.FC = () => {
 
   const totalAttributes = calculateTotalAttributes(char);
   const dexMod = getAttributeModifier(totalAttributes.DEX);
+  const initiative = char.initiativeOverride ?? dexMod;
 
   const hpPercentage = Math.round((hpCurrent / hpMax) * 100);
 
@@ -31,12 +33,20 @@ export const VitalsAndStats: React.FC = () => {
             <Heart size={14} color="#ef4444" />
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, color: 'var(--color-red-primary)' }}>Pontos de Vida</span>
           </div>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--text-muted)' }}>Temp: {tempHp}</span>
+          <button type="button" className="hud-btn hud-btn-ghost" onClick={() => setManualEdit(state => ({ ...state, hp: !state.hp }))} style={{ padding: '2px 6px', fontSize: '8px' }}>{manualEdit.hp ? 'PRONTO' : 'EDITAR'}</button>
         </div>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', margin: '4px 0' }}>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '26px', fontWeight: 800, color: '#fff' }}>{hpCurrent}</span>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--text-muted)' }}>/ {hpMax}</span>
-        </div>
+        {manualEdit.hp ? (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '5px', margin: '6px 0' }}>
+            <label style={{ fontSize: '8px', color: 'var(--text-muted)' }}>ATUAL<input type="number" min="0" value={hpCurrent} onChange={event => updateVitals({ hpCurrent: Number(event.target.value) })} className="hud-input" style={{ width: '100%', padding: '3px', fontSize: '12px' }} /></label>
+            <label style={{ fontSize: '8px', color: 'var(--text-muted)' }}>MÁXIMO<input type="number" min="1" value={hpMax} onChange={event => updateVitals({ hpMax: Number(event.target.value) })} className="hud-input" style={{ width: '100%', padding: '3px', fontSize: '12px' }} /></label>
+            <label style={{ fontSize: '8px', color: 'var(--text-muted)' }}>TEMP<input type="number" min="0" value={tempHp} onChange={event => updateVitals({ tempHp: Number(event.target.value) })} className="hud-input" style={{ width: '100%', padding: '3px', fontSize: '12px' }} /></label>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', margin: '4px 0' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '26px', fontWeight: 800, color: '#fff' }}>{hpCurrent}</span>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--text-muted)' }}>/ {hpMax} · Temp: {tempHp}</span>
+          </div>
+        )}
         <div style={{ height: '6px', width: '100%', background: 'rgba(255, 255, 255, 0.08)', position: 'relative', overflow: 'hidden' }}>
           <div style={{ height: '100%', width: `${hpPercentage}%`, background: hpPercentage > 50 ? 'var(--color-green-primary)' : hpPercentage > 25 ? 'var(--color-amber-primary)' : 'var(--color-red-primary)', boxShadow: hpPercentage <= 25 ? '0 0 10px #ef4444' : 'none', transition: 'all var(--transition-normal)' }} />
         </div>
@@ -45,28 +55,6 @@ export const VitalsAndStats: React.FC = () => {
           <button type="button" className="hud-btn" style={{ padding: '2px 8px', fontSize: '9px', background: 'rgba(239, 68, 68, 0.2)', border: 'var(--border-red)' }} onClick={() => { updateHp(-1); tacticalAudio.playAlert(); }}>-1 HP</button>
           <button type="button" className="hud-btn" style={{ padding: '2px 8px', fontSize: '9px', background: 'rgba(34, 197, 94, 0.2)', border: 'var(--border-subtle)' }} onClick={() => { updateHp(5); tacticalAudio.playSelect(); }}>+5 HP</button>
         </div>
-        <details style={{ marginTop: '8px' }}>
-          <summary style={{ cursor: 'pointer', fontFamily: 'var(--font-mono)', fontSize: '9px', color: 'var(--text-muted)' }}>EDITAR VALORES</summary>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '6px', marginTop: '8px' }}>
-            {([
-              ['PV atual', 'hpCurrent', hpCurrent], ['PV máximo', 'hpMax', hpMax],
-              ['PV temporário', 'tempHp', tempHp], ['CA base', 'armorClass', baseAc],
-              ['Velocidade', 'speedMeters', speedMeters],
-            ] as const).map(([label, field, value]) => (
-              <label key={field} style={{ fontSize: '9px', color: 'var(--text-muted)' }}>
-                {label}
-                <input
-                  type="number"
-                  min="0"
-                  value={value}
-                  onChange={(event) => updateVitals({ [field]: Number(event.target.value) } as any)}
-                  className="hud-input"
-                  style={{ width: '100%', marginTop: '3px', padding: '4px 6px', fontSize: '11px' }}
-                />
-              </label>
-            ))}
-          </div>
-        </details>
       </div>
 
       
@@ -95,22 +83,22 @@ export const VitalsAndStats: React.FC = () => {
 
       {/* Armor Class */}
       <div className="hud-panel" style={{ padding: '12px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--text-muted)' }}><Shield size={14} color="#f59e0b" /><span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 700 }}>AC</span></div>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '24px', fontWeight: 800, color: 'var(--color-amber-primary)', margin: '4px 0' }}>{armorClass}</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--text-muted)' }}><Shield size={14} color="#f59e0b" /><span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 700 }}>AC</span><button type="button" className="hud-btn hud-btn-ghost" onClick={() => setManualEdit(state => ({ ...state, ac: !state.ac }))} style={{ padding: '1px 4px', fontSize: '8px' }}>{manualEdit.ac ? 'OK' : 'EDITAR'}</button></div>
+        {manualEdit.ac ? <input type="number" min="0" value={baseAc} onChange={event => updateVitals({ armorClass: Number(event.target.value) })} className="hud-input" style={{ width: '64px', margin: '6px 0', padding: '3px', textAlign: 'center', fontSize: '18px' }} /> : <div style={{ fontFamily: 'var(--font-mono)', fontSize: '24px', fontWeight: 800, color: 'var(--color-amber-primary)', margin: '4px 0' }}>{armorClass}</div>}
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--text-muted)' }}>{eqAc > 0 ? `Base: ${baseAc} + Eq: ${eqAc}` : 'Classe de Armadura'}</div>
       </div>
 
       {/* Initiative */}
       <div className="hud-panel" style={{ padding: '12px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--text-muted)' }}><Zap size={14} color="#ef4444" /><span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 700 }}>INICIATIVA</span></div>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '24px', fontWeight: 800, color: '#fff', margin: '4px 0' }}>{formatModifier(dexMod)}</div>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--text-muted)' }}>Reflexo (DEX)</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--text-muted)' }}><Zap size={14} color="#ef4444" /><span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 700 }}>INICIATIVA</span><button type="button" className="hud-btn hud-btn-ghost" onClick={() => setManualEdit(state => ({ ...state, initiative: !state.initiative }))} style={{ padding: '1px 4px', fontSize: '8px' }}>{manualEdit.initiative ? 'OK' : 'EDITAR'}</button></div>
+        {manualEdit.initiative ? <input type="number" value={initiative} onChange={event => updateVitals({ initiativeOverride: Number(event.target.value) })} className="hud-input" style={{ width: '64px', margin: '6px 0', padding: '3px', textAlign: 'center', fontSize: '18px' }} /> : <div style={{ fontFamily: 'var(--font-mono)', fontSize: '24px', fontWeight: 800, color: '#fff', margin: '4px 0' }}>{formatModifier(initiative)}</div>}
+        <button type="button" onClick={() => updateVitals({ initiativeOverride: null })} className="hud-btn hud-btn-ghost" style={{ padding: '1px 4px', fontSize: '8px', color: 'var(--text-muted)' }}>USAR DEX ({formatModifier(dexMod)})</button>
       </div>
 
       {/* Speed */}
       <div className="hud-panel" style={{ padding: '12px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--text-muted)' }}><Footprints size={14} color="#22c55e" /><span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 700 }}>VELOCIDADE</span></div>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '24px', fontWeight: 800, color: '#fff', margin: '4px 0' }}>{speedMeters}m</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--text-muted)' }}><Footprints size={14} color="#22c55e" /><span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 700 }}>VELOCIDADE</span><button type="button" className="hud-btn hud-btn-ghost" onClick={() => setManualEdit(state => ({ ...state, speed: !state.speed }))} style={{ padding: '1px 4px', fontSize: '8px' }}>{manualEdit.speed ? 'OK' : 'EDITAR'}</button></div>
+        {manualEdit.speed ? <input type="number" min="0" value={speedMeters} onChange={event => updateVitals({ speedMeters: Number(event.target.value) })} className="hud-input" style={{ width: '64px', margin: '6px 0', padding: '3px', textAlign: 'center', fontSize: '18px' }} /> : <div style={{ fontFamily: 'var(--font-mono)', fontSize: '24px', fontWeight: 800, color: '#fff', margin: '4px 0' }}>{speedMeters}m</div>}
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--text-muted)' }}>6 quadrados</div>
       </div>
 

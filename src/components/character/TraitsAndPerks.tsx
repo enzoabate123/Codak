@@ -4,7 +4,7 @@ import React from 'react';
 import { createPortal } from 'react-dom';
 import { useCharacterStore } from '@/stores/useCharacterStore';
 import { tacticalAudio } from '@/lib/audio';
-import { Sparkles, Zap, Lock, Unlock, ArrowRightCircle, Info, X } from 'lucide-react';
+import { Sparkles, Zap, Lock, Unlock, ArrowRightCircle, Info, X, BookOpen, Plus } from 'lucide-react';
 import { CLASSES_CATALOG } from '@/data/classes-catalog';
 import { CLASS_ABILITIES_CATALOG } from '@/data/class-abilities-catalog';
 import { LORE_RULES_CATALOG } from '@/data/lore-rules-catalog';
@@ -12,7 +12,7 @@ import { LORE_RULES_CATALOG } from '@/data/lore-rules-catalog';
 export const TraitsAndPerks: React.FC = () => {
   const { characters, activeCharacterId, unlockSubclassAbility, addManualFeat, removeManualFeat } = useCharacterStore();
   const [selectedAbility, setSelectedAbility] = React.useState<any>(null);
-  const [newFeat, setNewFeat] = React.useState('');
+  const [selectedFeatId, setSelectedFeatId] = React.useState('');
   const char = characters.find(c => c.id === activeCharacterId);
   if (!char) return null;
 
@@ -39,8 +39,16 @@ export const TraitsAndPerks: React.FC = () => {
     });
   }
 
-  // Custom traits typed by user in previous versions (retro-compatibility)
+  // Feats persisted as titles so existing characters remain compatible.
   const manualTraits = char.featuresAndTraits || [];
+  const featCatalog = React.useMemo(
+    () => LORE_RULES_CATALOG
+      .filter(rule => rule.category === 'feats' && rule.id !== 'feat-geral')
+      .sort((a, b) => a.title.localeCompare(b.title)),
+    []
+  );
+  const selectedFeat = featCatalog.find(feat => feat.id === selectedFeatId);
+  const selectedFeatAlreadyAdded = !!selectedFeat && manualTraits.includes(selectedFeat.title);
 
   // Subclass logic - Pooled points based on total level
   const totalLevel = (char.level || 1) + (char.secondaryClasses?.reduce((acc, c) => acc + (c.level || 1), 0) || 0);
@@ -105,27 +113,6 @@ export const TraitsAndPerks: React.FC = () => {
               </div>
             );
           })}
-
-          {manualTraits.length > 0 && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <div style={{ fontSize: '11px', color: 'var(--color-amber-dim)', marginBottom: '4px', textTransform: 'uppercase' }}>
-                Feats e características manuais
-              </div>
-              {manualTraits.map((feat, idx) => (
-                <div key={`manual-${idx}`} style={{ padding: '8px', background: 'rgba(0, 0, 0, 0.3)', borderLeft: '2px solid var(--text-muted)', display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
-                  <div style={{ flex: 1, fontSize: '10px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>{feat}</div>
-                  <button type="button" className="hud-btn hud-btn-ghost" onClick={() => removeManualFeat(idx)} style={{ padding: '2px 5px', fontSize: '9px', color: 'var(--color-red-primary)' }} title="Remover feat">×</button>
-                </div>
-              ))}
-            </div>
-          )}
-          <form
-            onSubmit={(event) => { event.preventDefault(); addManualFeat(newFeat); setNewFeat(''); tacticalAudio.playSelect(); }}
-            style={{ display: 'flex', gap: '8px', marginTop: '4px' }}
-          >
-            <input value={newFeat} onChange={(event) => setNewFeat(event.target.value)} className="hud-input" placeholder="Adicionar feat ou característica manual" style={{ flex: 1, minWidth: 0 }} />
-            <button type="submit" className="hud-btn hud-btn-outline" style={{ padding: '5px 9px', fontSize: '10px' }}>ADICIONAR</button>
-          </form>
         </div>
       </div>
 
@@ -303,6 +290,59 @@ export const TraitsAndPerks: React.FC = () => {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Feat selector — intentionally last in the abilities page */}
+      <div className="hud-panel" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '14px', background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.09), rgba(0, 0, 0, 0.35))', border: '1px solid rgba(245, 158, 11, 0.28)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(245, 158, 11, 0.2)', paddingBottom: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <BookOpen size={16} color="var(--color-amber-primary)" />
+            <div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 800, color: 'var(--color-amber-primary)', letterSpacing: '0.08em' }}>FEATS DO OPERADOR</div>
+              <div style={{ fontSize: '10px', color: 'var(--text-muted)', marginTop: '2px' }}>Selecione um talento existente no compêndio.</div>
+            </div>
+          </div>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--color-amber-primary)', padding: '3px 6px', background: 'rgba(245, 158, 11, 0.12)' }}>{manualTraits.length} ATIVOS</span>
+        </div>
+
+        {manualTraits.length === 0 ? (
+          <div style={{ padding: '14px', border: '1px dashed rgba(255,255,255,0.13)', color: 'var(--text-muted)', textAlign: 'center', fontSize: '11px' }}>Nenhum feat selecionado para este operador.</div>
+        ) : (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '8px' }}>
+            {manualTraits.map((featName, idx) => {
+              const feat = featCatalog.find(item => item.title === featName);
+              return (
+                <div key={`manual-${idx}`} style={{ padding: '10px', background: 'rgba(0, 0, 0, 0.3)', borderLeft: '3px solid var(--color-amber-primary)', display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: '12px', fontWeight: 700, color: '#fff' }}>{featName}</div>
+                    <div style={{ fontSize: '10px', color: 'var(--text-secondary)', lineHeight: 1.4, marginTop: '3px' }}>{feat?.summary || 'Feat legado adicionado antes do seletor do compêndio.'}</div>
+                  </div>
+                  {feat && <button type="button" className="hud-btn hud-btn-ghost" onClick={() => { tacticalAudio.playSelect(); setSelectedAbility({ title: feat.title, cost: feat.attributes.find(attribute => attribute.label === 'TIPO')?.value || 'Feat', range: '—', usage: feat.attributes.find(attribute => attribute.label === 'USO')?.value || 'Passivo', desc: feat.description, rules: feat.attributes.map(attribute => `${attribute.label}: ${attribute.value}`) }); }} style={{ padding: '2px', border: 'none', background: 'transparent' }} title="Ver detalhes"><Info size={13} color="var(--color-amber-primary)" /></button>}
+                  <button type="button" className="hud-btn hud-btn-ghost" onClick={() => removeManualFeat(idx)} style={{ padding: '2px 5px', fontSize: '10px', color: 'var(--color-red-primary)' }} title="Remover feat">×</button>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) auto', gap: '8px', alignItems: 'end' }}>
+          <label style={{ display: 'flex', flexDirection: 'column', gap: '5px', fontFamily: 'var(--font-mono)', fontSize: '9px', color: 'var(--text-muted)' }}>
+            TALENTO DISPONÍVEL ({featCatalog.length})
+            <select value={selectedFeatId} onChange={event => setSelectedFeatId(event.target.value)} className="hud-input" style={{ width: '100%', minWidth: 0 }}>
+              <option value="">Selecione um feat do sistema…</option>
+              {featCatalog.map(feat => <option key={feat.id} value={feat.id} disabled={manualTraits.includes(feat.title)}>{feat.title}{manualTraits.includes(feat.title) ? ' — já adicionado' : ''}</option>)}
+            </select>
+          </label>
+          <button type="button" className="hud-btn hud-btn-amber" disabled={!selectedFeat || selectedFeatAlreadyAdded} onClick={() => { if (!selectedFeat) return; addManualFeat(selectedFeat.title); setSelectedFeatId(''); tacticalAudio.playSelect(); }} style={{ minHeight: '34px', padding: '6px 10px', opacity: !selectedFeat || selectedFeatAlreadyAdded ? 0.45 : 1 }}><Plus size={14} /> ADICIONAR</button>
+        </div>
+
+        {selectedFeat && (
+          <div style={{ padding: '10px', background: 'rgba(0, 0, 0, 0.28)', border: '1px solid rgba(245, 158, 11, 0.16)' }}>
+            <div style={{ fontSize: '12px', fontWeight: 700, color: '#fff' }}>{selectedFeat.title}</div>
+            <div style={{ fontSize: '10px', color: 'var(--text-secondary)', marginTop: '4px', lineHeight: 1.45 }}>{selectedFeat.summary}</div>
+            {selectedFeatAlreadyAdded && <div style={{ fontSize: '9px', color: 'var(--color-amber-primary)', marginTop: '6px' }}>Este feat já pertence ao operador.</div>}
+          </div>
+        )}
       </div>
 
       {/* ABILITY MODAL */}

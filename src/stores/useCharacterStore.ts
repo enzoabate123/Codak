@@ -470,7 +470,7 @@ export const useCharacterStore = create<CharacterStore>((set, get) => ({
     if (!normalized) return;
     set((state) => {
       const char = state.characters.find(c => c.id === state.activeCharacterId);
-      if (!char) return state;
+      if (!char || (char.featuresAndTraits || []).includes(normalized)) return state;
       const updatedChars = state.characters.map(c => c.id === state.activeCharacterId
         ? { ...c, featuresAndTraits: [...(c.featuresAndTraits || []), normalized] }
         : c);

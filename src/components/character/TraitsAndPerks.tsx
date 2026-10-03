@@ -10,8 +10,9 @@ import { CLASS_ABILITIES_CATALOG } from '@/data/class-abilities-catalog';
 import { LORE_RULES_CATALOG } from '@/data/lore-rules-catalog';
 
 export const TraitsAndPerks: React.FC = () => {
-  const { characters, activeCharacterId, unlockSubclassAbility } = useCharacterStore();
+  const { characters, activeCharacterId, unlockSubclassAbility, addManualFeat, removeManualFeat } = useCharacterStore();
   const [selectedAbility, setSelectedAbility] = React.useState<any>(null);
+  const [newFeat, setNewFeat] = React.useState('');
   const char = characters.find(c => c.id === activeCharacterId);
   if (!char) return null;
 
@@ -108,15 +109,23 @@ export const TraitsAndPerks: React.FC = () => {
           {manualTraits.length > 0 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <div style={{ fontSize: '11px', color: 'var(--color-amber-dim)', marginBottom: '4px', textTransform: 'uppercase' }}>
-                Características Manuais
+                Feats e características manuais
               </div>
               {manualTraits.map((feat, idx) => (
-                <div key={`manual-${idx}`} style={{ padding: '8px', background: 'rgba(0, 0, 0, 0.3)', borderLeft: '2px solid var(--text-muted)' }}>
-                  <div style={{ fontSize: '10px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>{feat}</div>
+                <div key={`manual-${idx}`} style={{ padding: '8px', background: 'rgba(0, 0, 0, 0.3)', borderLeft: '2px solid var(--text-muted)', display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
+                  <div style={{ flex: 1, fontSize: '10px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>{feat}</div>
+                  <button type="button" className="hud-btn hud-btn-ghost" onClick={() => removeManualFeat(idx)} style={{ padding: '2px 5px', fontSize: '9px', color: 'var(--color-red-primary)' }} title="Remover feat">×</button>
                 </div>
               ))}
             </div>
           )}
+          <form
+            onSubmit={(event) => { event.preventDefault(); addManualFeat(newFeat); setNewFeat(''); tacticalAudio.playSelect(); }}
+            style={{ display: 'flex', gap: '8px', marginTop: '4px' }}
+          >
+            <input value={newFeat} onChange={(event) => setNewFeat(event.target.value)} className="hud-input" placeholder="Adicionar feat ou característica manual" style={{ flex: 1, minWidth: 0 }} />
+            <button type="submit" className="hud-btn hud-btn-outline" style={{ padding: '5px 9px', fontSize: '10px' }}>ADICIONAR</button>
+          </form>
         </div>
       </div>
 

@@ -16,6 +16,13 @@ export interface InventoryItem {
   data?: any; // The original catalog data for the item
 }
 
+export interface EquipmentRequest {
+  id: string;
+  requestedAt: string;
+  status: 'pending' | 'approved' | 'rejected';
+  item: Omit<InventoryItem, 'id'>;
+}
+
 export interface CharacterSheetData {
   id: string;
   name: string;
@@ -53,6 +60,7 @@ export interface CharacterSheetData {
 
   credits: number;
   inventory: Array<InventoryItem | null>;
+  pendingEquipmentRequests?: EquipmentRequest[];
   campaignNotes: string;
 
   activePage: 'status' | 'habilidades' | 'loadout' | 'inventario' | 'anotacoes' | 'backstory';
@@ -84,8 +92,11 @@ export interface CharacterStore extends CharacterSheetData {
   updateAttribute: (attr: CoreAttribute, value: number) => void;
   toggleSkillProficiency: (skill: SkillKey) => void;
   updateHp: (delta: number) => void;
+  updateVitals: (fields: Partial<Pick<CharacterSheetData, 'hpCurrent' | 'hpMax' | 'tempHp' | 'armorClass' | 'speedMeters'>>) => void;
   updateResource: (delta: number) => void;
   setTempHp: (val: number) => void;
+  addManualFeat: (feat: string) => void;
+  removeManualFeat: (index: number) => void;
   togglePerk: (index: number) => void;
 
   // Weapons & Gunsmith
@@ -228,6 +239,7 @@ export const useCharacterStore = create<CharacterStore>((set, get) => ({
 
       credits: 5000,
       inventory: Array(30).fill(null),
+      pendingEquipmentRequests: [],
       campaignNotes: 'Dossiê recém-criado. Aguardando designação de missão.',
       unlockedSubclassAbilities: [],
       activePage: 'status',
@@ -407,6 +419,24 @@ export const useCharacterStore = create<CharacterStore>((set, get) => ({
       return { characters: updatedChars };
     });
   },
+  updateVitals: (fields) => {
+    set((state) => {
+      const char = state.characters.find(c => c.id === state.activeCharacterId);
+      if (!char) return state;
+      const hpMax = Math.max(1, Number(fields.hpMax ?? char.hpMax) || 1);
+      const updated = {
+        ...char,
+        hpMax,
+        hpCurrent: Math.max(0, Math.min(hpMax, Number(fields.hpCurrent ?? char.hpCurrent) || 0)),
+        tempHp: Math.max(0, Number(fields.tempHp ?? char.tempHp) || 0),
+        armorClass: Math.max(0, Number(fields.armorClass ?? char.armorClass) || 0),
+        speedMeters: Math.max(0, Number(fields.speedMeters ?? char.speedMeters) || 0),
+      };
+      const updatedChars = state.characters.map(c => c.id === state.activeCharacterId ? updated : c);
+      saveCharactersToStorage(updatedChars, state.activeCharacterId);
+      return { characters: updatedChars };
+    });
+  },
   updateResource: (delta) => {
     set((state) => {
       const char = state.characters.find((c) => c.id === state.activeCharacterId);
@@ -427,6 +457,30 @@ export const useCharacterStore = create<CharacterStore>((set, get) => ({
       );
       saveCharactersToStorage(updatedChars, state.activeCharacterId);
       return { tempHp: newTempHp, characters: updatedChars };
+    });
+  },
+  addManualFeat: (feat) => {
+    const normalized = feat.trim();
+    if (!normalized) return;
+    set((state) => {
+      const char = state.characters.find(c => c.id === state.activeCharacterId);
+      if (!char) return state;
+      const updatedChars = state.characters.map(c => c.id === state.activeCharacterId
+        ? { ...c, featuresAndTraits: [...(c.featuresAndTraits || []), normalized] }
+        : c);
+      saveCharactersToStorage(updatedChars, state.activeCharacterId);
+      return { characters: updatedChars };
+    });
+  },
+  removeManualFeat: (index) => {
+    set((state) => {
+      const char = state.characters.find(c => c.id === state.activeCharacterId);
+      if (!char) return state;
+      const updatedChars = state.characters.map(c => c.id === state.activeCharacterId
+        ? { ...c, featuresAndTraits: (c.featuresAndTraits || []).filter((_, itemIndex) => itemIndex !== index) }
+        : c);
+      saveCharactersToStorage(updatedChars, state.activeCharacterId);
+      return { characters: updatedChars };
     });
   },
 

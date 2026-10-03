@@ -6,7 +6,7 @@ import { tacticalAudio } from '@/lib/audio';
 import { Heart, Shield, Zap, Footprints, Award } from 'lucide-react';
 
 export const VitalsAndStats: React.FC = () => {
-  const { characters, activeCharacterId, updateHp, setTempHp, updateResource } = useCharacterStore();
+  const { characters, activeCharacterId, updateHp, updateVitals, setTempHp, updateResource } = useCharacterStore();
   const char = characters.find(c => c.id === activeCharacterId);
   if (!char) return null;
 
@@ -45,6 +45,28 @@ export const VitalsAndStats: React.FC = () => {
           <button type="button" className="hud-btn" style={{ padding: '2px 8px', fontSize: '9px', background: 'rgba(239, 68, 68, 0.2)', border: 'var(--border-red)' }} onClick={() => { updateHp(-1); tacticalAudio.playAlert(); }}>-1 HP</button>
           <button type="button" className="hud-btn" style={{ padding: '2px 8px', fontSize: '9px', background: 'rgba(34, 197, 94, 0.2)', border: 'var(--border-subtle)' }} onClick={() => { updateHp(5); tacticalAudio.playSelect(); }}>+5 HP</button>
         </div>
+        <details style={{ marginTop: '8px' }}>
+          <summary style={{ cursor: 'pointer', fontFamily: 'var(--font-mono)', fontSize: '9px', color: 'var(--text-muted)' }}>EDITAR VALORES</summary>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '6px', marginTop: '8px' }}>
+            {([
+              ['PV atual', 'hpCurrent', hpCurrent], ['PV máximo', 'hpMax', hpMax],
+              ['PV temporário', 'tempHp', tempHp], ['CA base', 'armorClass', baseAc],
+              ['Velocidade', 'speedMeters', speedMeters],
+            ] as const).map(([label, field, value]) => (
+              <label key={field} style={{ fontSize: '9px', color: 'var(--text-muted)' }}>
+                {label}
+                <input
+                  type="number"
+                  min="0"
+                  value={value}
+                  onChange={(event) => updateVitals({ [field]: Number(event.target.value) } as any)}
+                  className="hud-input"
+                  style={{ width: '100%', marginTop: '3px', padding: '4px 6px', fontSize: '11px' }}
+                />
+              </label>
+            ))}
+          </div>
+        </details>
       </div>
 
       

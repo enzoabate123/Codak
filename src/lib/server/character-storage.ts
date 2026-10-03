@@ -35,6 +35,10 @@ export function getCharacters(userId: string, role: string): ServerCharacter[] {
   return allChars.filter(c => c.userId === userId);
 }
 
+export function getCharacterById(charId: string): ServerCharacter | undefined {
+  return readDB().find(character => character.id === charId);
+}
+
 export function saveCharacter(character: ServerCharacter): void {
   const allChars = readDB();
   const index = allChars.findIndex(c => c.id === character.id);

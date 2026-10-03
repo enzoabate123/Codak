@@ -9,6 +9,7 @@ import { VitalsAndStats } from '@/components/character/VitalsAndStats';
 import { WeaponsSection } from '@/components/character/WeaponsSection';
 import { TraitsAndPerks } from '@/components/character/TraitsAndPerks';
 import { InventoryGrid, ArmorAndAccessories, CampaignNotes } from '@/components/character/InventoryAndNotes';
+import { ManualInventoryControls } from '@/components/character/ManualInventoryControls';
 import { GunsmithModal } from '@/components/gunsmith/GunsmithModal';
 import { User, Plus, PanelLeftClose, PanelLeft } from 'lucide-react';
 import { tacticalAudio } from '@/lib/audio';
@@ -129,8 +130,9 @@ export const CharactersView: React.FC = () => {
                     <WeaponsSection onOpenGunsmith={(slot) => setGunsmithSlot(slot)} />
                     <ArmorAndAccessories />
                   </div>
-                  <div style={{ overflowY: 'auto', paddingRight: '8px' }}>
+                  <div style={{ overflowY: 'auto', paddingRight: '8px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                     <InventoryGrid />
+                    <ManualInventoryControls />
                   </div>
                 </div>
               )}

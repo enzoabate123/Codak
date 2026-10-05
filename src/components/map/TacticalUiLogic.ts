@@ -49,7 +49,7 @@ export function characterActions(char: CharacterSheetData | undefined, classes:C
     const feat=lore.find(r=>r.title===name);
     actions.push({id:`feat-${name}`,name,category:'feat',description:feat?.description || name});
   }
-  for (const racial of lore.filter(r=>char.race && r.tags.includes('Habilidade Racial') && (r.subtitle.includes(char.race) || (char.race.startsWith('Android') && r.subtitle==='Habilidade Racial: Android') || (char.race.startsWith('Infectado') && r.subtitle==='Habilidade Racial: Infectado')))) {
+  for (const racial of lore.filter(r=>char.race && Array.isArray(r.tags) && r.tags.includes('Habilidade Racial') && typeof r.subtitle==='string' && (r.subtitle.includes(char.race) || (char.race.startsWith('Android') && r.subtitle==='Habilidade Racial: Android') || (char.race.startsWith('Infectado') && r.subtitle==='Habilidade Racial: Infectado')))) {
     actions.push({id:racial.id,name:racial.title,category:'ability',description:racial.description});
   }
   for (const item of char.inventory || []) if (item) actions.push({id:`item-${item.id}`,name:item.name,category:'item',description:`${item.quantity}× · ${item.notes || item.weight || 'Item do inventário'}`});

@@ -1,94 +1,238 @@
 'use client';
-import React,{useEffect,useMemo,useRef,useState} from 'react';
-import {MousePointer2,Hand,Pencil,Radio,Ruler,Minus,Circle,Triangle,Square,BrickWall,Mountain,Eye,Undo2,Trash2,Plus,ZoomIn,ZoomOut,Scan,Settings,Upload,Send,Play,Pause,SkipForward,ChevronUp,ChevronDown,Users,UserRound,Swords,Zap,Package,X,PanelRightClose,PanelRightOpen,Map as MapIcon} from 'lucide-react';
-import {useTacticalMapStore} from '@/stores/useTacticalMapStore';
-import {useCharacterStore} from '@/stores/useCharacterStore';
-import {useCompendiumStore} from '@/stores/useCompendiumStore';
-import {useNavigationStore} from '@/stores/useNavigationStore';
-import type {ActionKind,Point,TacticalEnvironment} from '@/types/tactical-map';
-import {pointToHex} from '@/lib/tactical-map';
-import {TacticalBoard,TacticalTool,ToolSettings} from './TacticalBoard';
-import {TacticalCharacterWindow} from './TacticalCharacterWindow';
-import {readTacticalCharacters} from './TacticalCharacterTransport';
-import {TacticalForms,TacticalActionDialog,TacticalTemplate,SLOT_NAMES,ENV_NAMES} from './TacticalForms';
-import {CharacterAction,characterActions,zoomAt} from './TacticalUiLogic';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { MousePointer2, Hand, Pencil, Radio, Ruler, Minus, Circle, Triangle, Square, BrickWall, Mountain, Eye, Undo2, Trash2, Plus, ZoomIn, ZoomOut, Scan, Settings, Upload, Send, Play, Pause, SkipForward, ChevronUp, ChevronDown, Users, UserRound, Swords, Zap, Package, X, PanelRightClose, PanelRightOpen, BookOpen, ShoppingCart, Shield, LogOut, Menu, ScrollText, Map as MapIcon } from 'lucide-react';
+import { useTacticalMapStore } from '@/stores/useTacticalMapStore';
+import { useCharacterStore } from '@/stores/useCharacterStore';
+import { useCompendiumStore } from '@/stores/useCompendiumStore';
+import { useNavigationStore, NAVIGATION_ITEMS } from '@/stores/useNavigationStore';
+import { useAuthStore } from '@/stores/useAuthStore';
+import type { ActionKind, Point, TacticalEnvironment } from '@/types/tactical-map';
+import { pointToHex } from '@/lib/tactical-map';
+import { TacticalBoard, TacticalTool, ToolSettings } from './TacticalBoard';
+import { TacticalCharacterWindow } from './TacticalCharacterWindow';
+import { readTacticalCharacters } from './TacticalCharacterTransport';
+import { TacticalForms, TacticalActionDialog, TacticalTemplate, SLOT_NAMES, ENV_NAMES } from './TacticalForms';
+import { CharacterAction, characterActions, zoomAt } from './TacticalUiLogic';
+import { TacticalFloatingWindow } from './TacticalFloatingWindow';
 import styles from './tactical-map.module.css';
-const TOOLS:Array<[TacticalTool,string,typeof MousePointer2]>=[['select','Selecionar / mover token (V)',MousePointer2],['pan','Mover câmera (H)',Hand],['freehand','Desenhar à mão livre (D)',Pencil],['ping','Sinalizar ponto (P)',Radio],['measure','Medir distância em metros (M)',Ruler],['line','Desenhar linha',Minus],['circle','Área circular',Circle],['cone','Área em cone',Triangle],['rectangle','Área retangular',Square],['wall','Criar parede em dois cliques',BrickWall],['height','Definir altura do hexágono',Mountain],['reveal','Revelar terreno explorado',Eye]];
-function IconButton({label,children,onClick,disabled=false,active=false}:{label:string;children:React.ReactNode;onClick:()=>void;disabled?:boolean;active?:boolean}) {return <button type="button" title={label} aria-label={label} disabled={disabled} aria-pressed={active || undefined} className={styles.iconButton} onClick={onClick}>{children}</button>;}
-export function TacticalWorkspace(){
-  const {view,error,loading,pending,connect,send,selectScene,selectedTokenId,selectToken,viewports,setViewport,clearError}=useTacticalMapStore();
-  const {characters}=useCharacterStore();const compendium=useCompendiumStore();const root=useRef<HTMLDivElement>(null),file=useRef<HTMLInputElement>(null),dragOrder=useRef<string|null>(null);
-  const uploadLifetime=useRef(0);
-  useEffect(()=>()=>{uploadLifetime.current++;},[]);
-  const [tool,setTool]=useState<TacticalTool>('select'),[settings,setSettings]=useState<ToolSettings>({color:'#06b6d4',meters:3,width:3,height:2,blocksMovement:true,blocksVision:true});
-  const [selectedDrawing,setSelectedDrawing]=useState<string|null>(null),[wallId,setWallId]=useState<string|null>(null),[characterId,setCharacterId]=useState('');
-  const [sheet,setSheet]=useState(false),[library,setLibrary]=useState(false),[toolsOpen,setToolsOpen]=useState(false),[envOpen,setEnvOpen]=useState(false),[combatOpen,setCombatOpen]=useState(true);
-  const [modal,setModal]=useState<'scene'|'create'|'npc'|'token'|null>(null),[action,setAction]=useState<{value:CharacterAction;tokenId:string|null;slot:ActionKind}|null>(null);
-  const [templates,setTemplates]=useState<TacticalTemplate[]>([]),[placing,setPlacing]=useState<string|null>(null),[uiError,setUiError]=useState<string|null>(null),[uploading,setUploading]=useState(false);
-  const scene=view?.scene || null,admin=view?.self.role==='admin',selectedToken=scene?.tokens.find(t=>t.id===selectedTokenId),char=characters.find(c=>c.id===characterId);
-  const activeId=scene?.combat.active?scene.combat.order[scene.combat.index]:null,activeToken=scene?.tokens.find(t=>t.id===activeId);
-  const combatToken=(selectedToken?.characterId===characterId && (admin || selectedToken.ownerId===view?.self.id)?selectedToken:null) || scene?.tokens.find(t=>t.characterId===characterId && (admin || t.ownerId===view?.self.id));
-  const selectCharacter=(id:string)=>{setCharacterId(id);const token=useTacticalMapStore.getState().view?.scene?.tokens.find(t=>t.characterId===id && (admin || t.ownerId===view?.self.id));selectToken(token?.id || null);};
-  const ownTurn=!!(scene?.combat.active && combatToken && (admin || (combatToken.ownerId===view?.self.id && activeId===combatToken.id)));
-  const actions=useMemo(()=>characterActions(char,compendium.classes,compendium.abilities,compendium.loreRules),[char,compendium.classes,compendium.abilities,compendium.loreRules]);
-  const libraryTemplates=useMemo<TacticalTemplate[]>(()=>[...characters.map(c=>({id:`character:${c.id}`,characterId:c.id,name:c.name,kind:'player' as const,hp:c.hpCurrent,maxHp:c.hpMax,initiative:c.initiativeOverride ?? Math.floor(((c.attributes?.DEX || 10)-10)/2),vision:12,elevation:0,color:'#22c55e'})),...templates],[characters,templates]);
-  useEffect(()=>connect(),[connect]);
-  useEffect(()=>{let stopped=false,fetching=false;const controller=new AbortController();
-    const refresh=async()=>{if(document.hidden || fetching)return;fetching=true;const context=useTacticalMapStore.getState().captureContext();try{await readTacticalCharacters(controller.signal,()=>!stopped && context.isCurrent());}catch(e){if(!stopped && !controller.signal.aborted && context.isCurrent())setUiError(e instanceof Error?e.message:'Falha ao carregar fichas');}finally{fetching=false;}};
-    // Read authenticated records without changing global activePage/activeCharacterId.
-    void refresh();const timer=setInterval(()=>void refresh(),5000);return()=>{stopped=true;controller.abort();clearInterval(timer);};},[]);
-  useEffect(()=>{const current=useTacticalMapStore.getState(),token=current.view?.scene?.tokens.find(t=>t.id===current.selectedTokenId);
-    if(token?.characterId && characters.some(c=>c.id===token.characterId))setCharacterId(token.characterId);
-    else if(!characters.some(c=>c.id===characterId))setCharacterId(characters[0]?.id || '');
-  },[characters,characterId,selectedTokenId,selectedToken?.characterId]);
-  useEffect(()=>{setPlacing(null);setSelectedDrawing(null);setWallId(null);setAction(null);setModal(null);},[scene?.id]);
-  const undo=()=>{const drawing=[...(scene?.drawings || [])].reverse().find(d=>d.ownerId===view?.self.id);if(drawing)void send({type:'removeDrawing',id:drawing.id});};
-  const removeDrawing=()=>{const drawing=scene?.drawings.find(d=>d.id===selectedDrawing);if(drawing && (admin || drawing.ownerId===view?.self.id)){void send({type:'removeDrawing',id:drawing.id});setSelectedDrawing(null);}};
-  useEffect(()=>{const key=(event:KeyboardEvent)=>{if((event.target as HTMLElement).closest('input,textarea,select,[contenteditable="true"],dialog,[role="dialog"]'))return;
-    if(event.key==='Escape'){setTool('select');setPlacing(null);setSelectedDrawing(null);setWallId(null);setToolsOpen(false);setLibrary(false);return;}
-    if((event.ctrlKey || event.metaKey) && event.key.toLowerCase()==='z'){event.preventDefault();undo();return;}if(event.key==='Delete' || event.key==='Backspace'){if(scene?.drawings.some(d=>d.id===selectedDrawing && d.ownerId===view?.self.id)){event.preventDefault();removeDrawing();}return;}
-    if(event.ctrlKey || event.metaKey || event.altKey)return;const keys:Record<string,TacticalTool>={v:'select',h:'pan',d:'freehand',p:'ping',m:'measure'};if(keys[event.key.toLowerCase()])setTool(keys[event.key.toLowerCase()]);};window.addEventListener('keydown',key);return()=>window.removeEventListener('keydown',key);});
-  const changeTool=(next:TacticalTool)=>{setTool(next);setToolsOpen(false);setPlacing(null);setWallId(null);};
-  const place=(p:Point,id?:string)=>{if(!scene || !admin)return;const template=libraryTemplates.find(t=>t.id===(id || placing));if(!template)return;const {id:_,...token}=template;void send({type:'addToken',token:{...token,...pointToHex(p,scene.hexSize)}}).then(ok=>{if(ok)setPlacing(null);});};
-  const zoom=(factor:number)=>{if(!scene || !root.current)return;const rect=root.current.getBoundingClientRect(),current=viewports[scene.id] || {x:100,y:150,scale:1};setViewport(scene.id,zoomAt(current,{x:rect.width/2,y:rect.height/2},current.scale*factor));};
-  const fit=()=>{if(!scene || !root.current)return;const rect=root.current.getBoundingClientRect(),scale=scene.image?Math.min(4,Math.max(.25,Math.min((rect.width-140)/Math.max(1,scene.width),(rect.height-220)/Math.max(1,scene.height)))):1;setViewport(scene.id,{x:scene.image?(rect.width-scene.width*scale)/2:rect.width/2,y:scene.image?(rect.height-scene.height*scale)/2:rect.height/2,scale});};
-  const upload=async(event:React.ChangeEvent<HTMLInputElement>)=>{const imageFile=event.target.files?.[0];if(!imageFile)return;event.target.value='';const origin=useTacticalMapStore.getState().captureContext(),lifetime=uploadLifetime.current;const current=()=>lifetime===uploadLifetime.current && origin.isCurrent();setUploading(true);setUiError(null);try{
-    if(!['image/png','image/jpeg','image/webp','image/gif'].includes(imageFile.type))throw new Error('Use PNG, JPEG, WebP ou GIF raster.');if(imageFile.size>30*1024*1024)throw new Error('Imagem maior que 30 MB. Reduza o arquivo antes de enviar.');
-    const image=await createImageBitmap(imageFile);if(!current()){image.close();return;}const ratio=Math.min(1,4096/Math.max(image.width,image.height)),canvas=document.createElement('canvas');canvas.width=Math.round(image.width*ratio);canvas.height=Math.round(image.height*ratio);try{const context=canvas.getContext('2d');if(!context)throw new Error('Canvas não disponível.');context.drawImage(image,0,0,canvas.width,canvas.height);}finally{image.close();}const data=canvas.toDataURL('image/webp',.88);if(data.length>Math.ceil(5*1024*1024*4/3)+100)throw new Error('Imagem processada excede 5 MB de dados. Reduza as dimensões.');if(current())await send({type:'setImage',image:data,width:canvas.width,height:canvas.height},origin);
-    }catch(e){if(current())setUiError(e instanceof Error?e.message:'Falha ao enviar imagem');}finally{if(lifetime===uploadLifetime.current)setUploading(false);}};
-  const openAction=(value:CharacterAction,slot:ActionKind='main')=>setAction({value,slot,tokenId:combatToken?.id || null});
-  const reorder=(id:string,target:number)=>{if(!scene)return;const order=[...scene.combat.order],from=order.indexOf(id);if(from<0 || target<0 || target>=order.length)return;order.splice(from,1);order.splice(target,0,id);void send({type:'setOrder',order});};
-  const wall=scene?.walls.find(w=>w.id===wallId);
-  return <div ref={root} className={styles.map} data-testid="tactical-map" data-tools-open={toolsOpen || !['select','pan','ping'].includes(tool) || !!wallId} data-tools-expanded={toolsOpen} onPointerDownCapture={()=>useNavigationStore.getState().collapseWheel()}>
+const TOOLS: Array<[
+    TacticalTool,
+    string,
+    typeof MousePointer2
+]> = [['select', 'Selecionar / mover token (V)', MousePointer2], ['pan', 'Mover câmera (H)', Hand], ['freehand', 'Desenhar à mão livre (D)', Pencil], ['ping', 'Sinalizar ponto (P)', Radio], ['measure', 'Medir distância em metros (M)', Ruler], ['line', 'Desenhar linha', Minus], ['circle', 'Área circular', Circle], ['cone', 'Área em cone', Triangle], ['rectangle', 'Área retangular', Square], ['wall', 'Criar parede em dois cliques', BrickWall], ['height', 'Definir altura do hexágono', Mountain], ['reveal', 'Revelar terreno explorado', Eye]];
+function IconButton({ label, children, onClick, disabled = false, active, expanded, controls }: {
+    label: string;
+    children: React.ReactNode;
+    onClick: () => void;
+    disabled?: boolean;
+    active?: boolean;
+    expanded?: boolean;
+    controls?: string;
+}) { return <button type="button" title={label} data-tooltip={label} aria-label={label} disabled={disabled} aria-pressed={active} aria-expanded={expanded} aria-controls={controls} className={styles.iconButton} onClick={onClick}>{children}</button>; }
+export function TacticalWorkspace() {
+    const { view, error, loading, pending, connect, send, selectScene, selectedTokenId, selectToken, viewports, setViewport, clearError } = useTacticalMapStore();
+    const { characters } = useCharacterStore();
+    const { logout } = useAuthStore();
+    const [navigationOpen, setNavigationOpen] = useState(false);
+    const compendium = useCompendiumStore();
+    const root = useRef<HTMLDivElement>(null), file = useRef<HTMLInputElement>(null), dragOrder = useRef<string | null>(null);
+    const uploadLifetime = useRef(0);
+    useEffect(() => () => { uploadLifetime.current++; }, []);
+    const [tool, setTool] = useState<TacticalTool>('select'), [settings, setSettings] = useState<ToolSettings>({ color: '#06b6d4', meters: 3, width: 3, height: 2, blocksMovement: true, blocksVision: true });
+    const [selectedDrawing, setSelectedDrawing] = useState<string | null>(null), [wallId, setWallId] = useState<string | null>(null), [characterId, setCharacterId] = useState('');
+    const [sheet, setSheet] = useState(false), [library, setLibrary] = useState(false), [toolsOpen, setToolsOpen] = useState(false), [envOpen, setEnvOpen] = useState(false), [hotbarOpen, setHotbarOpen] = useState(false), [logOpen, setLogOpen] = useState(false), [combatOpen, setCombatOpen] = useState(false);
+    const [modal, setModal] = useState<'scene' | 'create' | 'npc' | 'token' | null>(null), [action, setAction] = useState<{
+        value: CharacterAction;
+        tokenId: string | null;
+        slot: ActionKind;
+    } | null>(null);
+    const [templates, setTemplates] = useState<TacticalTemplate[]>([]), [placing, setPlacing] = useState<string | null>(null), [uiError, setUiError] = useState<string | null>(null), [uploading, setUploading] = useState(false);
+    const scene = view?.scene || null, admin = view?.self.role === 'admin', selectedToken = scene?.tokens.find(t => t.id === selectedTokenId), char = characters.find(c => c.id === characterId);
+    const activeId = scene?.combat.active ? scene?.combat.order[scene?.combat.index] : null, activeToken = scene?.tokens.find(t => t.id === activeId);
+    const combatToken = (selectedToken?.characterId === characterId && (admin || selectedToken.ownerId === view?.self.id) ? selectedToken : null) || scene?.tokens.find(t => t.characterId === characterId && (admin || t.ownerId === view?.self.id));
+    const selectCharacter = (id: string) => { setCharacterId(id); const token = useTacticalMapStore.getState().view?.scene?.tokens.find(t => t.characterId === id && (admin || t.ownerId === view?.self.id)); selectToken(token?.id || null); };
+    const ownTurn = !!(scene?.combat.active && combatToken && (admin || (combatToken.ownerId === view?.self.id && activeId === combatToken.id)));
+    const actions = useMemo(() => characterActions(char, compendium.classes, compendium.abilities, compendium.loreRules), [char, compendium.classes, compendium.abilities, compendium.loreRules]);
+    const libraryTemplates = useMemo<TacticalTemplate[]>(() => [...characters.map(c => ({ id: `character:${c.id}`, characterId: c.id, name: c.name, kind: 'player' as const, hp: c.hpCurrent, maxHp: c.hpMax, initiative: c.initiativeOverride ?? Math.floor(((c.attributes?.DEX || 10) - 10) / 2), vision: 12, elevation: 0, color: '#22c55e' })), ...templates], [characters, templates]);
+    useEffect(() => connect(), [connect]);
+    useEffect(() => {
+        let stopped = false, fetching = false;
+        const controller = new AbortController();
+        const refresh = async () => { if (document.hidden || fetching)
+            return; fetching = true; const context = useTacticalMapStore.getState().captureContext(); try {
+            await readTacticalCharacters(controller.signal, () => !stopped && context.isCurrent());
+        }
+        catch (e) {
+            if (!stopped && !controller.signal.aborted && context.isCurrent())
+                setUiError(e instanceof Error ? e.message : 'Falha ao carregar fichas');
+        }
+        finally {
+            fetching = false;
+        } };
+        // Read authenticated records without changing global activePage/activeCharacterId.
+        void refresh();
+        const timer = setInterval(() => void refresh(), 5000);
+        return () => { stopped = true; controller.abort(); clearInterval(timer); };
+    }, []);
+    useEffect(() => {
+        const current = useTacticalMapStore.getState(), token = current.view?.scene?.tokens.find(t => t.id === current.selectedTokenId);
+        if (token?.characterId && characters.some(c => c.id === token.characterId))
+            setCharacterId(token.characterId);
+        else if (!characters.some(c => c.id === characterId))
+            setCharacterId(characters[0]?.id || '');
+    }, [characters, characterId, selectedTokenId, selectedToken?.characterId]);
+    useEffect(() => { setPlacing(null); setSelectedDrawing(null); setWallId(null); setAction(null); setModal(null); }, [scene?.id]);
+    const undo = () => { const drawing = [...(scene?.drawings || [])].reverse().find(d => d.ownerId === view?.self.id); if (drawing)
+        void send({ type: 'removeDrawing', id: drawing.id }); };
+    const removeDrawing = () => { const drawing = scene?.drawings.find(d => d.id === selectedDrawing); if (drawing && (admin || drawing.ownerId === view?.self.id)) {
+        void send({ type: 'removeDrawing', id: drawing.id }).then(ok => { if (ok) setSelectedDrawing(null); });
+    } };
+    const canDeleteSelection = !!scene && !pending && (selectedDrawing
+        ? scene.drawings.some(d => d.id === selectedDrawing && (admin || d.ownerId === view?.self.id))
+        : !!selectedToken && admin);
+    const deleteSelection = () => {
+        if (!canDeleteSelection) return;
+        if (selectedDrawing) removeDrawing();
+        else if (selectedToken && admin) void send({ type: 'removeToken', tokenId: selectedToken.id }).then(ok => { if (ok) selectToken(null); });
+    };
+    useEffect(() => {
+        const key = (event: KeyboardEvent) => {
+            if ((event.target as HTMLElement).closest('input,textarea,select,[contenteditable="true"],dialog,[role="dialog"]'))
+                return;
+            if (event.key === 'Escape') {
+                setTool('select');
+                setPlacing(null);
+                setSelectedDrawing(null);
+                setWallId(null);
+                setToolsOpen(false);
+                setLibrary(false);
+                return;
+            }
+            if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'z') {
+                event.preventDefault();
+                undo();
+                return;
+            }
+            if (event.key === 'Delete' || event.key === 'Backspace') {
+                if (canDeleteSelection) {
+                    event.preventDefault();
+                    deleteSelection();
+                }
+                return;
+            }
+            if (event.ctrlKey || event.metaKey || event.altKey)
+                return;
+            const keys: Record<string, TacticalTool> = { v: 'select', h: 'pan', d: 'freehand', p: 'ping', m: 'measure' };
+            if (keys[event.key.toLowerCase()])
+                setTool(keys[event.key.toLowerCase()]);
+        };
+        window.addEventListener('keydown', key);
+        return () => window.removeEventListener('keydown', key);
+    });
+    const changeTool = (next: TacticalTool) => { setTool(next); setToolsOpen(!['select', 'pan', 'measure', 'ping'].includes(next)); setPlacing(null); setWallId(null); };
+    const place = (p: Point, id?: string) => { if (!scene || !admin)
+        return; const template = libraryTemplates.find(t => t.id === (id || placing)); if (!template)
+        return; const { id: _, ...token } = template; void send({ type: 'addToken', token: { ...token, ...pointToHex(p, scene.hexSize) } }).then(ok => { if (ok)
+        setPlacing(null); }); };
+    const zoom = (factor: number) => { if (!scene || !root.current)
+        return; const rect = root.current.getBoundingClientRect(), current = viewports[scene.id] || { x: 100, y: 150, scale: 1 }; setViewport(scene.id, zoomAt(current, { x: rect.width / 2, y: rect.height / 2 }, current.scale * factor)); };
+    const fit = () => { if (!scene || !root.current)
+        return; const rect = root.current.getBoundingClientRect(), scale = scene.image ? Math.min(4, Math.max(.25, Math.min((rect.width - 140) / Math.max(1, scene.width), (rect.height - 220) / Math.max(1, scene.height)))) : 1; setViewport(scene.id, { x: scene.image ? (rect.width - scene.width * scale) / 2 : rect.width / 2, y: scene.image ? (rect.height - scene.height * scale) / 2 : rect.height / 2, scale }); };
+    const upload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const imageFile = event.target.files?.[0];
+        if (!imageFile)
+            return;
+        event.target.value = '';
+        const origin = useTacticalMapStore.getState().captureContext(), lifetime = uploadLifetime.current;
+        const current = () => lifetime === uploadLifetime.current && origin.isCurrent();
+        setUploading(true);
+        setUiError(null);
+        try {
+            if (!['image/png', 'image/jpeg', 'image/webp', 'image/gif'].includes(imageFile.type))
+                throw new Error('Use PNG, JPEG, WebP ou GIF raster.');
+            if (imageFile.size > 30 * 1024 * 1024)
+                throw new Error('Imagem maior que 30 MB. Reduza o arquivo antes de enviar.');
+            const image = await createImageBitmap(imageFile);
+            if (!current()) {
+                image.close();
+                return;
+            }
+            const ratio = Math.min(1, 4096 / Math.max(image.width, image.height)), canvas = document.createElement('canvas');
+            canvas.width = Math.round(image.width * ratio);
+            canvas.height = Math.round(image.height * ratio);
+            try {
+                const context = canvas.getContext('2d');
+                if (!context)
+                    throw new Error('Canvas não disponível.');
+                context.drawImage(image, 0, 0, canvas.width, canvas.height);
+            }
+            finally {
+                image.close();
+            }
+            const data = canvas.toDataURL('image/webp', .88);
+            if (data.length > Math.ceil(5 * 1024 * 1024 * 4 / 3) + 100)
+                throw new Error('Imagem processada excede 5 MB de dados. Reduza as dimensões.');
+            if (current())
+                await send({ type: 'setImage', image: data, width: canvas.width, height: canvas.height }, origin);
+        }
+        catch (e) {
+            if (current())
+                setUiError(e instanceof Error ? e.message : 'Falha ao enviar imagem');
+        }
+        finally {
+            if (lifetime === uploadLifetime.current)
+                setUploading(false);
+        }
+    };
+    const openAction = (value: CharacterAction, slot: ActionKind = 'main') => setAction({ value, slot, tokenId: combatToken?.id || null });
+    const reorder = (id: string, target: number) => { if (!scene)
+        return; const order = [...scene?.combat.order], from = order.indexOf(id); if (from < 0 || target < 0 || target >= order.length)
+        return; order.splice(from, 1); order.splice(target, 0, id); void send({ type: 'setOrder', order }); };
+    const wall = scene?.walls.find(w => w.id === wallId);
+    return <div ref={root} className={styles.map} data-testid="tactical-map" data-tools-open={toolsOpen || !['select', 'pan', 'ping'].includes(tool) || !!wallId} data-tools-expanded={toolsOpen} onPointerDownCapture={() => useNavigationStore.getState().collapseWheel()}>
     {scene && view && <TacticalBoard scene={scene} view={view} tool={tool} settings={settings} onPlace={place} placing={!!placing} onWall={setWallId} selectedDrawing={selectedDrawing} onDrawing={setSelectedDrawing}/>}
-    <section className={`${styles.environment} ${styles.panel}`} aria-label="Área e cena"><div className={styles.panelHeader}><MapIcon size={16}/><strong>{scene?.environment?.name || scene?.name || 'MAPA TÁTICO'}</strong><IconButton label={envOpen?'Recolher informações da área':'Expandir informações da área'} onClick={()=>setEnvOpen(!envOpen)}>{envOpen?<ChevronUp size={16}/>:<ChevronDown size={16}/>}</IconButton></div>
-      {scene && <><p className={styles.telemetry}>{admin?(view?.activeSceneId===scene.id?'● CENA PUBLICADA':'◌ PREPARAÇÃO — jogadores não mudaram de mapa'):'● CONEXÃO COMPARTILHADA'} · HEX 1m</p>{envOpen && <dl className={styles.environmentList}>{Object.entries(ENV_NAMES).filter(([key])=>key!=='name' && scene.environment.visible.includes(key) && scene.environment[key as keyof TacticalEnvironment]).map(([key,label])=><React.Fragment key={key}><dt>{label}</dt><dd>{String(scene.environment[key as keyof TacticalEnvironment])}</dd></React.Fragment>)}</dl>}</>}
-      {admin && <div className={styles.sceneControls}><select aria-label="Selecionar cena para preparação" value={scene?.id || ''} onChange={e=>selectScene(e.target.value)} disabled={!!pending}><option value="" disabled>Selecionar cena</option>{view?.scenes.map(s=><option key={s.id} value={s.id}>{s.name}{s.id===view.activeSceneId?' · publicada':''}</option>)}</select><IconButton label="Criar cena" onClick={()=>setModal('create')} disabled={!!pending}><Plus size={18}/></IconButton>{scene && <><IconButton label="Configurar cena e informações opcionais" onClick={()=>setModal('scene')}><Settings size={18}/></IconButton><IconButton label="Publicar esta cena para os jogadores" onClick={()=>void send({type:'publishScene'})} disabled={!!pending || view?.activeSceneId===scene.id}><Send size={18}/></IconButton></>}</div>}
-    </section>
-    {(error || uiError) && <div className={styles.error} role="alert"><span>{error || uiError}</span><IconButton label="Fechar mensagem de erro" onClick={()=>{clearError();setUiError(null);}}><X size={16}/></IconButton></div>}
-    {!scene && <div className={styles.empty}><MapIcon size={40}/><h1>{loading?'Conectando ao mapa…':admin?'Prepare a primeira operação':'Aguardando o mestre'}</h1><p>{loading?'Buscando a cena compartilhada.':admin?'Crie uma cena, envie a imagem e posicione os personagens. Publique quando estiver pronta.':'O mestre ainda não publicou uma cena. Nenhum mapa ou inimigo foi criado automaticamente.'}</p>{admin && !loading && <button type="button" className={styles.primary} onClick={()=>setModal('create')}>Criar primeira cena</button>}</div>}
-    {scene && <>
-      <div className={`${styles.toolbar} ${styles.panel}`} role="toolbar" aria-label="Ferramentas do mapa"><IconButton label={toolsOpen?'Recolher ferramentas':'Expandir ferramentas'} onClick={()=>setToolsOpen(!toolsOpen)}><Settings size={18}/></IconButton><div className={`${styles.toolList} ${toolsOpen?styles.toolListOpen:''}`}>{TOOLS.filter(([id])=>admin || !['wall','height','reveal'].includes(id)).map(([id,label,Icon])=><IconButton key={id} label={label} onClick={()=>changeTool(id)} active={tool===id}><Icon size={18}/></IconButton>)}<span className={styles.divider}/><IconButton label="Desfazer meu último desenho (Ctrl+Z)" onClick={undo} disabled={!scene.drawings.some(d=>d.ownerId===view?.self.id)}><Undo2 size={18}/></IconButton><IconButton label="Excluir desenho selecionado (Delete)" onClick={removeDrawing} disabled={!scene.drawings.some(d=>d.id===selectedDrawing && (admin || d.ownerId===view?.self.id))}><Trash2 size={18}/></IconButton>{admin && <IconButton label="Apagar todos os desenhos compartilhados" onClick={()=>{if(confirm('Apagar todos os desenhos compartilhados desta cena?'))void send({type:'clearDrawings'});}}><Trash2 size={18}/></IconButton>}</div></div>
-      {!['select','pan','ping'].includes(tool) && <div className={`${styles.toolSettings} ${styles.panel}`}><span>{TOOLS.find(([id])=>id===tool)?.[1]}</span><label>Cor<input aria-label="Cor do desenho" type="color" value={settings.color} onChange={e=>setSettings({...settings,color:e.target.value})}/></label>{['circle','cone','rectangle','reveal'].includes(tool) && <label>{tool==='circle'?'Raio':'Alcance'} (m)<input aria-label="Tamanho da área em metros" type="number" min={1} max={30} value={settings.meters} onChange={e=>setSettings({...settings,meters:Math.max(1,Math.min(30,Number(e.target.value) || 1))})}/></label>}{tool==='rectangle' && <label>Largura (m)<input type="number" min={1} max={30} value={settings.width} onChange={e=>setSettings({...settings,width:Math.max(1,Math.min(30,Number(e.target.value) || 1))})}/></label>}{['wall','height'].includes(tool) && <label>Altura (m)<input type="number" min={tool==='wall'?0:-20} max={100} step={.5} value={settings.height} onChange={e=>setSettings({...settings,height:Number(e.target.value) || 0})}/></label>}{tool==='wall' && <><label className={styles.check}><input type="checkbox" checked={settings.blocksMovement} onChange={e=>setSettings({...settings,blocksMovement:e.target.checked})}/>Bloqueia movimento</label><label className={styles.check}><input type="checkbox" checked={settings.blocksVision} onChange={e=>setSettings({...settings,blocksVision:e.target.checked})}/>Bloqueia visão</label><small>Dois cliques: início e fim. Escape cancela.</small></>}</div>}
-      <div className={styles.zoomControls}><IconButton label="Ampliar mapa" onClick={()=>zoom(1.25)}><ZoomIn size={18}/></IconButton><IconButton label="Reduzir mapa" onClick={()=>zoom(.8)}><ZoomOut size={18}/></IconButton><IconButton label="Enquadrar mapa" onClick={fit}><Scan size={18}/></IconButton><span>{Math.round((viewports[scene.id]?.scale || 1)*100)}%</span></div>
-      <aside className={styles.rightStack} aria-label="Operação tática">
-        {scene.combat.active && <section className={styles.panel} data-testid="tactical-combat" aria-label="Ordem de iniciativa"><div className={styles.panelHeader}><Swords size={16}/><strong>COMBATE / R{scene.combat.round}</strong><IconButton label={combatOpen?'Recolher iniciativa':'Expandir iniciativa'} onClick={()=>setCombatOpen(!combatOpen)}>{combatOpen?<ChevronUp size={16}/>:<ChevronDown size={16}/>}</IconButton></div><p className={styles.turn}>Turno: {activeToken?.name || 'Participante fora de visão'}</p>
-          {combatOpen && <div className={styles.initiative}>{scene.combat.order.map((id,i)=>{const t=scene.tokens.find(t=>t.id===id);return <div key={id} className={`${styles.initiativeRow} ${id===activeId?styles.currentTurn:''}`} draggable={!!admin} onDragStart={()=>dragOrder.current=id} onDragOver={e=>{if(admin)e.preventDefault();}} onDrop={e=>{e.preventDefault();if(admin && dragOrder.current)reorder(dragOrder.current,i);dragOrder.current=null;}}><button type="button" title={t?`Selecionar ${t.name}`:'Participante fora de visão'} aria-label={t?`Selecionar ${t.name}`:'Participante fora de visão'} disabled={!t} onClick={()=>selectToken(id)}><span>{t?.initiative ?? '—'}</span><span>{t?.name || 'Fora de visão'}</span></button>{admin && <><IconButton label={`Subir ${t?.name || 'participante'} na iniciativa`} disabled={i===0 || !!pending} onClick={()=>reorder(id,i-1)}><ChevronUp size={14}/></IconButton><IconButton label={`Descer ${t?.name || 'participante'} na iniciativa`} disabled={i===scene.combat.order.length-1 || !!pending} onClick={()=>reorder(id,i+1)}><ChevronDown size={14}/></IconButton></>}</div>;})}</div>}
-          {admin && <div className={styles.row}><IconButton label="Ordenar iniciativa do maior para o menor" onClick={()=>void send({type:'setOrder',order:[...scene.tokens].sort((a,b)=>b.initiative-a.initiative).map(t=>t.id)})} disabled={!!pending}><ChevronDown size={18}/></IconButton><button type="button" className={styles.primary} disabled={!!pending} onClick={()=>void send({type:'nextTurn'})}><SkipForward size={16}/>Próximo turno</button><IconButton label="Encerrar combate" onClick={()=>void send({type:'stopCombat'})} disabled={!!pending}><Pause size={18}/></IconButton></div>}
-          {combatOpen && scene.combat.log.length>0 && <details className={styles.log}><summary>Registro de ações / dados</summary><ol>{scene.combat.log.slice(-12).reverse().map(entry=><li key={entry.id}>{entry.text}</li>)}</ol></details>}
-        </section>}
-        {admin && <section className={styles.panel} data-testid="tactical-token-library" aria-label="Biblioteca do mestre"><div className={styles.panelHeader}><Users size={16}/><strong>BIBLIOTECA DO MESTRE</strong><IconButton label={library?'Recolher biblioteca do mestre':'Expandir biblioteca do mestre'} onClick={()=>setLibrary(!library)}>{library?<PanelRightClose size={16}/>:<PanelRightOpen size={16}/>}</IconButton></div>{library && <><p className={styles.hint}>Arraste um modelo para o mapa, ou selecione e toque no hexágono.</p><div className={styles.libraryList}>{libraryTemplates.map(t=><button type="button" key={t.id} draggable aria-label={`Posicionar ${t.name}`} title={`Posicionar ${t.name}`} className={placing===t.id?styles.selectedTemplate:''} onDragStart={e=>e.dataTransfer.setData('application/codak-token',t.id)} onClick={()=>{setPlacing(t.id);setTool('select');setToolsOpen(false);}}><span style={{color:t.color}}>{t.kind==='player'?<UserRound size={16}/>:<Swords size={16}/>}</span><span>{t.name}</span><small>{t.hp} HP</small></button>)}{!libraryTemplates.length && <p>Nenhum personagem disponível. Crie um modelo de NPC manualmente.</p>}</div><button type="button" onClick={()=>setModal('npc')}><Plus size={16}/>Criar modelo de NPC</button><small className={styles.hint}>Modelos manuais são desta sessão; tokens são salvos no servidor.</small></>}
-          <div className={styles.gmActions}><IconButton label="Enviar imagem do mapa" disabled={uploading || !!pending} onClick={()=>file.current?.click()}><Upload size={18}/></IconButton><input ref={file} type="file" accept="image/png,image/jpeg,image/webp,image/gif" hidden onChange={e=>void upload(e)}/>{!scene.combat.active && <button type="button" disabled={!!pending || !scene.tokens.length} onClick={()=>void send({type:'startCombat'})}><Play size={16}/>Iniciar combate</button>}{selectedToken && <IconButton label={`Editar token ${selectedToken.name}`} onClick={()=>setModal('token')}><Settings size={18}/></IconButton>}</div>
-        </section>}
+    <TacticalFloatingWindow id="tactical-scene" title="Área e cena" open={envOpen} onClose={() => setEnvOpen(false)}><section className={styles.environment} aria-label="Área e cena"><div className={styles.panelHeader}><MapIcon size={16}/><strong>{scene?.environment?.name || scene?.name || 'MAPA TÁTICO'}</strong><IconButton label={envOpen ? 'Recolher informações da área' : 'Expandir informações da área'} onClick={() => setEnvOpen(!envOpen)}>{envOpen ? <ChevronUp size={16}/> : <ChevronDown size={16}/>}</IconButton></div>
+      {scene && <><p className={styles.telemetry}>{admin ? (view?.activeSceneId === scene.id ? '● CENA PUBLICADA' : '◌ PREPARAÇÃO — jogadores não mudaram de mapa') : '● CONEXÃO COMPARTILHADA'} · HEX 1m</p>{envOpen && <dl className={styles.environmentList}>{Object.entries(ENV_NAMES).filter(([key]) => key !== 'name' && scene.environment.visible.includes(key) && scene.environment[key as keyof TacticalEnvironment]).map(([key, label]) => <React.Fragment key={key}><dt>{label}</dt><dd>{String(scene.environment[key as keyof TacticalEnvironment])}</dd></React.Fragment>)}</dl>}</>}
+      {admin && <div className={styles.sceneControls}><select aria-label="Selecionar cena para preparação" value={scene?.id || ''} onChange={e => selectScene(e.target.value)} disabled={!!pending}><option value="" disabled>Selecionar cena</option>{view?.scenes.map(s => <option key={s.id} value={s.id}>{s.name}{s.id === view.activeSceneId ? ' · publicada' : ''}</option>)}</select><IconButton label="Criar cena" onClick={() => setModal('create')} disabled={!!pending}><Plus size={18}/></IconButton>{scene && <><IconButton label="Configurar cena e informações opcionais" onClick={() => setModal('scene')}><Settings size={18}/></IconButton><IconButton label="Publicar esta cena para os jogadores" onClick={() => void send({ type: 'publishScene' })} disabled={!!pending || view?.activeSceneId === scene.id}><Send size={18}/></IconButton></>}</div>}
+    </section></TacticalFloatingWindow>
+    {(error || uiError) && <div className={styles.error} role="alert"><span>{error || uiError}</span><IconButton label="Fechar mensagem de erro" onClick={() => { clearError(); setUiError(null); }}><X size={16}/></IconButton></div>}
+    {!scene && <div className={styles.empty}><MapIcon size={40}/><h1>{loading ? 'Conectando ao mapa…' : admin ? 'Prepare a primeira operação' : 'Aguardando o mestre'}</h1><p>{loading ? 'Buscando a cena compartilhada.' : admin ? 'Crie uma cena, envie a imagem e posicione os personagens. Publique quando estiver pronta.' : 'O mestre ainda não publicou uma cena. Nenhum mapa ou inimigo foi criado automaticamente.'}</p>{admin && !loading && <button type="button" className={styles.primary} onClick={() => setModal('create')}>Criar primeira cena</button>}</div>}
+    <>
+      <div className={styles.bottomHud} aria-label="Controles da mesa"><nav className={styles.hudGroup} aria-label="Navegação do aplicativo"><IconButton label="Abrir navegação do aplicativo" expanded={navigationOpen} controls="tactical-navigation" onClick={() => setNavigationOpen(!navigationOpen)}><Menu size={20}/></IconButton></nav><nav className={styles.hudGroup} aria-label="Janelas da mesa"><IconButton label="Abrir informações e cenas" expanded={envOpen} controls="tactical-scene" onClick={() => setEnvOpen(!envOpen)}><MapIcon size={20}/></IconButton><IconButton label="Abrir iniciativa" disabled={!scene} expanded={combatOpen} controls="tactical-initiative" onClick={() => setCombatOpen(!combatOpen)}><Swords size={20}/></IconButton>{admin && <IconButton label="Abrir biblioteca do mestre" disabled={!scene} expanded={library} controls="tactical-library" onClick={() => setLibrary(!library)}><Users size={20}/></IconButton>}<IconButton label="Abrir ações do personagem" disabled={!scene} expanded={hotbarOpen} controls="tactical-actions" onClick={() => setHotbarOpen(!hotbarOpen)}><Zap size={20}/></IconButton><IconButton label="Abrir ficha flutuante do personagem" expanded={sheet} controls="tactical-character" disabled={!characters.length} onClick={() => setSheet(!sheet)}><UserRound size={20}/></IconButton><IconButton label="Abrir registro da mesa" disabled={!scene} expanded={logOpen} controls="tactical-log" onClick={() => setLogOpen(!logOpen)}><ScrollText size={20}/></IconButton></nav><div className={styles.toolbar} role="toolbar" aria-label="Ferramentas do mapa">{TOOLS.filter(([id]) => ['select', 'pan', 'measure', 'ping'].includes(id)).map(([id, label, Icon]) => <IconButton key={id} label={label} onClick={() => changeTool(id)} active={tool === id}><Icon size={20}/></IconButton>)}<IconButton label={toolsOpen ? 'Recolher ferramentas' : 'Expandir ferramentas'} expanded={toolsOpen} controls="tactical-tools" onClick={() => setToolsOpen(!toolsOpen)}><Settings size={20}/></IconButton>{admin && <IconButton label="Enviar imagem do mapa" disabled={!scene || uploading || !!pending} onClick={() => file.current?.click()}><Upload size={20}/></IconButton>}</div>
+      <div className={styles.zoomControls}><IconButton label="Ampliar mapa" disabled={!scene} onClick={() => zoom(1.25)}><ZoomIn size={18}/></IconButton><IconButton label="Reduzir mapa" disabled={!scene} onClick={() => zoom(.8)}><ZoomOut size={18}/></IconButton><IconButton label="Enquadrar mapa" disabled={!scene} onClick={fit}><Scan size={18}/></IconButton><span>{Math.round((viewports[scene?.id || '']?.scale || 1) * 100)}%</span></div>
+      <IconButton label="Excluir seleção (Delete): seus desenhos ou tokens do mestre" disabled={!canDeleteSelection} onClick={deleteSelection}><Trash2 size={18}/></IconButton>
+      <IconButton label="Abrir roda tática" onClick={() => useNavigationStore.getState().expandWheel()}><Menu size={20}/></IconButton>
+      </div><TacticalFloatingWindow id="tactical-tools" title="Ferramentas e desenho" open={toolsOpen} onClose={() => setToolsOpen(false)}><div className={`${styles.toolList} ${toolsOpen ? styles.toolListOpen : ''}`}>{TOOLS.filter(([id]) => !['select', 'pan', 'ping', 'measure'].includes(id) && (admin || !['wall', 'height', 'reveal'].includes(id))).map(([id, label, Icon]) => <IconButton key={id} label={label} onClick={() => changeTool(id)} active={tool === id}><Icon size={18}/></IconButton>)}<span className={styles.divider}/><IconButton label="Desfazer meu último desenho (Ctrl+Z)" onClick={undo} disabled={!(scene?.drawings || []).some(d => d.ownerId === view?.self.id)}><Undo2 size={18}/></IconButton><IconButton label="Excluir desenho selecionado (Delete)" onClick={removeDrawing} disabled={!(scene?.drawings || []).some(d => d.id === selectedDrawing && (admin || d.ownerId === view?.self.id))}><Trash2 size={18}/></IconButton>{admin && <IconButton label="Apagar todos os desenhos compartilhados" onClick={() => { if (scene && confirm('Apagar todos os desenhos compartilhados desta cena?'))
+        void send({ type: 'clearDrawings' }); }}><Trash2 size={18}/></IconButton>}</div>
+      {!['select', 'pan', 'ping', 'measure'].includes(tool) && <div className={styles.toolSettings}><span>{TOOLS.find(([id]) => id === tool)?.[1]}</span><label>Cor<input aria-label="Cor do desenho" type="color" value={settings.color} onChange={e => setSettings({ ...settings, color: e.target.value })}/></label>{['circle', 'cone', 'rectangle', 'reveal'].includes(tool) && <label>{tool === 'circle' ? 'Raio' : 'Alcance'} (m)<input aria-label="Tamanho da área em metros" type="number" min={1} max={30} value={settings.meters} onChange={e => setSettings({ ...settings, meters: Math.max(1, Math.min(30, Number(e.target.value) || 1)) })}/></label>}{tool === 'rectangle' && <label>Largura (m)<input type="number" min={1} max={30} value={settings.width} onChange={e => setSettings({ ...settings, width: Math.max(1, Math.min(30, Number(e.target.value) || 1)) })}/></label>}{['wall', 'height'].includes(tool) && <label>Altura (m)<input type="number" min={tool === 'wall' ? 0 : -20} max={100} step={.5} value={settings.height} onChange={e => setSettings({ ...settings, height: Number(e.target.value) || 0 })}/></label>}{tool === 'wall' && <><label className={styles.check}><input type="checkbox" checked={settings.blocksMovement} onChange={e => setSettings({ ...settings, blocksMovement: e.target.checked })}/>Bloqueia movimento</label><label className={styles.check}><input type="checkbox" checked={settings.blocksVision} onChange={e => setSettings({ ...settings, blocksVision: e.target.checked })}/>Bloqueia visão</label><small>Dois cliques: início e fim. Escape cancela.</small></>}</div>}
+    </TacticalFloatingWindow>{scene && <><aside className={styles.rightStack} aria-label="Operação tática">
+        <TacticalFloatingWindow id="tactical-initiative" title="Iniciativa" open={combatOpen} onClose={() => setCombatOpen(false)}><section data-testid="tactical-combat" aria-label="Ordem de iniciativa"><div className={styles.panelHeader}><Swords size={16}/><strong>COMBATE / R{scene?.combat.round}</strong><IconButton label={combatOpen ? 'Recolher iniciativa' : 'Expandir iniciativa'} onClick={() => setCombatOpen(!combatOpen)}>{combatOpen ? <ChevronUp size={16}/> : <ChevronDown size={16}/>}</IconButton></div><p className={styles.turn}>Turno: {activeToken?.name || 'Participante fora de visão'}</p>
+          {combatOpen && <div className={styles.initiative}>{scene?.combat.order.map((id, i) => { const t = scene.tokens.find(t => t.id === id); return <div key={id} className={`${styles.initiativeRow} ${id === activeId ? styles.currentTurn : ''}`} draggable={!!admin} onDragStart={() => dragOrder.current = id} onDragOver={e => { if (admin)
+            e.preventDefault(); }} onDrop={e => { e.preventDefault(); if (admin && dragOrder.current)
+            reorder(dragOrder.current, i); dragOrder.current = null; }}><button type="button" title={t ? `Selecionar ${t.name}` : 'Participante fora de visão'} aria-label={t ? `Selecionar ${t.name}` : 'Participante fora de visão'} disabled={!t} onClick={() => selectToken(id)}><span>{t?.initiative ?? '—'}</span><span>{t?.name || 'Fora de visão'}</span></button>{admin && <><IconButton label={`Subir ${t?.name || 'participante'} na iniciativa`} disabled={i === 0 || !!pending} onClick={() => reorder(id, i - 1)}><ChevronUp size={14}/></IconButton><IconButton label={`Descer ${t?.name || 'participante'} na iniciativa`} disabled={i === scene?.combat.order.length - 1 || !!pending} onClick={() => reorder(id, i + 1)}><ChevronDown size={14}/></IconButton></>}</div>; })}</div>}
+          {admin && scene?.combat.active && <div className={styles.row}><IconButton label="Ordenar iniciativa do maior para o menor" onClick={() => void send({ type: 'setOrder', order: [...scene.tokens].sort((a, b) => b.initiative - a.initiative).map(t => t.id) })} disabled={!!pending}><ChevronDown size={18}/></IconButton><button type="button" className={styles.primary} disabled={!!pending} onClick={() => void send({ type: 'nextTurn' })}><SkipForward size={16}/>Próximo turno</button><IconButton label="Encerrar combate" onClick={() => void send({ type: 'stopCombat' })} disabled={!!pending}><Pause size={18}/></IconButton></div>}
+          {combatOpen && scene?.combat.log.length > 0 && <details className={styles.log}><summary>Registro de ações / dados</summary><ol>{scene?.combat.log.slice(-12).reverse().map(entry => <li key={entry.id}>{entry.text}</li>)}</ol></details>}
+        {!scene?.combat.active && <><p className={styles.hint}>Combate não iniciado.</p>{admin && <button type="button" disabled={!!pending || !scene.tokens.length} onClick={() => void send({ type: 'startCombat' })}><Play size={16}/>Iniciar combate</button>}</>}
+        </section></TacticalFloatingWindow>
+        {admin && <TacticalFloatingWindow id="tactical-library" title="Biblioteca do mestre" open={library} onClose={() => setLibrary(false)}><section data-testid="tactical-token-library" aria-label="Biblioteca do mestre"><div className={styles.panelHeader}><Users size={16}/><strong>BIBLIOTECA DO MESTRE</strong><IconButton label={library ? 'Recolher biblioteca do mestre' : 'Expandir biblioteca do mestre'} onClick={() => setLibrary(!library)}>{library ? <PanelRightClose size={16}/> : <PanelRightOpen size={16}/>}</IconButton></div>{library && <><p className={styles.hint}>Arraste um modelo para o mapa, ou selecione e toque no hexágono.</p><div className={styles.libraryList}>{libraryTemplates.map(t => <button type="button" key={t.id} draggable aria-label={`Posicionar ${t.name}`} title={`Posicionar ${t.name}`} className={placing === t.id ? styles.selectedTemplate : ''} onDragStart={e => e.dataTransfer.setData('application/codak-token', t.id)} onClick={() => { setPlacing(t.id); setTool('select'); setToolsOpen(false); }}><span style={{ color: t.color }}>{t.kind === 'player' ? <UserRound size={16}/> : <Swords size={16}/>}</span><span>{t.name}</span><small>{t.hp} HP</small></button>)}{!libraryTemplates.length && <p>Nenhum personagem disponível. Crie um modelo de NPC manualmente.</p>}</div><button type="button" onClick={() => setModal('npc')}><Plus size={16}/>Criar modelo de NPC</button><small className={styles.hint}>Modelos manuais são desta sessão; tokens são salvos no servidor.</small></>}
+          <div className={styles.gmActions}><IconButton label="Enviar imagem do mapa" disabled={!scene || uploading || !!pending} onClick={() => file.current?.click()}><Upload size={18}/></IconButton><input ref={file} type="file" accept="image/png,image/jpeg,image/webp,image/gif" hidden onChange={e => void upload(e)}/>{!scene?.combat.active && <button type="button" disabled={!!pending || !scene.tokens.length} onClick={() => void send({ type: 'startCombat' })}><Play size={16}/>Iniciar combate</button>}{selectedToken && <IconButton label={`Editar token ${selectedToken.name}`} onClick={() => setModal('token')}><Settings size={18}/></IconButton>}</div>
+        </section></TacticalFloatingWindow>}
+        <TacticalFloatingWindow id="tactical-log" title="Registro da mesa" open={logOpen} onClose={() => setLogOpen(false)}><ol className={styles.log}>{scene?.combat.log.slice(-50).reverse().map(entry => <li key={entry.id}>{entry.text}</li>)}</ol>{!scene?.combat.log.length && <p>Nenhuma ação registrada.</p>}</TacticalFloatingWindow>
       </aside>
-      {placing && <div className={styles.placement}><span>Posicionar: {libraryTemplates.find(t=>t.id===placing)?.name}. Toque no mapa.</span><IconButton label="Cancelar posicionamento" onClick={()=>setPlacing(null)}><X size={16}/></IconButton></div>}
-      {wall && admin && <div key={wall.id} className={`${styles.wallEditor} ${styles.panel}`}><div className={styles.panelHeader}><strong>PAREDE / {wall.height}m</strong><IconButton label="Fechar edição de parede" onClick={()=>setWallId(null)}><X size={16}/></IconButton></div><form onSubmit={e=>{e.preventDefault();const d=new FormData(e.currentTarget);void send({type:'updateWall',id:wall.id,patch:{height:Number(d.get('height')),blocksMovement:d.has('movement'),blocksVision:d.has('vision')}}).then(ok=>{if(ok)setWallId(current=>current===wall.id?null:current);});}}><label>Altura (m)<input name="height" type="number" step={.5} min={0} max={100} defaultValue={wall.height}/></label><label className={styles.check}><input name="movement" type="checkbox" defaultChecked={wall.blocksMovement}/>Bloqueia movimento</label><label className={styles.check}><input name="vision" type="checkbox" defaultChecked={wall.blocksVision}/>Bloqueia visão</label><button type="submit" disabled={!!pending}>Salvar parede</button><button type="button" disabled={!!pending} onClick={()=>void send({type:'removeWall',id:wall.id}).then(ok=>{if(ok)setWallId(null);})}>Remover parede</button></form></div>}
-      <section className={`${styles.hotbar} ${styles.panel}`} data-testid="tactical-hotbar" aria-label="Ações do personagem"><div className={styles.hotbarTop}><IconButton label="Abrir ficha flutuante do personagem" disabled={!characters.length} onClick={()=>setSheet(true)}><UserRound size={20}/></IconButton><select aria-label="Personagem da barra de ações" value={characterId} onChange={e=>selectCharacter(e.target.value)}><option value="" disabled>Selecionar personagem</option>{characters.map(c=><option key={c.id} value={c.id}>{c.name}</option>)}</select>{scene.combat.active && <div className={styles.actionLights} data-testid="tactical-action-lights" aria-label="Recursos de ações do turno">{(['movement','main','bonus'] as ActionKind[]).map(kind=>{const available=combatToken?scene.combat.actions[combatToken.id]?.[kind]:false,label=`${SLOT_NAMES[kind]}: ${available?'disponível':'gasta'}. ${admin && !available?'Clique para restaurar.':'Clique para declarar manualmente.'}`;return <button key={kind} type="button" className={`${styles.actionLight} ${styles[kind]} ${available?styles.lightOn:''}`} title={label} aria-label={label} disabled={!ownTurn || !!pending || (!available && !admin)} onClick={()=>{if(admin && combatToken && !available)void send({type:'restoreAction',tokenId:combatToken.id,kind});else openAction({id:`declare-${kind}`,name:SLOT_NAMES[kind],description:'Declare manualmente a ação. Nenhuma regra de habilidade é inferida automaticamente.',category:'ability'},kind);}}/>;})}</div>}<span className={styles.sync} title={error?'Conexão com erro; dados podem estar desatualizados':pending?'Aguardando confirmação do servidor':'Sincronização automática a cada segundo'}>{error?'SEM CONEXÃO':pending?'SALVANDO':'LIVE'}</span></div>
-        <div className={styles.actionList}>{actions.map(a=><button type="button" title={a.name} aria-label={`Ver ação ${a.name}`} key={a.id} onClick={()=>openAction(a)}>{a.category==='weapon'?<Swords size={20}/>:a.category==='item'?<Package size={20}/>:<Zap size={20}/>}<span>{a.name}</span></button>)}{!actions.length && <p>{char?'Sem equipamento ou habilidades registrados.':'Selecione uma ficha existente para ver suas ações.'}</p>}</div>
-      </section>
-    </>}
-    {sheet && <TacticalCharacterWindow characterId={characterId} onSelect={selectCharacter} onClose={()=>setSheet(false)}/>}
-    {action && <TacticalActionDialog action={action.value} tokenId={action.tokenId} initialSlot={action.slot} onClose={()=>setAction(null)}/>}
-    {modal && <TacticalForms mode={modal} onClose={()=>setModal(null)} onTemplate={template=>{setTemplates(list=>[...list,template]);setLibrary(true);setPlacing(template.id);setTool('select');}}/>}
+      {placing && <div className={styles.placement}><span>Posicionar: {libraryTemplates.find(t => t.id === placing)?.name}. Toque no mapa.</span><IconButton label="Cancelar posicionamento" onClick={() => setPlacing(null)}><X size={16}/></IconButton></div>}
+      {wall && admin && <TacticalFloatingWindow id="tactical-wall" title="Editar parede" open onClose={() => setWallId(null)}><div key={wall.id} className={`${styles.wallEditor} ${styles.panel}`}><div className={styles.panelHeader}><strong>PAREDE / {wall.height}m</strong><IconButton label="Fechar edição de parede" onClick={() => setWallId(null)}><X size={16}/></IconButton></div><form onSubmit={e => { e.preventDefault(); const d = new FormData(e.currentTarget); void send({ type: 'updateWall', id: wall.id, patch: { height: Number(d.get('height')), blocksMovement: d.has('movement'), blocksVision: d.has('vision') } }).then(ok => { if (ok)
+            setWallId(current => current === wall.id ? null : current); }); }}><label>Altura (m)<input name="height" type="number" step={.5} min={0} max={100} defaultValue={wall.height}/></label><label className={styles.check}><input name="movement" type="checkbox" defaultChecked={wall.blocksMovement}/>Bloqueia movimento</label><label className={styles.check}><input name="vision" type="checkbox" defaultChecked={wall.blocksVision}/>Bloqueia visão</label><button type="submit" disabled={!!pending}>Salvar parede</button><button type="button" disabled={!!pending} onClick={() => void send({ type: 'removeWall', id: wall.id }).then(ok => { if (ok)
+            setWallId(null); })}>Remover parede</button></form></div></TacticalFloatingWindow>}
+      <TacticalFloatingWindow id="tactical-actions" title="Ações do personagem" open={hotbarOpen} onClose={() => setHotbarOpen(false)}><section className={styles.hotbar} data-testid="tactical-hotbar" aria-label="Ações do personagem"><div className={styles.hotbarTop}><select aria-label="Personagem da barra de ações" value={characterId} onChange={e => selectCharacter(e.target.value)}><option value="" disabled>Selecionar personagem</option>{characters.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}</select>{scene?.combat.active && <div className={styles.actionLights} data-testid="tactical-action-lights" aria-label="Recursos de ações do turno">{(['movement', 'main', 'bonus'] as ActionKind[]).map(kind => { const available = combatToken ? scene?.combat.actions[combatToken.id]?.[kind] : false, label = `${SLOT_NAMES[kind]}: ${available ? 'disponível' : 'gasta'}. ${admin && !available ? 'Clique para restaurar.' : 'Clique para declarar manualmente.'}`; return <button key={kind} type="button" className={`${styles.actionLight} ${styles[kind]} ${available ? styles.lightOn : ''}`} title={label} aria-label={label} disabled={!ownTurn || !!pending || (!available && !admin)} onClick={() => { if (admin && combatToken && !available)
+            void send({ type: 'restoreAction', tokenId: combatToken.id, kind });
+        else
+            openAction({ id: `declare-${kind}`, name: SLOT_NAMES[kind], description: 'Declare manualmente a ação. Nenhuma regra de habilidade é inferida automaticamente.', category: 'ability' }, kind); }}/>; })}</div>}<span className={styles.sync} title={error ? 'Conexão com erro; dados podem estar desatualizados' : pending ? 'Aguardando confirmação do servidor' : 'Sincronização automática a cada segundo'}>{error ? 'SEM CONEXÃO' : pending ? 'SALVANDO' : 'LIVE'}</span></div>
+        <div className={styles.actionList}>{actions.map(a => <button type="button" title={a.name} aria-label={`Ver ação ${a.name}`} key={a.id} onClick={() => openAction(a)}>{a.category === 'weapon' ? <Swords size={20}/> : a.category === 'item' ? <Package size={20}/> : <Zap size={20}/>}<span>{a.name}</span></button>)}{!actions.length && <p>{char ? 'Sem equipamento ou habilidades registrados.' : 'Selecione uma ficha existente para ver suas ações.'}</p>}</div>
+      </section></TacticalFloatingWindow></>}
+    </>
+    <TacticalFloatingWindow id="tactical-navigation" title="Navegação" open={navigationOpen} onClose={() => setNavigationOpen(false)}><nav className={styles.navigationList} aria-label="Navegação do aplicativo">{NAVIGATION_ITEMS.filter(item => admin || item.id !== 'admin').map(item => { const icons = { characters: UserRound, grimoire: BookOpen, shop: ShoppingCart, map: MapIcon, admin: Shield }; const labels = { characters: 'Abrir personagens', grimoire: 'Abrir compêndio', shop: 'Abrir loja', map: 'Voltar ao mapa', admin: 'Abrir administração' }; const Icon = icons[item.id]; return <IconButton key={item.id} label={labels[item.id]} active={item.id === 'map'} onClick={() => { useNavigationStore.getState().selectView(item.id); setNavigationOpen(false); }}><Icon size={20}/><span>{labels[item.id]}</span></IconButton>; })}<IconButton label="Sair da conta" onClick={() => void logout()}><LogOut size={20}/><span>Sair da conta</span></IconButton></nav></TacticalFloatingWindow>
+    {sheet && <TacticalCharacterWindow characterId={characterId} onSelect={selectCharacter} onClose={() => setSheet(false)}/>}
+    {action && <TacticalActionDialog action={action.value} tokenId={action.tokenId} initialSlot={action.slot} onClose={() => setAction(null)}/>}
+    {modal && <TacticalForms mode={modal} onClose={() => setModal(null)} onTemplate={template => { setTemplates(list => [...list, template]); setLibrary(true); setPlacing(template.id); setTool('select'); }}/>}
   </div>;
 }

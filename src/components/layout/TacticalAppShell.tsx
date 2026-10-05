@@ -80,7 +80,7 @@ export const TacticalAppShell: React.FC = () => {
       {user && !showLoader && (
         <>
           {/* User Badge with Logout */}
-          <TacticalUserBadge />
+          {activeView !== 'map' && <TacticalUserBadge />}
 
           <main style={{ width: '100%', height: '100%', position: 'relative', zIndex: 1 }}>
             <div key={activeView} className="view-enter" style={{ width: '100%', height: '100%' }}>
